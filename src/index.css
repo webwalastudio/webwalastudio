@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Hanken+Grotesk:wght@400;500;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #E8602C;
+  --color-brand-orange: #E8602C;
+  --color-brand-navy: #1A2B4A;
+  --color-bg-cream: #FDF6EC;
+  --color-ink-deep: #1A1A1A;
+  
+  --font-display: "Sora", sans-serif;
+  --font-sans: "Hanken Grotesk", sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-bg-cream text-ink-deep font-sans antialiased selection:bg-primary/20 selection:text-brand-navy;
+  }
+}
+
+.bg-grid-pattern {
+  background-image: linear-gradient(rgba(26, 43, 74, 0.03) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(26, 43, 74, 0.03) 1px, transparent 1px);
+  background-size: 32px 32px;
+}

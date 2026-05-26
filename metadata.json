@@ -1,0 +1,6 @@
+{
+  "name": "Webwala Studio",
+  "description": "High-end, professional web design and development studio delivering custom, responsive, and performance-optimized websites.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
