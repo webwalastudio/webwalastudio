@@ -78,24 +78,43 @@ export default function Navbar({ onOpenContact }: NavbarProps) {
         </button>
       </div>
 
+      {/* MOBILE DRAWER BACKDROP */}
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 z-40 lg:hidden" style={{ backgroundColor: 'rgba(0,0,0,0.6)' }} onClick={() => setMobileMenuOpen(false)} />
+      )}
+
       {/* MOBILE DRAWER */}
       {mobileMenuOpen && (
-        <div className="fixed inset-y-0 right-0 z-50 w-full max-w-xs bg-bg-cream shadow-xl border-l border-brand-navy/10 px-6 py-6 flex flex-col gap-6 lg:hidden animate-in slide-in-from-right duration-200">
-          <div className="flex items-center justify-between">
-            <span className="font-display text-xl font-bold text-brand-navy flex items-center gap-2">
-              Webwala Studio <Zap className="h-5 w-5 text-primary fill-primary" />
+        <div className="fixed inset-y-0 right-0 z-50 w-72 shadow-2xl flex flex-col px-6 py-6 lg:hidden animate-in slide-in-from-right duration-200" style={{ backgroundColor: '#1A2B4A' }}>
+          {/* Header */}
+          <div className="flex items-center justify-between mb-8 pb-4 border-b border-white/10">
+            <span className="font-display text-lg font-bold text-white flex items-center gap-2">
+              Webwala Studio <Zap className="h-4 w-4 text-primary fill-primary" />
             </span>
-            <button onClick={() => setMobileMenuOpen(false)} className="text-brand-navy p-2 hover:bg-brand-navy/5 rounded-lg">
-              <X className="h-6 w-6" />
+            <button onClick={() => setMobileMenuOpen(false)} className="text-white/60 hover:text-white p-1 transition-colors">
+              <X className="h-5 w-5" />
             </button>
           </div>
 
-          <nav className="flex flex-col gap-4 mt-8">
-            <a href="#home" onClick={() => setMobileMenuOpen(false)} className="font-sans font-bold text-lg text-brand-navy/70 hover:text-primary transition-colors">Home</a>
-            <a href="#services" onClick={() => setMobileMenuOpen(false)} className="font-sans font-bold text-lg text-brand-navy/70 hover:text-primary transition-colors">Services</a>
-            <a href="#pricing" onClick={() => setMobileMenuOpen(false)} className="font-sans font-bold text-lg text-brand-navy/70 hover:text-primary transition-colors">Pricing</a>
+          {/* Nav Links */}
+          <nav className="flex flex-col gap-1">
+            {[["home", "Home"], ["services", "Services"], ["pricing", "Pricing"]].map(([id, label]) => (
+              <a
+                key={id}
+                href={`#${id}`}
+                onClick={() => setMobileMenuOpen(false)}
+                className={`font-sans font-bold text-base py-3 px-4 rounded-lg transition-colors ${
+                  activeSection === id
+                    ? "text-primary bg-white/10"
+                    : "text-white hover:text-primary hover:bg-white/5"
+                }`}
+              >
+                {label}
+              </a>
+            ))}
           </nav>
 
+          {/* CTA */}
           <div className="mt-auto">
             <button
               onClick={() => { setMobileMenuOpen(false); onOpenContact(); }}
