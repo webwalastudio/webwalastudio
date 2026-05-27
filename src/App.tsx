@@ -14,6 +14,7 @@ import Footer from "./components/Footer";
 import { CalendarCheck } from "lucide-react";
 
 const WA_NUMBER = "919818726094";
+const WA_PREFILL = encodeURIComponent("Hi Webwala Studio! 👋 I visited your website and I'm interested in getting a website built for my business. Can you help me?");
 
 export default function App() {
   const [isContactOpen, setIsContactOpen] = useState(false);
@@ -75,7 +76,7 @@ export default function App() {
 
       {/* FLOATING WHATSAPP BUTTON */}
       <a
-        href={`https://wa.me/${WA_NUMBER}`}
+        href={`https://wa.me/${WA_NUMBER}?text=${WA_PREFILL}`}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat on WhatsApp"
