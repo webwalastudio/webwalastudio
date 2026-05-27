@@ -13,7 +13,7 @@ import ContactModal from "./components/ContactModal";
 import Footer from "./components/Footer";
 import { CalendarCheck } from "lucide-react";
 
-const WA_NUMBER = "919876543210";
+const WA_NUMBER = "919818726094";
 
 export default function App() {
   const [isContactOpen, setIsContactOpen] = useState(false);
