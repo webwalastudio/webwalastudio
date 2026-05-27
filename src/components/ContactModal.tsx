@@ -7,9 +7,9 @@ import { useState, FormEvent } from "react";
 import emailjs from "@emailjs/browser";
 import { X, MessageSquare, Send, CheckCircle, Mail } from "lucide-react";
 
-const EMAILJS_SERVICE_ID = "service_d71qcsl";
-const EMAILJS_TEMPLATE_ID = "template_1m7q1lm";
-const EMAILJS_PUBLIC_KEY = "PRS8BGLolmz6hDDxw";
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID as string;
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID as string;
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY as string;
 
 interface ContactModalProps {
   isOpen: boolean;
