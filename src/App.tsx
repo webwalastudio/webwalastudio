@@ -60,7 +60,7 @@ export default function App() {
             </p>
             <button
               onClick={() => handleOpenContact("Final CTA - Ready to Go Live")}
-              className="inline-flex items-center justify-center gap-2 bg-brand-navy text-white font-sans font-bold text-base px-10 py-5 rounded-lg shadow-xl hover:scale-[1.02] active:scale-[0.98] cursor-pointer border-none transition-all"
+              className="btn-shine inline-flex items-center justify-center gap-2 bg-brand-navy text-white font-sans font-bold text-base px-10 py-5 rounded-lg shadow-xl hover:scale-[1.02] active:scale-[0.98] cursor-pointer border-none transition-all"
             >
               <CalendarCheck className="h-5 w-5 text-primary" />
               Book a Consultation
