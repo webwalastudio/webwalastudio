@@ -30,62 +30,69 @@ export default function Navbar({ onOpenContact }: NavbarProps) {
   }, []);
 
   return (
-    <header
-      className="fixed top-0 left-0 w-full z-50 h-20 flex justify-between items-center bg-bg-cream/95 backdrop-blur-md border-b border-brand-navy/10 shadow-sm transition-all duration-300"
-    >
-      <div className="w-full max-w-7xl mx-auto px-4 md:px-8 flex justify-between items-center">
-        {/* LOGO */}
-        <a href="#" className="font-display text-2xl font-bold text-brand-navy flex items-center gap-2 group transition-colors duration-300">
-          Webwala Studio{" "}
-          <Zap className="h-5 w-5 text-primary fill-primary group-hover:rotate-12 transition-transform duration-300" />
-        </a>
+    <>
+      <header className="fixed top-0 left-0 w-full z-50 h-20 flex justify-between items-center bg-bg-cream/95 backdrop-blur-md border-b border-brand-navy/10 shadow-sm transition-all duration-300">
+        <div className="w-full max-w-7xl mx-auto px-4 md:px-8 flex justify-between items-center">
+          {/* LOGO */}
+          <a href="#" className="font-display text-2xl font-bold text-brand-navy flex items-center gap-2 group transition-colors duration-300">
+            Webwala Studio{" "}
+            <Zap className="h-5 w-5 text-primary fill-primary group-hover:rotate-12 transition-transform duration-300" />
+          </a>
 
-        {/* DESKTOP NAV */}
-        <nav className="hidden lg:flex items-center gap-8">
-          {[["home", "Home"], ["services", "Services"], ["pricing", "Pricing"]].map(([id, label]) => (
-            <a
-              key={id}
-              href={`#${id}`}
-              className={`font-sans font-bold text-sm tracking-wide pb-1 transition-colors border-b-2 ${
-                activeSection === id
-                  ? "text-primary border-primary"
-                  : "text-brand-navy/70 border-transparent hover:text-primary"
-              }`}
+          {/* DESKTOP NAV */}
+          <nav className="hidden lg:flex items-center gap-8">
+            {[["home", "Home"], ["services", "Services"], ["pricing", "Pricing"]].map(([id, label]) => (
+              <a
+                key={id}
+                href={`#${id}`}
+                className={`font-sans font-bold text-sm tracking-wide pb-1 transition-colors border-b-2 ${
+                  activeSection === id
+                    ? "text-primary border-primary"
+                    : "text-brand-navy/70 border-transparent hover:text-primary"
+                }`}
+              >
+                {label}
+              </a>
+            ))}
+          </nav>
+
+          {/* CTA BUTTON */}
+          <div className="hidden md:flex items-center">
+            <button
+              onClick={onOpenContact}
+              className="btn-shine inline-flex items-center justify-center gap-2 bg-primary text-white font-sans font-bold text-sm px-6 py-3 rounded-lg hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 cursor-pointer shadow-md"
             >
-              {label}
-            </a>
-          ))}
-        </nav>
+              <CalendarCheck className="h-4 w-4" />
+              Book a Consultation
+            </button>
+          </div>
 
-        {/* CTA BUTTON */}
-        <div className="hidden md:flex items-center">
+          {/* MOBILE TRIGGER */}
           <button
-            onClick={onOpenContact}
-            className="btn-shine inline-flex items-center justify-center gap-2 bg-primary text-white font-sans font-bold text-sm px-6 py-3 rounded-lg hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 cursor-pointer shadow-md"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle Menu"
+            className="lg:hidden text-brand-navy p-2 hover:bg-brand-navy/5 rounded-lg active:scale-95 transition-all"
           >
-            <CalendarCheck className="h-4 w-4" />
-            Book a Consultation
+            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
+      </header>
 
-        {/* MOBILE TRIGGER */}
-        <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label="Toggle Menu"
-          className="lg:hidden text-brand-navy p-2 hover:bg-brand-navy/5 rounded-lg active:scale-95 transition-all"
-        >
-          {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </button>
-      </div>
-
-      {/* MOBILE DRAWER BACKDROP */}
+      {/* BACKDROP — outside header to avoid stacking context issues */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-40 lg:hidden" style={{ backgroundColor: 'rgba(0,0,0,0.6)' }} onClick={() => setMobileMenuOpen(false)} />
+        <div
+          className="fixed inset-0 z-[998] lg:hidden"
+          style={{ backgroundColor: "rgba(0,0,0,0.65)" }}
+          onClick={() => setMobileMenuOpen(false)}
+        />
       )}
 
-      {/* MOBILE DRAWER */}
+      {/* MOBILE DRAWER — outside header */}
       {mobileMenuOpen && (
-        <div className="fixed inset-y-0 right-0 z-50 w-72 shadow-2xl flex flex-col px-6 py-6 lg:hidden animate-in slide-in-from-right duration-200" style={{ backgroundColor: '#1A2B4A' }}>
+        <div
+          className="fixed inset-y-0 right-0 z-[999] w-72 flex flex-col px-6 py-6 lg:hidden animate-in slide-in-from-right duration-200"
+          style={{ backgroundColor: "#1A2B4A" }}
+        >
           {/* Header */}
           <div className="flex items-center justify-between mb-8 pb-4 border-b border-white/10">
             <span className="font-display text-lg font-bold text-white flex items-center gap-2">
@@ -126,6 +133,6 @@ export default function Navbar({ onOpenContact }: NavbarProps) {
           </div>
         </div>
       )}
-    </header>
+    </>
   );
 }
