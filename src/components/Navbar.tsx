@@ -4,6 +4,7 @@
  */
 
 import { useState, useEffect } from "react";
+import { motion } from "motion/react";
 import { Zap, CalendarCheck, Menu, X } from "lucide-react";
 
 interface NavbarProps {
@@ -45,13 +46,18 @@ export default function Navbar({ onOpenContact }: NavbarProps) {
               <a
                 key={id}
                 href={`#${id}`}
-                className={`font-sans font-bold text-sm tracking-wide pb-1 transition-colors border-b-2 ${
-                  activeSection === id
-                    ? "text-primary border-primary"
-                    : "text-brand-navy/70 border-transparent hover:text-primary"
+                className={`relative font-sans font-bold text-sm tracking-wide pb-1 transition-colors ${
+                  activeSection === id ? "text-primary" : "text-brand-navy/70 hover:text-primary"
                 }`}
               >
                 {label}
+                {activeSection === id && (
+                  <motion.span
+                    layoutId="nav-underline"
+                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-full"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
               </a>
             ))}
           </nav>

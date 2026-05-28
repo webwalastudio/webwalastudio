@@ -5,6 +5,7 @@
 
 import { useState, FormEvent } from "react";
 import emailjs from "@emailjs/browser";
+import { motion } from "motion/react";
 import { X, MessageSquare, Send, CheckCircle, Mail } from "lucide-react";
 
 const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID as string;
@@ -125,14 +126,16 @@ export default function ContactModal({
                 >
                   Full Name *
                 </label>
-                <input
+                <motion.input
                   id="fullname-input"
                   type="text"
                   required
                   placeholder="e.g. Ramesh Kumar"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-lg bg-white border border-brand-navy/15 text-sm font-semibold focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all font-sans"
+                  whileFocus={{ scale: 1.01, boxShadow: "0 0 0 3px rgba(232, 96, 44, 0.15)" }}
+                  transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                  className="w-full px-4 py-2.5 rounded-lg bg-white border border-brand-navy/15 text-sm font-semibold focus:outline-none focus:border-primary transition-colors font-sans"
                 />
               </div>
 
@@ -143,14 +146,16 @@ export default function ContactModal({
                 >
                   WhatsApp Number *
                 </label>
-                <input
+                <motion.input
                   id="phone-input"
                   type="tel"
                   required
                   placeholder="e.g. +91 98765 12345"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-lg bg-white border border-brand-navy/15 text-sm font-semibold focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all font-sans"
+                  whileFocus={{ scale: 1.01, boxShadow: "0 0 0 3px rgba(232, 96, 44, 0.15)" }}
+                  transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                  className="w-full px-4 py-2.5 rounded-lg bg-white border border-brand-navy/15 text-sm font-semibold focus:outline-none focus:border-primary transition-colors font-sans"
                 />
               </div>
 
@@ -161,13 +166,15 @@ export default function ContactModal({
                 >
                   Email Address
                 </label>
-                <input
+                <motion.input
                   id="email-input"
                   type="email"
                   placeholder="e.g. ramesh@gmail.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-lg bg-white border border-brand-navy/15 text-sm focus:outline-none focus:border-primary transition-all font-sans"
+                  whileFocus={{ scale: 1.01, boxShadow: "0 0 0 3px rgba(232, 96, 44, 0.15)" }}
+                  transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                  className="w-full px-4 py-2.5 rounded-lg bg-white border border-brand-navy/15 text-sm focus:outline-none focus:border-primary transition-colors font-sans"
                 />
               </div>
 
@@ -206,13 +213,15 @@ export default function ContactModal({
                 >
                   Short Description
                 </label>
-                <textarea
+                <motion.textarea
                   id="message-textarea"
                   rows={3}
                   placeholder="Tell us what you want to achieve..."
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-lg bg-white border border-brand-navy/15 text-sm focus:outline-none focus:border-primary transition-all font-sans"
+                  whileFocus={{ scale: 1.01, boxShadow: "0 0 0 3px rgba(232, 96, 44, 0.15)" }}
+                  transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                  className="w-full px-4 py-2.5 rounded-lg bg-white border border-brand-navy/15 text-sm focus:outline-none focus:border-primary transition-colors font-sans"
                 />
               </div>
 

@@ -11,6 +11,7 @@ import HowItWorks from "./components/HowItWorks";
 import Pricing from "./components/Pricing";
 import ContactModal from "./components/ContactModal";
 import Footer from "./components/Footer";
+import ScrollProgress from "./components/ScrollProgress";
 import { CalendarCheck } from "lucide-react";
 
 const WA_NUMBER = "919818726094";
@@ -27,6 +28,9 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen bg-bg-cream selection:bg-primary/20 selection:text-brand-navy flex flex-col justify-between">
+      {/* SCROLL PROGRESS */}
+      <ScrollProgress />
+
       {/* HEADER NAVBAR */}
       <Navbar
         onOpenContact={() => handleOpenContact(null)}
