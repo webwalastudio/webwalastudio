@@ -90,8 +90,8 @@ export default function Navbar({ onOpenContact }: NavbarProps) {
       {/* MOBILE DRAWER — outside header */}
       {mobileMenuOpen && (
         <div
-          className="fixed inset-y-0 right-0 z-[999] w-72 flex flex-col px-6 py-6 lg:hidden animate-in slide-in-from-right duration-200"
-          style={{ backgroundColor: "#1A2B4A" }}
+          className="fixed inset-y-0 right-0 z-[999] w-72 flex flex-col px-6 py-6 lg:hidden"
+          style={{ backgroundColor: "#1A2B4A", animation: "slideIn 0.15s ease-out" }}
         >
           {/* Header */}
           <div className="flex items-center justify-between mb-8 pb-4 border-b border-white/10">

@@ -55,3 +55,8 @@
 }
 .btn-shine:hover::after { animation: shine-sweep 0.55s ease forwards; }
 @keyframes shine-sweep { to { left: 130%; } }
+
+@keyframes slideIn {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(0); }
+}
