@@ -67,6 +67,8 @@ export default function Hero({ onOpenContact }: HeroProps) {
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuDInVoLwcA-aYmgAOBFkCvwK97KJAxDw3DZnkS5oondIhAkzzofvI4aYIuR0FIvGZNvKQ40A3TVhvfbANFuPUEiHn0au2cVRYhWTeyOgRFM6YeBU35Ge8u63F9FQTyzCZpYSreesTrcJfMTu1E1oBTVHTFnaojwNYKtldfyoxV5Ii5_NtGyoASu7VQg_gXbH8EEuTzqcWfXin6CuhRNcYwVwfgUIhwtRZ_9znunAde3d599lRliw_S-DgbXoB58x6adLSX20QghgvE"
                   alt="Webwala Studio Professional Web Design Preview on Laptop"
                   className="w-full h-full object-cover select-none"
+                  fetchPriority="high"
+                  loading="eager"
                   referrerPolicy="no-referrer"
                 />
               </div>

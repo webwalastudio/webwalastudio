@@ -3,16 +3,17 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState } from "react";
+import { useState, useCallback, lazy, Suspense } from "react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import Services from "./components/Services";
-import HowItWorks from "./components/HowItWorks";
-import Pricing from "./components/Pricing";
-import ContactModal from "./components/ContactModal";
-import Footer from "./components/Footer";
 import ScrollProgress from "./components/ScrollProgress";
 import { CalendarCheck } from "lucide-react";
+
+const Services     = lazy(() => import("./components/Services"));
+const HowItWorks   = lazy(() => import("./components/HowItWorks"));
+const Pricing      = lazy(() => import("./components/Pricing"));
+const Footer       = lazy(() => import("./components/Footer"));
+const ContactModal = lazy(() => import("./components/ContactModal"));
 
 const WA_NUMBER = "919818726094";
 const WA_PREFILL = encodeURIComponent("Hi Webwala Studio! 👋 I visited your website and I'm interested in getting a website built for my business. Can you help me?");
@@ -21,10 +22,10 @@ export default function App() {
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [prefilledPlan, setPrefilledPlan] = useState<string | null>(null);
 
-  const handleOpenContact = (planFocus: string | null = null) => {
+  const handleOpenContact = useCallback((planFocus: string | null = null) => {
     setPrefilledPlan(planFocus);
     setIsContactOpen(true);
-  };
+  }, []);
 
   return (
     <div className="relative min-h-screen bg-bg-cream selection:bg-primary/20 selection:text-brand-navy flex flex-col justify-between">
@@ -38,52 +39,54 @@ export default function App() {
 
       {/* CORE BODY SECTIONS */}
       <main className="flex-1 w-full flex flex-col items-stretch">
-        
+
         {/* HERO HEADER */}
         <Hero
           onOpenContact={() => handleOpenContact(null)}
         />
 
-        {/* SERVICES FOCUS */}
-        <Services />
+        <Suspense fallback={null}>
+          {/* SERVICES FOCUS */}
+          <Services />
 
-        {/* TIMELINE PROCESS */}
-        <HowItWorks />
+          {/* TIMELINE PROCESS */}
+          <HowItWorks />
 
-        {/* PRICING PLANS CHART */}
-        <Pricing onOpenContact={handleOpenContact} />
+          {/* PRICING PLANS CHART */}
+          <Pricing onOpenContact={handleOpenContact} />
 
-        {/* HIGH IMPACT FINAL CTA BANNER */}
-        <section className="pt-24 pb-36 bg-primary relative overflow-hidden text-center text-white">
-          <div className="absolute inset-0 bg-grid-pattern opacity-10 pointer-events-none"></div>
-          <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10 flex flex-col items-center">
-            <h2 className="font-display text-4xl font-bold mb-6 tracking-tight max-w-2xl">
-              Ready to Get Your Website Live?
-            </h2>
-            <p className="font-sans text-lg text-white/90 mb-10 max-w-2xl leading-relaxed font-semibold">
-              Join hundreds of businesses across NCR who have upgraded their digital presence with Webwala Studio and start witnessing real sales results in under 7 days.
-            </p>
-            <button
-              onClick={() => handleOpenContact("Final CTA - Ready to Go Live")}
-              className="btn-shine inline-flex items-center justify-center gap-2 bg-brand-navy text-white font-sans font-bold text-base px-10 py-5 rounded-lg shadow-xl hover:scale-[1.02] active:scale-[0.98] cursor-pointer border-none transition-all"
-            >
-              <CalendarCheck className="h-5 w-5 text-primary" />
-              Book a Consultation
-            </button>
-          </div>
+          {/* HIGH IMPACT FINAL CTA BANNER */}
+          <section className="pt-24 pb-36 bg-primary relative overflow-hidden text-center text-white">
+            <div className="absolute inset-0 bg-grid-pattern opacity-10 pointer-events-none"></div>
+            <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10 flex flex-col items-center">
+              <h2 className="font-display text-4xl font-bold mb-6 tracking-tight max-w-2xl">
+                Ready to Get Your Website Live?
+              </h2>
+              <p className="font-sans text-lg text-white/90 mb-10 max-w-2xl leading-relaxed font-semibold">
+                Join hundreds of businesses across NCR who have upgraded their digital presence with Webwala Studio and start witnessing real sales results in under 7 days.
+              </p>
+              <button
+                onClick={() => handleOpenContact("Final CTA - Ready to Go Live")}
+                className="btn-shine inline-flex items-center justify-center gap-2 bg-brand-navy text-white font-sans font-bold text-base px-10 py-5 rounded-lg shadow-xl hover:scale-[1.02] active:scale-[0.98] cursor-pointer border-none transition-all"
+              >
+                <CalendarCheck className="h-5 w-5 text-primary" />
+                Book a Consultation
+              </button>
+            </div>
 
-          {/* Wave divider → Footer (navy) */}
-          <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none pointer-events-none">
-            <svg viewBox="0 0 1440 64" preserveAspectRatio="none" className="w-full h-[48px] md:h-[64px]">
-              <path d="M0,64 C480,0 960,0 1440,64 L1440,64 L0,64 Z" fill="#1A2B4A" />
-            </svg>
-          </div>
-        </section>
+            {/* Wave divider → Footer (navy) */}
+            <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none pointer-events-none">
+              <svg viewBox="0 0 1440 64" preserveAspectRatio="none" className="w-full h-[48px] md:h-[64px]">
+                <path d="M0,64 C480,0 960,0 1440,64 L1440,64 L0,64 Z" fill="#1A2B4A" />
+              </svg>
+            </div>
+          </section>
+
+          {/* FOOTER BAR */}
+          <Footer onOpenContact={handleOpenContact} />
+        </Suspense>
 
       </main>
-
-      {/* FOOTER BAR */}
-      <Footer onOpenContact={handleOpenContact} />
 
       {/* FLOATING WHATSAPP BUTTON */}
       <a
@@ -99,11 +102,13 @@ export default function App() {
       </a>
 
       {/* OVERLAYS AND MODALS */}
-      <ContactModal
-        isOpen={isContactOpen}
-        onClose={() => setIsContactOpen(false)}
-        prefilledPlan={prefilledPlan}
-      />
+      <Suspense fallback={null}>
+        <ContactModal
+          isOpen={isContactOpen}
+          onClose={() => setIsContactOpen(false)}
+          prefilledPlan={prefilledPlan}
+        />
+      </Suspense>
     </div>
   );
 }
