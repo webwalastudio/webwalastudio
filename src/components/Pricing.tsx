@@ -89,16 +89,18 @@ export default function Pricing({ onOpenContact }: PricingProps) {
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.5, delay: index * 0.1, ease: [0.21, 0.47, 0.32, 0.98] }}
               whileHover={!plan.featured ? { y: -6, scale: 1.01 } : {}}
-              className={`bg-white p-8 rounded-xl border flex flex-col justify-between relative ${
+              className={`bg-white p-8 rounded-xl border flex flex-col justify-between relative overflow-hidden ${
                 plan.featured
                   ? "border-2 border-primary shadow-xl glow-ring md:-translate-y-4 z-10"
                   : "border-brand-navy/10 shadow-md hover:shadow-lg hover:border-primary/20 transition-all duration-300"
               }`}
             >
               {plan.featured && (
-                <span className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-white text-xs font-sans font-bold px-4 py-1.5 rounded-full uppercase tracking-widest shadow-md">
-                  Most Popular
-                </span>
+                <div className="absolute top-0 right-0 w-[100px] h-[100px] pointer-events-none">
+                  <div className="absolute top-[22px] right-[-26px] w-[120px] bg-primary text-white text-[9px] font-sans font-bold uppercase tracking-widest text-center py-1.5 rotate-45 shadow-md">
+                    Most Popular
+                  </div>
+                </div>
               )}
 
               <div>

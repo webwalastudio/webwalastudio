@@ -12,7 +12,7 @@ interface HeroProps {
 
 export default function Hero({ onOpenContact }: HeroProps) {
   return (
-    <section id="home" className="relative bg-brand-navy pt-28 pb-20 lg:pt-40 lg:pb-28 overflow-hidden">
+    <section id="home" className="relative bg-brand-navy pt-28 pb-32 lg:pt-40 lg:pb-40 overflow-hidden">
       {/* Grid */}
       <div className="absolute inset-0 bg-grid-pattern opacity-10 pointer-events-none" />
       <div className="absolute inset-0 bg-gradient-to-b from-brand-navy/60 to-brand-navy pointer-events-none" />
@@ -73,6 +73,13 @@ export default function Hero({ onOpenContact }: HeroProps) {
             </div>
           </motion.div>
         </div>
+      </div>
+
+      {/* Wave divider → Services (white) */}
+      <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none pointer-events-none">
+        <svg viewBox="0 0 1440 64" preserveAspectRatio="none" className="w-full h-[48px] md:h-[64px]">
+          <path d="M0,0 C480,64 960,64 1440,0 L1440,64 L0,64 Z" fill="white" />
+        </svg>
       </div>
     </section>
   );

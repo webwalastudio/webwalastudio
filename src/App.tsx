@@ -54,7 +54,7 @@ export default function App() {
         <Pricing onOpenContact={handleOpenContact} />
 
         {/* HIGH IMPACT FINAL CTA BANNER */}
-        <section className="py-24 bg-primary relative overflow-hidden text-center text-white">
+        <section className="pt-24 pb-36 bg-primary relative overflow-hidden text-center text-white">
           <div className="absolute inset-0 bg-grid-pattern opacity-10 pointer-events-none"></div>
           <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10 flex flex-col items-center">
             <h2 className="font-display text-4xl font-bold mb-6 tracking-tight max-w-2xl">
@@ -70,6 +70,13 @@ export default function App() {
               <CalendarCheck className="h-5 w-5 text-primary" />
               Book a Consultation
             </button>
+          </div>
+
+          {/* Wave divider → Footer (navy) */}
+          <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none pointer-events-none">
+            <svg viewBox="0 0 1440 64" preserveAspectRatio="none" className="w-full h-[48px] md:h-[64px]">
+              <path d="M0,64 C480,0 960,0 1440,64 L1440,64 L0,64 Z" fill="#1A2B4A" />
+            </svg>
           </div>
         </section>
 
