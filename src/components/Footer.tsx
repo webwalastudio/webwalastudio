@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Zap, MapPin, Phone, Link as LinkIcon, Share2 } from "lucide-react";
+import { Zap, MapPin, Phone, Mail, Link as LinkIcon, Share2 } from "lucide-react";
 
 interface FooterProps {
   onOpenContact: (prefilledService?: string) => void;
@@ -80,6 +80,12 @@ export default function Footer({ onOpenContact }: FooterProps) {
               <li className="flex items-center gap-3 text-bg-cream/75 font-sans text-sm">
                 <Phone className="h-5 w-5 text-primary shrink-0" />
                 <span>+91 98187 26094</span>
+              </li>
+              <li className="flex items-center gap-3 text-bg-cream/75 font-sans text-sm">
+                <Mail className="h-5 w-5 text-primary shrink-0" />
+                <a href="mailto:support@webwalastudio.com" className="hover:text-primary transition-colors">
+                  support@webwalastudio.com
+                </a>
               </li>
             </ul>
           </div>
