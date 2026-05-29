@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Services from "./components/Services";
@@ -20,14 +20,6 @@ const WA_PREFILL = encodeURIComponent("Hi Webwala Studio! 👋 I visited your we
 export default function App() {
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [prefilledPlan, setPrefilledPlan] = useState<string | null>(null);
-
-  const [showFloatingCTA, setShowFloatingCTA] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setShowFloatingCTA(window.scrollY > 400);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   const handleOpenContact = (planFocus: string | null = null) => {
     setPrefilledPlan(planFocus);
@@ -92,19 +84,6 @@ export default function App() {
 
       {/* FOOTER BAR */}
       <Footer onOpenContact={handleOpenContact} />
-
-      {/* FLOATING CTA PILL — mobile only, appears after scrolling past hero */}
-      <div className={`md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-40 transition-all duration-300 ${
-        showFloatingCTA ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
-      }`}>
-        <button
-          onClick={() => handleOpenContact(null)}
-          className="btn-shine inline-flex items-center gap-2 bg-primary text-white font-sans font-bold text-sm px-6 py-3 rounded-full shadow-xl active:scale-95 transition-transform border-none cursor-pointer"
-        >
-          <CalendarCheck className="h-4 w-4" />
-          Book a Consultation
-        </button>
-      </div>
 
       {/* FLOATING WHATSAPP BUTTON */}
       <a
