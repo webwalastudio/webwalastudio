@@ -17,17 +17,30 @@ export default function Navbar({ onOpenContact }: NavbarProps) {
 
   useEffect(() => {
     const sections = ["home", "services", "pricing"];
-    const observers = sections.map((id) => {
-      const el = document.getElementById(id);
-      if (!el) return null;
-      const observer = new IntersectionObserver(
-        ([entry]) => { if (entry.isIntersecting) setActiveSection(id); },
-        { rootMargin: "-40% 0px -55% 0px" }
-      );
-      observer.observe(el);
-      return observer;
-    });
-    return () => observers.forEach((o) => o?.disconnect());
+    let observers: (IntersectionObserver | null)[] = [];
+
+    const setupObservers = () => {
+      observers.forEach((o) => o?.disconnect());
+      observers = sections.map((id) => {
+        const el = document.getElementById(id);
+        if (!el) return null;
+        const observer = new IntersectionObserver(
+          ([entry]) => { if (entry.isIntersecting) setActiveSection(id); },
+          { rootMargin: "-40% 0px -55% 0px" }
+        );
+        observer.observe(el);
+        return observer;
+      });
+    };
+
+    setupObservers();
+    // Retry after lazy-loaded sections have mounted
+    const timer = setTimeout(setupObservers, 800);
+
+    return () => {
+      clearTimeout(timer);
+      observers.forEach((o) => o?.disconnect());
+    };
   }, []);
 
   return (
