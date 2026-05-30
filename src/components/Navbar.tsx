@@ -35,9 +35,8 @@ export default function Navbar({ onOpenContact }: NavbarProps) {
       <header className="fixed top-0 left-0 w-full z-50 h-20 flex justify-between items-center bg-bg-cream/95 backdrop-blur-md border-b border-brand-navy/10 shadow-sm transition-all duration-300">
         <div className="w-full max-w-7xl mx-auto px-4 md:px-8 flex justify-between items-center">
           {/* LOGO */}
-          <a href="#" className="font-display text-2xl font-bold text-brand-navy flex items-center gap-2 group transition-colors duration-300">
-            Webwala Studio{" "}
-            <Zap className="h-5 w-5 text-primary fill-primary group-hover:rotate-12 transition-transform duration-300" />
+          <a href="#" className="flex items-center">
+            <img src="/logo.png" alt="Webwala Studio" className="h-10 w-auto" />
           </a>
 
           {/* DESKTOP NAV */}
