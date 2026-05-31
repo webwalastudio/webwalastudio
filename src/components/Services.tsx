@@ -1,13 +1,8 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { useState } from "react";
 import { motion } from "motion/react";
 import {
   School, HeartPulse, Briefcase, Scissors,
-  Coffee, ShoppingBag, ArrowRight, Database
+  Coffee, ShoppingBag, ArrowRight, LayoutGrid,
 } from "lucide-react";
 
 const services = [
@@ -60,24 +55,40 @@ function BlueprintPanel({ service }: { service: typeof services[0] }) {
   return (
     <div className="text-left animate-in fade-in duration-200">
       <div className="flex items-center gap-3 mb-4">
-        <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center border border-brand-navy/10 shadow-sm">
-          <Icon className="h-5 w-5 text-primary" />
+        <div
+          className="flex items-center justify-center"
+          style={{ width: 40, height: 40, borderRadius: 10, background: "var(--surface)", border: "1px solid var(--border)" }}
+        >
+          <Icon className="h-5 w-5" style={{ color: "var(--violet-mid)" }} />
         </div>
         <div>
-          <span className="font-sans text-xs font-bold text-primary tracking-wider uppercase">Custom Spec</span>
-          <h4 className="font-display text-lg font-bold text-brand-navy">{service.title}</h4>
+          <span style={{ fontSize: 10, fontWeight: 700, color: "var(--violet-mid)", letterSpacing: "1.5px", textTransform: "uppercase" as const }}>
+            Custom Spec
+          </span>
+          <h4 className="font-display font-extrabold" style={{ fontSize: 15, color: "var(--text-dark)" }}>
+            {service.title}
+          </h4>
         </div>
       </div>
-      <p className="font-sans text-sm text-brand-navy/80 mb-4 leading-relaxed">
+      <p className="font-sans mb-4 leading-relaxed" style={{ fontSize: 14, color: "#4B5563" }}>
         Every Webwala Studio build includes strategic sitemap layout and high-performance custom features built from the ground up:
       </p>
       <div className="space-y-3">
         {service.features.map((feature, i) => (
-          <div key={i} className="flex items-start gap-3 bg-white p-3 rounded-lg border border-brand-navy/5 shadow-sm">
-            <span className="w-5 h-5 rounded-full bg-primary/10 text-primary font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">
+          <div
+            key={i}
+            className="flex items-start gap-3 p-3"
+            style={{ background: "white", borderRadius: 10, border: "1px solid var(--border)" }}
+          >
+            <span
+              className="w-5 h-5 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5"
+              style={{ borderRadius: "50%", background: "rgba(14,165,233,0.12)", color: "#0EA5E9" }}
+            >
               {i + 1}
             </span>
-            <span className="font-sans text-sm text-brand-navy font-bold leading-tight">{feature}</span>
+            <span className="font-sans font-bold leading-tight" style={{ fontSize: 13, color: "var(--text-dark)" }}>
+              {feature}
+            </span>
           </div>
         ))}
       </div>
@@ -90,68 +101,108 @@ export default function Services() {
   const currentService = services.find((s) => s.id === selectedCategory);
 
   return (
-    <section id="services" className="py-24 bg-white border-b border-brand-navy/10 scroll-mt-10">
-      <div className="max-w-7xl mx-auto px-4 md:px-8">
+    <section id="services" className="py-24 bg-white scroll-mt-10" style={{ borderBottom: "1px solid var(--border)" }}>
+      <div className="max-w-[1200px] mx-auto px-[5%]">
         {/* Title */}
         <motion.div
-          className="text-center mb-16 max-w-3xl mx-auto"
+          className="text-center mb-14 max-w-3xl mx-auto"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.55, ease: [0.21, 0.47, 0.32, 0.98] }}
         >
-          <h2 className="font-display text-3xl md:text-4xl font-bold text-brand-navy mb-4">
+          <span className="section-label">OUR SERVICES</span>
+          <h2
+            className="font-display font-black mb-4"
+            style={{ fontSize: "clamp(26px, 3.2vw, 42px)", letterSpacing: "-1.2px", color: "var(--text-dark)" }}
+          >
             Tailored Solutions for Every Industry
           </h2>
-          <p className="font-sans text-lg text-brand-navy/70 leading-relaxed">
-            We understand that a clinic needs different features than a restaurant. Our solutions are custom-built for your specific business needs. Select an industry card to view planned custom features!
+          <p className="font-sans" style={{ fontSize: 16, color: "#4B5563", lineHeight: 1.7 }}>
+            We understand that a clinic needs different features than a restaurant. Our solutions are
+            custom-built for your specific business needs. Select an industry card to view planned custom features!
           </p>
         </motion.div>
 
         {/* Grid */}
-        <div className="grid lg:grid-cols-3 gap-8">
+        <div className="grid lg:grid-cols-3 gap-6">
 
-          {/* Cards — inline accordion on mobile, static grid on desktop */}
-          <div className="lg:col-span-2 grid md:grid-cols-2 gap-6">
+          {/* Cards */}
+          <div className="lg:col-span-2 grid md:grid-cols-2 gap-[18px]">
             {services.map((service, index) => {
               const Icon = service.icon;
               const isSelected = selectedCategory === service.id;
               return (
                 <div key={service.id} className="contents">
-                  {/* Card */}
                   <motion.div
                     initial={{ opacity: 0, y: 28 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-40px" }}
                     transition={{ duration: 0.5, delay: index * 0.07, ease: [0.21, 0.47, 0.32, 0.98] }}
-                    whileHover={!isSelected ? { y: -8, scale: 1.02 } : {}}
                     onClick={() => setSelectedCategory(isSelected ? null : service.id)}
-                    className={`p-6 rounded-xl border text-left cursor-pointer transition-all duration-300 ${
-                      isSelected
-                        ? "bg-brand-navy text-white border-brand-navy shadow-lg"
-                        : "bg-bg-cream/40 text-brand-navy border-brand-navy/5 shadow-md hover:shadow-[0_8px_30px_rgba(232,96,44,0.15)] hover:border-primary/30"
-                    }`}
+                    className="p-7 cursor-pointer"
+                    style={{
+                      border: `1.5px solid ${isSelected ? "#7C3AED" : "#E0E7FF"}`,
+                      borderRadius: "var(--radius)",
+                      background: isSelected ? "linear-gradient(135deg, #F5F3FF, #EDE9FE)" : "white",
+                      boxShadow: isSelected ? "0 8px 32px rgba(124,58,237,0.1)" : "none",
+                      transition: "all 0.25s",
+                    }}
+                    whileHover={!isSelected ? {
+                      y: -3,
+                      boxShadow: "0 12px 40px rgba(14,165,233,0.12)",
+                    } : {}}
                   >
-                    <div className={`w-12 h-12 rounded-full border-2 flex items-center justify-center mb-6 transition-colors ${
-                      isSelected ? "border-primary bg-bg-cream/10" : "border-primary bg-white"
-                    }`}>
-                      <Icon className="h-5 w-5 text-primary" />
+                    {/* Icon block */}
+                    <div
+                      className="flex items-center justify-center mb-4"
+                      style={{
+                        width: 48, height: 48, borderRadius: 12,
+                        background: isSelected ? "#EDE9FE" : "var(--surface)",
+                        border: `1px solid ${isSelected ? "#DDD6FE" : "var(--border)"}`,
+                        transition: "all 0.25s",
+                      }}
+                    >
+                      <Icon
+                        className="h-5 w-5"
+                        style={{ color: isSelected ? "#7C3AED" : "#0EA5E9" }}
+                      />
                     </div>
-                    <h3 className="font-display text-xl font-bold mb-3">{service.title}</h3>
-                    <p className={`font-sans text-sm leading-relaxed mb-6 ${isSelected ? "text-white/80" : "text-brand-navy/70"}`}>
+
+                    <h3
+                      className="font-display font-extrabold mb-2"
+                      style={{ fontSize: 15, color: "var(--text-dark)" }}
+                    >
+                      {service.title}
+                    </h3>
+                    <p
+                      className="font-sans leading-relaxed mb-5"
+                      style={{ fontSize: 14, color: "#4B5563" }}
+                    >
                       {service.description}
                     </p>
+
                     <div className="flex items-center justify-between">
-                      <span className={`font-sans text-xs font-bold ${isSelected ? "text-neutral-300" : "text-brand-navy/60"}`}>
-                        {isSelected ? "Click to close blueprint" : "Click to view structure"}
+                      <span
+                        className="font-sans font-bold"
+                        style={{ fontSize: 13, color: isSelected ? "#7C3AED" : "#9CA3AF" }}
+                      >
+                        {isSelected ? "Click to close" : "Click to view structure"}
                       </span>
-                      <ArrowRight className="h-4 w-4 text-primary" />
+                      <ArrowRight className="h-4 w-4" style={{ color: isSelected ? "#7C3AED" : "#0EA5E9" }} />
                     </div>
                   </motion.div>
 
-                  {/* Inline blueprint — mobile only, appears below clicked card */}
+                  {/* Inline blueprint — mobile only */}
                   {isSelected && (
-                    <div className="lg:hidden md:col-span-2 bg-bg-cream border border-brand-navy/10 rounded-xl p-6 shadow-md">
+                    <div
+                      className="lg:hidden md:col-span-2 p-6"
+                      style={{
+                        background: "linear-gradient(135deg, #F0F9FF, #F5F3FF)",
+                        border: "1.5px solid var(--border)",
+                        borderRadius: "var(--radius)",
+                      }}
+                    >
                       <BlueprintPanel service={service} />
                     </div>
                   )}
@@ -160,18 +211,36 @@ export default function Services() {
             })}
           </div>
 
-          {/* Right-side blueprint panel — desktop only */}
-          <div className="hidden lg:block lg:col-span-1">
-            <div className="sticky top-28 bg-bg-cream border border-brand-navy/10 rounded-xl p-6 shadow-md min-h-[400px] flex flex-col justify-between">
+          {/* Blueprint panel — desktop */}
+          <div className="hidden lg:block">
+            <div
+              className="sticky top-28 min-h-[400px] flex flex-col justify-between p-6"
+              style={{
+                background: currentService ? "white" : "linear-gradient(135deg, #F0F9FF, #F5F3FF)",
+                border: `1.5px ${currentService ? "solid" : "dashed"} var(--border)`,
+                borderRadius: "var(--radius)",
+              }}
+            >
               {currentService ? (
                 <BlueprintPanel service={currentService} />
               ) : (
-                <div className="flex flex-col items-center justify-center h-full text-center py-10 opacity-70">
-                  <div className="w-16 h-16 rounded-full border border-dashed border-brand-navy/20 flex items-center justify-center mb-6">
-                    <Database className="h-6 w-6 text-brand-navy/40" />
+                <div className="flex flex-col items-center justify-center h-full text-center py-10">
+                  <div
+                    className="flex items-center justify-center w-16 h-16 mb-6"
+                    style={{ borderRadius: "50%", border: "1.5px dashed var(--border)" }}
+                  >
+                    <LayoutGrid className="h-6 w-6" style={{ color: "#9CA3AF" }} />
                   </div>
-                  <h4 className="font-display text-lg font-semibold text-brand-navy mb-2">Interactive Blueprint Spec</h4>
-                  <p className="font-sans text-sm text-brand-navy/60 max-w-xs leading-relaxed">
+                  <h4
+                    className="font-display font-extrabold mb-2"
+                    style={{ fontSize: 15, color: "var(--text-dark)" }}
+                  >
+                    Interactive Blueprint Spec
+                  </h4>
+                  <p
+                    className="font-sans leading-relaxed max-w-xs"
+                    style={{ fontSize: 14, color: "#4B5563" }}
+                  >
                     Select any industry card to inspect our planned features and custom client sitemaps.
                   </p>
                 </div>

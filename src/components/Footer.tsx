@@ -25,20 +25,22 @@ export default function Footer({ onOpenContact }: FooterProps) {
             <p className="font-sans text-sm text-bg-cream/70 mb-6 max-w-xs leading-relaxed">
               High-end, professional web design and development for businesses that want to stand out.
             </p>
-            <div className="flex gap-4">
+            <div className="flex gap-3">
               <button
                 aria-label="Link Icon Button"
                 onClick={() => alert("Copied Studio Portfolio link to clipboard!")}
-                className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-primary transition-colors cursor-pointer border-none"
+                className="flex items-center justify-center transition-colors cursor-pointer border-none hover:bg-white/[0.14]"
+                style={{ width: 36, height: 36, borderRadius: 9, background: "rgba(255,255,255,0.07)", color: "rgba(255,255,255,0.6)" }}
               >
-                <LinkIcon className="h-4 w-4 text-bg-cream" />
+                <LinkIcon className="h-4 w-4" />
               </button>
               <button
                 aria-label="Share Icon Button"
                 onClick={() => alert("Shared Webwala Studio Profile!")}
-                className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-primary transition-colors cursor-pointer border-none"
+                className="flex items-center justify-center transition-colors cursor-pointer border-none hover:bg-white/[0.14]"
+                style={{ width: 36, height: 36, borderRadius: 9, background: "rgba(255,255,255,0.07)", color: "rgba(255,255,255,0.6)" }}
               >
-                <Share2 className="h-4 w-4 text-bg-cream" />
+                <Share2 className="h-4 w-4" />
               </button>
             </div>
           </div>

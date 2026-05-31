@@ -1,11 +1,6 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { useState, useEffect } from "react";
 import { motion } from "motion/react";
-import { Zap, CalendarCheck, Menu, X } from "lucide-react";
+import { CalendarCheck, Menu, X } from "lucide-react";
 
 interface NavbarProps {
   onOpenContact: () => void;
@@ -14,6 +9,13 @@ interface NavbarProps {
 export default function Navbar({ onOpenContact }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     const sections = ["home", "services", "pricing"];
@@ -34,7 +36,6 @@ export default function Navbar({ onOpenContact }: NavbarProps) {
     };
 
     setupObservers();
-    // Retry after lazy-loaded sections have mounted
     const timer = setTimeout(setupObservers, 800);
 
     return () => {
@@ -45,11 +46,24 @@ export default function Navbar({ onOpenContact }: NavbarProps) {
 
   return (
     <>
-      <header className="fixed top-0 left-0 w-full z-50 h-20 flex justify-between items-center bg-bg-cream/95 backdrop-blur-md border-b border-brand-navy/10 shadow-sm transition-all duration-300">
-        <div className="w-full max-w-7xl mx-auto px-4 md:px-8 flex justify-between items-center">
+      <header
+        className="fixed top-0 left-0 w-full z-50 transition-all duration-300"
+        style={{
+          height: 68,
+          padding: "0 5%",
+          background: "rgba(255, 255, 255, 0.85)",
+          backdropFilter: "blur(20px)",
+          WebkitBackdropFilter: "blur(20px)",
+          borderBottom: "1px solid #E0E7FF",
+          display: "flex",
+          alignItems: "center",
+          boxShadow: scrolled ? "0 4px 24px rgba(99,102,241,0.12)" : "none",
+        }}
+      >
+        <div className="w-full max-w-[1200px] mx-auto flex justify-between items-center">
           {/* LOGO */}
           <a href="#" className="flex items-center">
-            <img src="/logo.png" alt="Webwala Studio" className="h-10 w-auto" />
+            <img src="/logo.png" alt="Webwala Studio" className="h-9 w-auto" />
           </a>
 
           {/* DESKTOP NAV */}
@@ -58,15 +72,20 @@ export default function Navbar({ onOpenContact }: NavbarProps) {
               <a
                 key={id}
                 href={`#${id}`}
-                className={`relative font-sans font-bold text-sm tracking-wide pb-1 transition-colors ${
-                  activeSection === id ? "text-primary" : "text-brand-navy/70 hover:text-primary"
-                }`}
+                className="relative pb-1 transition-colors"
+                style={{
+                  fontSize: 14,
+                  fontWeight: 600,
+                  color: activeSection === id ? "#7C3AED" : "#4B5563",
+                  textDecoration: "none",
+                }}
               >
                 {label}
                 {activeSection === id && (
                   <motion.span
                     layoutId="nav-underline"
-                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-full"
+                    className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full"
+                    style={{ background: "linear-gradient(135deg, #0EA5E9, #7C3AED)" }}
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
                 )}
@@ -78,7 +97,8 @@ export default function Navbar({ onOpenContact }: NavbarProps) {
           <div className="hidden md:flex items-center">
             <button
               onClick={onOpenContact}
-              className="btn-shine inline-flex items-center justify-center gap-2 bg-primary text-white font-sans font-bold text-sm px-6 py-3 rounded-lg hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 cursor-pointer shadow-md"
+              className="btn-shine btn-gradient inline-flex items-center justify-center gap-2"
+              style={{ padding: "10px 22px", borderRadius: 50, fontSize: 14 }}
             >
               <CalendarCheck className="h-4 w-4" />
               Book a Consultation
@@ -89,14 +109,15 @@ export default function Navbar({ onOpenContact }: NavbarProps) {
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle Menu"
-            className="lg:hidden text-brand-navy p-2 hover:bg-brand-navy/5 rounded-lg active:scale-95 transition-all"
+            className="lg:hidden p-2 rounded-lg active:scale-95 transition-all"
+            style={{ color: "#1E1B4B", background: "transparent", border: "none", cursor: "pointer" }}
           >
             {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
       </header>
 
-      {/* BACKDROP — outside header to avoid stacking context issues */}
+      {/* BACKDROP */}
       {mobileMenuOpen && (
         <div
           className="fixed inset-0 z-[998] lg:hidden"
@@ -105,45 +126,51 @@ export default function Navbar({ onOpenContact }: NavbarProps) {
         />
       )}
 
-      {/* MOBILE DRAWER — outside header */}
+      {/* MOBILE DRAWER */}
       {mobileMenuOpen && (
         <div
           className="fixed inset-y-0 right-0 z-[999] w-72 flex flex-col px-6 py-6 lg:hidden"
-          style={{ backgroundColor: "#1A2B4A", animation: "slideIn 0.15s ease-out" }}
+          style={{ backgroundColor: "#1E1B4B", animation: "slideIn 0.15s ease-out" }}
         >
-          {/* Header */}
-          <div className="flex items-center justify-between mb-8 pb-4 border-b border-white/10">
-            <span className="font-display text-lg font-bold text-white flex items-center gap-2">
-              Webwala Studio <Zap className="h-4 w-4 text-primary fill-primary" />
+          <div
+            className="flex items-center justify-between mb-8 pb-4"
+            style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}
+          >
+            <span className="font-display font-extrabold text-white" style={{ fontSize: 17, letterSpacing: "-0.4px" }}>
+              Webwala Studio
             </span>
-            <button onClick={() => setMobileMenuOpen(false)} className="text-white/60 hover:text-white p-1 transition-colors">
+            <button
+              onClick={() => setMobileMenuOpen(false)}
+              className="p-1 transition-colors border-none bg-transparent cursor-pointer"
+              style={{ color: "rgba(255,255,255,0.5)" }}
+            >
               <X className="h-5 w-5" />
             </button>
           </div>
 
-          {/* Nav Links */}
           <nav className="flex flex-col gap-1">
             {[["home", "Home"], ["services", "Services"], ["pricing", "Pricing"]].map(([id, label]) => (
               <a
                 key={id}
                 href={`#${id}`}
                 onClick={() => setMobileMenuOpen(false)}
-                className={`font-sans font-bold text-base py-3 px-4 rounded-lg transition-colors ${
-                  activeSection === id
-                    ? "text-primary bg-white/10"
-                    : "text-white hover:text-primary hover:bg-white/5"
-                }`}
+                className="font-sans font-bold text-base py-3 px-4 rounded-lg transition-colors"
+                style={{
+                  color: activeSection === id ? "#38BDF8" : "rgba(255,255,255,0.8)",
+                  background: activeSection === id ? "rgba(56,189,248,0.1)" : "transparent",
+                  textDecoration: "none",
+                }}
               >
                 {label}
               </a>
             ))}
           </nav>
 
-          {/* CTA */}
           <div className="mt-auto">
             <button
               onClick={() => { setMobileMenuOpen(false); onOpenContact(); }}
-              className="btn-shine w-full inline-flex items-center justify-center gap-2 bg-primary text-white font-sans font-bold py-4 rounded-lg shadow-md active:scale-95 transition-all"
+              className="btn-shine btn-gradient w-full inline-flex items-center justify-center gap-2 font-bold py-4 rounded-full"
+              style={{ fontSize: 14 }}
             >
               <CalendarCheck className="h-5 w-5" />
               Book a Consultation

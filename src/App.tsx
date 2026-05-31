@@ -55,29 +55,44 @@ export default function App() {
           {/* PRICING PLANS CHART */}
           <Pricing onOpenContact={handleOpenContact} />
 
-          {/* HIGH IMPACT FINAL CTA BANNER */}
-          <section className="pt-24 pb-36 bg-primary relative overflow-hidden text-center text-white">
-            <div className="absolute inset-0 bg-grid-pattern opacity-10 pointer-events-none"></div>
-            <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10 flex flex-col items-center">
-              <h2 className="font-display text-4xl font-bold mb-6 tracking-tight max-w-2xl">
+          {/* FINAL CTA BANNER */}
+          <section
+            className="relative overflow-hidden text-center"
+            style={{
+              padding: "100px 5%",
+              background: "linear-gradient(135deg, #EFF6FF 0%, #EDE9FE 100%)",
+              borderTop: "1.5px solid #E0E7FF",
+              borderBottom: "1.5px solid #E0E7FF",
+            }}
+          >
+            <div className="max-w-[1200px] mx-auto relative z-10 flex flex-col items-center">
+              <span className="section-label">READY TO LAUNCH</span>
+              <h2
+                className="font-display font-black mb-6 max-w-2xl"
+                style={{ fontSize: "clamp(26px, 3.2vw, 42px)", letterSpacing: "-1.2px", color: "#1E1B4B" }}
+              >
                 Ready to Get Your Website Live?
               </h2>
-              <p className="font-sans text-lg text-white/90 mb-10 max-w-2xl leading-relaxed font-semibold">
+              <p
+                className="font-sans mb-10 max-w-2xl leading-relaxed font-semibold"
+                style={{ fontSize: 16, color: "#4B5563" }}
+              >
                 Join hundreds of businesses across NCR who have upgraded their digital presence with Webwala Studio and start witnessing real sales results in under 7 days.
               </p>
               <button
                 onClick={() => handleOpenContact("Final CTA - Ready to Go Live")}
-                className="btn-shine inline-flex items-center justify-center gap-2 bg-brand-navy text-white font-sans font-bold text-base px-10 py-5 rounded-lg shadow-xl hover:scale-[1.02] active:scale-[0.98] cursor-pointer border-none transition-all"
+                className="btn-shine btn-gradient inline-flex items-center justify-center gap-2 font-sans font-bold"
+                style={{ fontSize: 14, padding: "14px 32px", borderRadius: 50 }}
               >
-                <CalendarCheck className="h-5 w-5 text-primary" />
+                <CalendarCheck className="h-5 w-5" />
                 Book a Consultation
               </button>
             </div>
 
-            {/* Wave divider → Footer (navy) */}
+            {/* Wave divider → Footer */}
             <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none pointer-events-none">
               <svg viewBox="0 0 1440 64" preserveAspectRatio="none" className="w-full h-[48px] md:h-[64px]">
-                <path d="M0,64 C480,0 960,0 1440,64 L1440,64 L0,64 Z" fill="#1A2B4A" />
+                <path d="M0,64 C480,0 960,0 1440,64 L1440,64 L0,64 Z" fill="#1E1B4B" />
               </svg>
             </div>
           </section>
