@@ -1,17 +1,11 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { motion } from "motion/react";
-import { Check, X } from "lucide-react";
+import { Check } from "lucide-react";
 
 interface PricingProps {
   onOpenContact: (prefilledPlan?: string) => void;
 }
 
 export default function Pricing({ onOpenContact }: PricingProps) {
-
   const plans = [
     {
       id: "starter",
@@ -61,8 +55,8 @@ export default function Pricing({ onOpenContact }: PricingProps) {
   ];
 
   return (
-    <section id="pricing" className="py-24 bg-bg-cream scroll-mt-10">
-      <div className="max-w-7xl mx-auto px-4 md:px-8">
+    <section id="pricing" className="py-24 scroll-mt-10" style={{ background: "#F8FAFF" }}>
+      <div className="max-w-[1200px] mx-auto px-[5%]">
         {/* Title */}
         <motion.div
           className="text-center mb-16 max-w-2xl mx-auto"
@@ -71,16 +65,20 @@ export default function Pricing({ onOpenContact }: PricingProps) {
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.55, ease: [0.21, 0.47, 0.32, 0.98] }}
         >
-          <h2 className="font-display text-3xl md:text-4xl font-bold text-brand-navy mb-4">
+          <span className="section-label">PRICING</span>
+          <h2
+            className="font-display font-black mb-4"
+            style={{ fontSize: "clamp(26px, 3.2vw, 42px)", letterSpacing: "-1.2px", color: "var(--text-dark)" }}
+          >
             Transparent Pricing, No Surprises
           </h2>
-          <p className="font-sans text-lg text-brand-navy/70 leading-relaxed">
+          <p className="font-sans" style={{ fontSize: 16, color: "#4B5563", lineHeight: 1.7 }}>
             One-time payment for the build. Affordable annual maintenance. Pick the plan that fits your current needs.
           </p>
         </motion.div>
 
         {/* Pricing Cards */}
-        <div className="grid md:grid-cols-3 gap-8 items-stretch max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-6 items-start max-w-5xl mx-auto">
           {plans.map((plan, index) => (
             <motion.div
               key={plan.id}
@@ -88,40 +86,124 @@ export default function Pricing({ onOpenContact }: PricingProps) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.5, delay: index * 0.1, ease: [0.21, 0.47, 0.32, 0.98] }}
-              whileHover={!plan.featured ? { y: -6, scale: 1.01 } : {}}
-              className={`bg-white p-8 rounded-xl border flex flex-col justify-between relative overflow-hidden ${
-                plan.featured
-                  ? "border-2 border-primary shadow-xl glow-ring md:-translate-y-4 z-10"
-                  : "border-brand-navy/10 shadow-md hover:shadow-lg hover:border-primary/20 transition-all duration-300"
-              }`}
+              className={`relative flex flex-col ${plan.featured ? "glow-ring" : ""}`}
+              style={{
+                background: plan.featured
+                  ? "linear-gradient(160deg, #1E1B4B 0%, #312E81 100%)"
+                  : "white",
+                borderRadius: "var(--radius-lg)",
+                padding: 36,
+                border: plan.featured ? "none" : "1.5px solid var(--border)",
+                transform: plan.featured ? "scale(1.04)" : "none",
+                transition: "all 0.25s",
+              }}
+              whileHover={!plan.featured
+                ? { y: -4, boxShadow: "0 16px 48px rgba(99,102,241,0.1)" }
+                : { y: -4 }
+              }
             >
+              {/* Most Popular badge */}
               {plan.featured && (
-                <div className="absolute top-0 right-0 w-[100px] h-[100px] pointer-events-none">
-                  <div className="absolute top-[22px] right-[-26px] w-[120px] bg-primary text-white text-[9px] font-sans font-bold uppercase tracking-widest text-center py-1.5 rotate-45 shadow-md">
-                    Most Popular
-                  </div>
+                <div
+                  className="absolute"
+                  style={{
+                    top: -14,
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    background: "linear-gradient(135deg, #0EA5E9, #7C3AED)",
+                    color: "white",
+                    fontSize: 11,
+                    fontWeight: 800,
+                    padding: "5px 18px",
+                    borderRadius: 50,
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  Most Popular
                 </div>
               )}
 
-              <div>
-                <h3 className="font-display text-2xl font-bold text-brand-navy mb-2">{plan.name}</h3>
-                <p className="font-sans text-sm text-brand-navy/60 mb-6 font-semibold">{plan.description}</p>
+              <div className="flex-1">
+                {/* Tier name */}
+                <p
+                  className="font-sans font-black uppercase mb-1"
+                  style={{
+                    fontSize: 11,
+                    letterSpacing: "1.5px",
+                    color: plan.featured ? "rgba(167,139,250,0.9)" : "var(--violet-mid)",
+                  }}
+                >
+                  {plan.name}
+                </p>
+                <p
+                  className="font-sans mb-6"
+                  style={{ fontSize: 13, color: plan.featured ? "rgba(255,255,255,0.5)" : "#4B5563" }}
+                >
+                  {plan.description}
+                </p>
+
+                {/* Price */}
                 <div className="mb-8">
-                  <span className="font-display text-4xl block font-bold text-brand-navy tracking-tight">{plan.price}</span>
+                  <span
+                    className="font-display font-black"
+                    style={{
+                      fontSize: 48,
+                      letterSpacing: "-2px",
+                      lineHeight: 1,
+                      color: plan.featured ? "white" : "var(--text-dark)",
+                    }}
+                  >
+                    {plan.price}
+                  </span>
                   {plan.id === "business-pro" && (
-                    <span className="font-sans text-xs text-brand-navy/50 block mt-1">Starting from</span>
+                    <span
+                      className="font-sans block mt-1"
+                      style={{ fontSize: 12, color: "#9CA3AF" }}
+                    >
+                      Starting from
+                    </span>
                   )}
                 </div>
 
+                {/* Features */}
                 <ul className="space-y-4 mb-8">
                   {plan.features.map((feature, fIdx) => (
                     <li key={fIdx} className="flex items-center gap-3">
                       {feature.active ? (
-                        <Check className="h-5 w-5 text-primary shrink-0" />
+                        <span
+                          className="flex items-center justify-center shrink-0"
+                          style={{
+                            width: 18, height: 18, borderRadius: "50%",
+                            background: plan.featured ? "rgba(167,139,250,0.2)" : "rgba(56,189,248,0.15)",
+                            color: plan.featured ? "#A78BFA" : "#0EA5E9",
+                          }}
+                        >
+                          <Check style={{ width: 10, height: 10, strokeWidth: 3 }} />
+                        </span>
                       ) : (
-                        <X className="h-5 w-5 text-brand-navy/20 shrink-0" />
+                        <span
+                          className="flex items-center justify-center shrink-0 font-bold"
+                          style={{
+                            width: 18, height: 18, borderRadius: "50%",
+                            background: "rgba(156,163,175,0.1)",
+                            color: "#D1D5DB",
+                            fontSize: 12,
+                          }}
+                        >
+                          —
+                        </span>
                       )}
-                      <span className={`font-sans text-sm ${feature.active ? "text-brand-navy font-semibold" : "text-brand-navy/40 line-through"}`}>
+                      <span
+                        className="font-sans"
+                        style={{
+                          fontSize: 14,
+                          fontWeight: feature.active ? 600 : 400,
+                          color: plan.featured
+                            ? (feature.active ? "rgba(255,255,255,0.9)" : "rgba(255,255,255,0.3)")
+                            : (feature.active ? "var(--text-dark)" : "#9CA3AF"),
+                          textDecoration: feature.active ? "none" : "line-through",
+                        }}
+                      >
                         {feature.name}
                       </span>
                     </li>
@@ -129,13 +211,32 @@ export default function Pricing({ onOpenContact }: PricingProps) {
                 </ul>
               </div>
 
+              {/* CTA button */}
               <button
                 onClick={() => onOpenContact(`${plan.name} (${plan.price})`)}
-                className={`btn-shine w-full py-3.5 text-center font-sans font-bold text-sm rounded-lg cursor-pointer transition-all ${
+                className="btn-shine w-full font-sans font-bold cursor-pointer transition-all duration-[250ms]"
+                style={
                   plan.featured
-                    ? "bg-primary text-white hover:bg-primary/90 shadow-md"
-                    : "border border-brand-navy text-brand-navy hover:bg-brand-navy hover:text-white"
-                }`}
+                    ? {
+                        background: "linear-gradient(135deg, #0EA5E9, #7C3AED)",
+                        color: "white",
+                        border: "none",
+                        padding: "14px 24px",
+                        fontSize: 15,
+                        borderRadius: "var(--radius)",
+                        boxShadow: "0 6px 20px rgba(124,58,237,0.35)",
+                        fontFamily: "inherit",
+                      }
+                    : {
+                        background: "var(--surface)",
+                        color: "var(--violet-mid)",
+                        border: "1.5px solid var(--border)",
+                        padding: "14px 24px",
+                        fontSize: 15,
+                        borderRadius: "var(--radius)",
+                        fontFamily: "inherit",
+                      }
+                }
               >
                 {plan.ctaText}
               </button>

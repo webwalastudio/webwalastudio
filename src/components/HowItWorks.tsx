@@ -1,10 +1,5 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { useState } from "react";
-import { Search, Compass, Rocket, ArrowRight } from "lucide-react";
+import { Search, Compass, Rocket, ChevronDown } from "lucide-react";
 
 export default function HowItWorks() {
   const [activeTab, setActiveTab] = useState<number>(0);
@@ -17,7 +12,11 @@ export default function HowItWorks() {
       subtitle: "Day 1-2 • Research & Materials",
       description: "We understand your business goals, target audience, and collect your branding materials.",
       icon: Search,
-      deliverables: ["Market & industry competitive research document.", "Sitemap mapping & UX outline wireframes.", "Branding content assets collection."],
+      deliverables: [
+        "Market & industry competitive research document.",
+        "Sitemap mapping & UX outline wireframes.",
+        "Branding content assets collection.",
+      ],
     },
     {
       step: "02",
@@ -25,7 +24,11 @@ export default function HowItWorks() {
       subtitle: "Day 3-5 • UI layout & backend code",
       description: "Our team designs a modern, mobile-responsive layout and integrates necessary features.",
       icon: Compass,
-      deliverables: ["High-converting, bespoke homepage mock layout.", "Fully-coded backend integrations & custom fields setup.", "100% responsive smartphone & tablet screen layout check."],
+      deliverables: [
+        "High-converting, bespoke homepage mock layout.",
+        "Fully-coded backend integrations & custom fields setup.",
+        "100% responsive smartphone & tablet screen layout check.",
+      ],
     },
     {
       step: "03",
@@ -33,25 +36,39 @@ export default function HowItWorks() {
       subtitle: "Day 6-7 • Testing & Launch",
       description: "After your review, we launch the site and ensure it's optimized for search engines.",
       icon: Rocket,
-      deliverables: ["Cross-browser & device testing on mobile, tablet & desktop.", "Final client review walkthrough & revision sign-off.", "Handover with admin access, credentials & maintenance guide."],
+      deliverables: [
+        "Cross-browser & device testing on mobile, tablet & desktop.",
+        "Final client review walkthrough & revision sign-off.",
+        "Handover with admin access, credentials & maintenance guide.",
+      ],
     },
   ];
 
   return (
-    <section className="py-24 bg-brand-navy text-bg-cream relative overflow-hidden border-t border-brand-navy">
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent"></div>
-      
-      <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
-        {/* Title Block */}
-        <div className="text-center mb-16 max-w-2xl mx-auto">
-          <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">Simple. Fast. Effective.</h2>
-          <p className="font-sans text-lg text-bg-cream/70">
+    <section
+      className="relative overflow-hidden text-white"
+      style={{
+        padding: "100px 5%",
+        background: "linear-gradient(160deg, #1E1B4B 0%, #312E81 50%, #1E1B4B 100%)",
+      }}
+    >
+      <div className="max-w-[1200px] mx-auto">
+        {/* Title */}
+        <div className="text-center mb-14 max-w-2xl mx-auto">
+          <span className="section-label-dark">HOW IT WORKS</span>
+          <h2
+            className="font-display font-black mb-4"
+            style={{ fontSize: "clamp(26px, 3.2vw, 42px)", letterSpacing: "-1.2px" }}
+          >
+            Simple. Fast. Effective.
+          </h2>
+          <p className="font-sans" style={{ fontSize: 16, color: "rgba(255,255,255,0.7)", lineHeight: 1.7 }}>
             Our streamlined process ensures you get a professional website live in under 7 days without the typical agency headaches.
           </p>
         </div>
 
         {/* ── MOBILE: vertical accordion ── */}
-        <div className="md:hidden max-w-xl mx-auto mb-0 flex flex-col gap-3">
+        <div className="md:hidden max-w-xl mx-auto flex flex-col gap-3">
           {steps.map((item, index) => {
             const Icon = item.icon;
             const isActive = activeTab === index;
@@ -59,36 +76,74 @@ export default function HowItWorks() {
               <div key={index}>
                 <div
                   onClick={() => setActiveTab(isActive ? -1 : index)}
-                  className={`flex items-center gap-4 p-4 rounded-xl border cursor-pointer transition-all duration-200 ${
-                    isActive
-                      ? "bg-primary/10 border-primary/40"
-                      : "bg-white/5 border-white/10 active:scale-[0.98]"
-                  }`}
+                  className="flex items-center gap-4 p-4 cursor-pointer transition-all duration-200"
+                  style={{
+                    background: isActive ? "rgba(56,189,248,0.1)" : "rgba(255,255,255,0.04)",
+                    border: `1px solid ${isActive ? "rgba(56,189,248,0.3)" : "rgba(255,255,255,0.08)"}`,
+                    borderRadius: 14,
+                  }}
                 >
-                  <div className={`w-12 h-12 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 ${
-                    isActive
-                      ? "bg-primary text-white shadow-[0_0_20px_rgba(232,96,44,0.4)]"
-                      : "bg-brand-navy border-2 border-primary/30 text-primary"
-                  }`}>
-                    <Icon className="h-5 w-5" />
+                  <div
+                    className="flex items-center justify-center shrink-0"
+                    style={{ width: 48, height: 48, borderRadius: 14, background: "rgba(56,189,248,0.15)" }}
+                  >
+                    <Icon className="h-5 w-5" style={{ color: "#38BDF8" }} />
                   </div>
                   <div className="flex-1 text-left">
-                    <p className="font-sans text-xs font-bold text-primary uppercase tracking-wider">{item.step}. {item.subtitle}</p>
-                    <h3 className="font-display text-base font-bold text-white">{item.title}</h3>
+                    <p
+                      className="font-sans font-bold uppercase"
+                      style={{ fontSize: 10, color: "#38BDF8", letterSpacing: "2px" }}
+                    >
+                      {item.step}. {item.subtitle}
+                    </p>
+                    <h3 className="font-display font-extrabold text-white" style={{ fontSize: 16 }}>
+                      {item.title}
+                    </h3>
                   </div>
-                  <ArrowRight className={`h-4 w-4 text-primary shrink-0 transition-transform duration-200 ${isActive ? "rotate-90" : ""}`} />
+                  <ChevronDown
+                    className="h-4 w-4 shrink-0 transition-transform duration-200"
+                    style={{ color: "#38BDF8", transform: isActive ? "rotate(180deg)" : "none" }}
+                  />
                 </div>
 
                 {isActive && (
-                  <div className="mt-2 bg-white/5 border border-white/10 rounded-xl p-4">
-                    <p className="font-sans text-xs text-bg-cream/70 mb-3 font-semibold">
+                  <div
+                    className="mt-2 p-4"
+                    style={{
+                      background: "rgba(255,255,255,0.04)",
+                      border: "1px solid rgba(255,255,255,0.08)",
+                      borderRadius: 14,
+                    }}
+                  >
+                    <p
+                      className="font-sans font-semibold mb-3"
+                      style={{ fontSize: 12, color: "rgba(255,255,255,0.6)" }}
+                    >
                       Phase deliverables:
                     </p>
                     <div className="flex flex-col gap-3">
                       {item.deliverables.map((del, dIdx) => (
-                        <div key={dIdx} className="bg-brand-navy border border-white/5 p-3 rounded-lg flex items-start gap-3">
-                          <span className="w-5 h-5 rounded-full bg-primary/25 text-primary text-xs font-bold inline-flex items-center justify-center shrink-0 mt-0.5">✓</span>
-                          <p className="font-sans text-xs text-bg-cream/90 leading-relaxed font-bold">{del}</p>
+                        <div
+                          key={dIdx}
+                          className="flex items-start gap-3 p-3"
+                          style={{
+                            background: "rgba(255,255,255,0.04)",
+                            border: "1px solid rgba(255,255,255,0.06)",
+                            borderRadius: 10,
+                          }}
+                        >
+                          <span
+                            className="w-5 h-5 text-xs font-bold inline-flex items-center justify-center shrink-0 mt-0.5"
+                            style={{ borderRadius: "50%", background: "rgba(56,189,248,0.2)", color: "#38BDF8" }}
+                          >
+                            ✓
+                          </span>
+                          <p
+                            className="font-sans font-bold text-xs leading-relaxed"
+                            style={{ color: "rgba(255,255,255,0.9)" }}
+                          >
+                            {del}
+                          </p>
                         </div>
                       ))}
                     </div>
@@ -101,63 +156,136 @@ export default function HowItWorks() {
 
         {/* ── DESKTOP: 3-column grid + deliverables card ── */}
         <div className="hidden md:block">
-          <div className="relative max-w-4xl mx-auto mb-16">
-            <div className="absolute top-[36px] left-16 right-16 h-0.5 bg-bg-cream/15">
-              <div
-                className="absolute top-0 left-0 h-full bg-primary transition-all duration-300"
-                style={{ width: `${(desktopTab / (steps.length - 1)) * 100}%` }}
-              ></div>
-            </div>
-
-            <div className="grid grid-cols-3 gap-12 text-center">
-              {steps.map((item, index) => {
-                const Icon = item.icon;
-                const isActive = activeTab === index;
-                return (
+          {/* Steps grid */}
+          <div
+            className="grid grid-cols-3 mb-9"
+            style={{
+              gap: 2,
+              background: "rgba(255,255,255,0.05)",
+              borderRadius: "var(--radius-lg)",
+              overflow: "hidden",
+            }}
+          >
+            {steps.map((item, index) => {
+              const Icon = item.icon;
+              const isActive = desktopTab === index;
+              return (
+                <div
+                  key={index}
+                  onClick={() => setActiveTab(index)}
+                  className="cursor-pointer transition-all duration-[250ms]"
+                  style={{
+                    padding: "40px 32px",
+                    background: isActive ? "rgba(255,255,255,0.08)" : "rgba(255,255,255,0.04)",
+                  }}
+                >
                   <div
-                    key={index}
-                    onClick={() => setActiveTab(index)}
-                    className="relative group cursor-pointer z-10 flex flex-col items-center"
+                    className="font-sans font-bold uppercase mb-4"
+                    style={{ fontSize: 11, color: "#38BDF8", letterSpacing: "2px" }}
                   >
-                    <div className={`w-18 h-18 rounded-full flex items-center justify-center mb-6 transition-all duration-300 ${
-                      desktopTab === index
-                        ? "bg-primary text-white scale-110 shadow-[0_0_30px_rgba(232,96,44,0.4)]"
-                        : "bg-brand-navy border-2 border-primary/20 text-primary hover:border-primary/50"
-                    }`}>
-                      <Icon className="h-7 w-7" />
-                    </div>
-                    <h3 className="font-display text-xl font-bold mb-2 flex items-center gap-2">
-                      <span className="text-primary text-sm font-sans block">{item.step}.</span>
-                      {item.title}
-                    </h3>
-                    <p className="font-sans text-xs font-semibold text-primary mb-3 uppercase tracking-wider">{item.subtitle}</p>
-                    <p className="font-sans text-sm text-bg-cream/75 max-w-xs">{item.description}</p>
+                    {item.step}
                   </div>
-                );
-              })}
-            </div>
+                  <div
+                    className="flex items-center justify-center mb-4"
+                    style={{ width: 52, height: 52, borderRadius: 14, background: "rgba(56,189,248,0.15)" }}
+                  >
+                    <Icon className="h-6 w-6" style={{ color: "#38BDF8" }} />
+                  </div>
+                  <div
+                    className="inline-block mb-3"
+                    style={{
+                      background: "rgba(56,189,248,0.12)",
+                      color: "#38BDF8",
+                      padding: "4px 14px",
+                      borderRadius: 50,
+                      fontSize: 11,
+                      fontWeight: 700,
+                    }}
+                  >
+                    {item.subtitle}
+                  </div>
+                  <h3
+                    className="font-display font-extrabold mb-2"
+                    style={{ fontSize: 20, letterSpacing: "-0.5px" }}
+                  >
+                    {item.title}
+                  </h3>
+                  <p className="font-sans" style={{ fontSize: 14, color: "rgba(255,255,255,0.7)", lineHeight: 1.6 }}>
+                    {item.description}
+                  </p>
+                </div>
+              );
+            })}
           </div>
 
-          <div className="max-w-3xl mx-auto bg-white/5 border border-white/15 p-8 rounded-2xl hover:border-primary/20 transition-all">
-            <div className="flex flex-row justify-between items-center gap-4 mb-6 border-b border-white/10 pb-4">
+          {/* Deliverables box */}
+          <div
+            style={{
+              background: "rgba(255,255,255,0.05)",
+              border: "1px solid rgba(255,255,255,0.08)",
+              borderRadius: "var(--radius-lg)",
+              padding: 36,
+            }}
+          >
+            <div
+              className="flex flex-row justify-between items-center gap-4 mb-6 pb-4"
+              style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}
+            >
               <div>
-                <span className="font-sans text-xs font-bold text-primary tracking-wider uppercase">Active Phase Deliverable</span>
-                <h4 className="font-display text-xl font-bold text-white flex items-center gap-2">
-                  <span>Phase {steps[desktopTab].step}</span> • {steps[desktopTab].title}
+                <span
+                  className="font-sans font-bold uppercase"
+                  style={{ fontSize: 11, color: "#38BDF8", letterSpacing: "1.5px" }}
+                >
+                  Active Phase Deliverable
+                </span>
+                <h4 className="font-display font-extrabold text-white" style={{ fontSize: 20 }}>
+                  Phase {steps[desktopTab].step} • {steps[desktopTab].title}
                 </h4>
               </div>
-              <span className="font-sans text-xs bg-primary/20 text-primary border border-primary/35 px-3 py-1 rounded-full font-bold">
+              <span
+                style={{
+                  background: "rgba(56,189,248,0.12)",
+                  color: "#38BDF8",
+                  border: "1px solid rgba(56,189,248,0.2)",
+                  padding: "4px 14px",
+                  borderRadius: 50,
+                  fontSize: 11,
+                  fontWeight: 700,
+                  whiteSpace: "nowrap",
+                }}
+              >
                 {steps[desktopTab].subtitle}
               </span>
             </div>
-            <p className="font-sans text-sm text-bg-cream/80 mb-6 font-semibold">
+            <p
+              className="font-sans font-semibold mb-6"
+              style={{ fontSize: 13, color: "rgba(255,255,255,0.7)" }}
+            >
               By completing this phase, you receive the following final outcomes:
             </p>
             <div className="grid grid-cols-3 gap-4">
               {steps[desktopTab].deliverables.map((del, dIdx) => (
-                <div key={dIdx} className="bg-brand-navy border border-white/5 p-4 rounded-xl flex flex-col gap-3">
-                  <span className="w-6 h-6 rounded-full bg-primary/25 text-primary text-xs font-bold inline-flex items-center justify-center shrink-0">✓</span>
-                  <p className="font-sans text-xs text-bg-cream/90 leading-relaxed font-bold">{del}</p>
+                <div
+                  key={dIdx}
+                  className="flex flex-col gap-3 p-4"
+                  style={{
+                    background: "rgba(255,255,255,0.04)",
+                    border: "1px solid rgba(255,255,255,0.06)",
+                    borderRadius: 14,
+                  }}
+                >
+                  <span
+                    className="w-6 h-6 text-xs font-bold inline-flex items-center justify-center shrink-0"
+                    style={{ borderRadius: "50%", background: "rgba(56,189,248,0.2)", color: "#38BDF8" }}
+                  >
+                    ✓
+                  </span>
+                  <p
+                    className="font-sans font-bold leading-relaxed"
+                    style={{ fontSize: 13, color: "rgba(255,255,255,0.9)" }}
+                  >
+                    {del}
+                  </p>
                 </div>
               ))}
             </div>

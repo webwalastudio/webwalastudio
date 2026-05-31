@@ -1,8 +1,3 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { motion } from "motion/react";
 import { CalendarCheck } from "lucide-react";
 
@@ -12,76 +7,206 @@ interface HeroProps {
 
 export default function Hero({ onOpenContact }: HeroProps) {
   return (
-    <section id="home" className="relative bg-brand-navy pt-28 pb-32 lg:pt-40 lg:pb-40 overflow-hidden">
-      {/* Grid */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-10 pointer-events-none" />
-      <div className="absolute inset-0 bg-gradient-to-b from-brand-navy/60 to-brand-navy pointer-events-none" />
+    <section
+      id="home"
+      className="relative overflow-hidden"
+      style={{
+        background: "linear-gradient(160deg, #EFF6FF 0%, #F5F3FF 50%, #EDE9FE 100%)",
+        padding: "148px 5% 100px",
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+      }}
+    >
+      {/* Decorative blobs */}
+      <div
+        className="orb-float absolute pointer-events-none"
+        style={{
+          top: "5%", right: "5%",
+          width: 560, height: 560, borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(56,189,248,0.18) 0%, transparent 70%)",
+        }}
+      />
+      <div
+        className="orb-float-2 absolute pointer-events-none"
+        style={{
+          bottom: 0, left: 0,
+          width: 400, height: 400, borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(167,139,250,0.15) 0%, transparent 70%)",
+        }}
+      />
 
-      {/* Floating gradient orbs */}
-      <div className="orb-float absolute -top-24 -left-24 w-[420px] h-[420px] rounded-full bg-primary/20 blur-[110px] pointer-events-none" />
-      <div className="orb-float-2 absolute -bottom-16 right-[8%] w-[360px] h-[360px] rounded-full bg-blue-400/10 blur-[100px] pointer-events-none" />
-      <div className="orb-float-3 absolute top-[35%] -right-12 w-[280px] h-[280px] rounded-full bg-primary/12 blur-[80px] pointer-events-none" />
+      <div className="w-full max-w-[1200px] mx-auto relative z-10">
+        <div className="grid lg:grid-cols-2 gap-20 items-center">
 
-      <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
-          {/* Pitch Panel */}
-          <motion.div
-            className="max-w-2xl text-left"
-            initial={{ opacity: 0, y: 32 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: [0.21, 0.47, 0.32, 0.98] }}
-          >
-            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-bg-cream leading-tight tracking-tight mb-6">
-              Your Business Deserves a Website That Works
-            </h1>
-            <p className="font-sans text-lg md:text-xl text-bg-cream/80 leading-relaxed mb-10 max-w-xl">
+          {/* Left — copy */}
+          <div>
+            {/* H1 */}
+            <motion.h1
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, delay: 0.12 }}
+              className="font-display font-black leading-tight mb-6"
+              style={{
+                fontSize: "clamp(38px, 4.8vw, 62px)",
+                letterSpacing: "-2px",
+                color: "#1E1B4B",
+              }}
+            >
+              Your Business Deserves a Website{" "}
+              <span className="grad">That Works</span>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="mb-10 max-w-xl"
+              style={{ fontSize: 16, color: "#4B5563", lineHeight: 1.7 }}
+            >
               We build professional, mobile-ready websites that drive results. No hassle, no hidden fees, delivered in under 7 days.
-            </p>
+            </motion.p>
 
+            {/* CTA */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.25, ease: [0.21, 0.47, 0.32, 0.98] }}
+              transition={{ duration: 0.6, delay: 0.28 }}
             >
-              <button
+              <motion.button
                 onClick={onOpenContact}
-                className="btn-shine inline-flex items-center justify-center gap-2 bg-primary text-white font-sans font-bold text-base px-8 py-4 rounded-lg hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 cursor-pointer shadow-lg"
+                className="btn-shine inline-flex items-center gap-2"
+                style={{
+                  background: "linear-gradient(135deg, #0EA5E9, #7C3AED)",
+                  color: "white",
+                  padding: "13px 28px",
+                  borderRadius: 50,
+                  fontSize: 14,
+                  fontWeight: 700,
+                  boxShadow: "0 4px 20px rgba(124,58,237,0.25)",
+                  border: "none",
+                  cursor: "pointer",
+                  fontFamily: "inherit",
+                }}
+                whileHover={{ y: -2, boxShadow: "0 8px 30px rgba(124,58,237,0.35)" }}
+                whileTap={{ scale: 0.97 }}
               >
-                <CalendarCheck className="h-5 w-5" />
+                <CalendarCheck className="h-4 w-4" />
                 Book a Free Consultation
-              </button>
+              </motion.button>
             </motion.div>
-          </motion.div>
 
-          {/* Laptop Showcase */}
+          </div>
+
+          {/* Right — mockup */}
           <motion.div
-            className="relative group lg:justify-self-end w-full max-w-lg lg:max-w-none"
+            className="relative hidden lg:block"
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.15, ease: [0.21, 0.47, 0.32, 0.98] }}
+            transition={{ duration: 0.8, delay: 0.18, ease: [0.21, 0.47, 0.32, 0.98] }}
           >
-            <div className="absolute -inset-4 bg-primary/25 blur-3xl rounded-full opacity-60 group-hover:opacity-100 transition-opacity duration-1000" />
-            <div className="relative bg-white/5 p-2 rounded-2xl shadow-2xl border border-white/20 transform group-hover:-translate-y-2 transition-transform duration-500">
-              <div className="w-full aspect-video bg-bg-cream rounded-xl overflow-hidden relative border border-brand-navy/10 shadow-inner">
-                <img
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDInVoLwcA-aYmgAOBFkCvwK97KJAxDw3DZnkS5oondIhAkzzofvI4aYIuR0FIvGZNvKQ40A3TVhvfbANFuPUEiHn0au2cVRYhWTeyOgRFM6YeBU35Ge8u63F9FQTyzCZpYSreesTrcJfMTu1E1oBTVHTFnaojwNYKtldfyoxV5Ii5_NtGyoASu7VQg_gXbH8EEuTzqcWfXin6CuhRNcYwVwfgUIhwtRZ_9znunAde3d599lRliw_S-DgbXoB58x6adLSX20QghgvE"
-                  alt="Webwala Studio Professional Web Design Preview on Laptop"
-                  className="w-full h-full object-cover select-none"
-                  fetchPriority="high"
-                  loading="eager"
-                  referrerPolicy="no-referrer"
-                />
+            {/* Browser mockup */}
+            <div
+              className="relative rounded-2xl overflow-hidden"
+              style={{
+                background: "linear-gradient(160deg, #EEF2FF 0%, #F0F4FF 60%, #EDE9FE 100%)",
+                boxShadow: "0 30px 80px rgba(99,102,241,0.18)",
+                border: "1px solid rgba(224,231,255,0.9)",
+              }}
+            >
+              {/* Browser chrome — dots only */}
+              <div
+                className="flex items-center gap-2 px-4 py-3"
+                style={{ background: "rgba(255,255,255,0.7)", borderBottom: "1px solid rgba(224,231,255,0.6)" }}
+              >
+                <div style={{ width: 11, height: 11, borderRadius: "50%", background: "#FF5F57" }} />
+                <div style={{ width: 11, height: 11, borderRadius: "50%", background: "#FFBD2E" }} />
+                <div style={{ width: 11, height: 11, borderRadius: "50%", background: "#28C840" }} />
+              </div>
+
+              {/* Page content */}
+              <div style={{ padding: "20px 20px 24px" }}>
+
+                {/* Hero skeleton card */}
+                <div
+                  style={{
+                    background: "rgba(255,255,255,0.75)",
+                    borderRadius: 14,
+                    padding: "28px 28px 32px",
+                    marginBottom: 16,
+                  }}
+                >
+                  {/* Text skeleton lines */}
+                  <div style={{ height: 11, borderRadius: 30, background: "rgba(139,116,246,0.22)", width: "72%", marginBottom: 11 }} />
+                  <div style={{ height: 11, borderRadius: 30, background: "rgba(139,116,246,0.15)", width: "52%", marginBottom: 24 }} />
+                  {/* Gradient CTA pill */}
+                  <div
+                    style={{
+                      height: 40, width: 200, borderRadius: 50,
+                      background: "linear-gradient(135deg, #0EA5E9, #7C3AED)",
+                    }}
+                  />
+                </div>
+
+                {/* 3 service cards */}
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 14 }}>
+                  {[0, 1, 2].map((i) => (
+                    <div
+                      key={i}
+                      style={{
+                        background: "rgba(238,242,255,0.7)",
+                        borderRadius: 12,
+                        padding: "18px 16px 20px",
+                      }}
+                    >
+                      {/* Icon block */}
+                      <div
+                        style={{
+                          width: 34, height: 34, borderRadius: 9,
+                          background: "rgba(99,102,241,0.18)",
+                          marginBottom: 16,
+                        }}
+                      />
+                      {/* Skeleton lines */}
+                      <div style={{ height: 8, borderRadius: 20, background: "rgba(139,116,246,0.25)", width: "80%", marginBottom: 8 }} />
+                      <div style={{ height: 8, borderRadius: 20, background: "rgba(139,116,246,0.18)", width: "60%", marginBottom: 8 }} />
+                      <div style={{ height: 8, borderRadius: 20, background: "rgba(139,116,246,0.12)", width: "70%" }} />
+                    </div>
+                  ))}
+                </div>
+
+              </div>
+            </div>
+
+            {/* Floating "Site is Live!" notification card */}
+            <div
+              className="absolute flex items-center gap-4"
+              style={{
+                bottom: -24, right: -20,
+                background: "white",
+                borderRadius: 18,
+                padding: "16px 22px",
+                boxShadow: "0 20px 60px rgba(99,102,241,0.22)",
+              }}
+            >
+              <div
+                style={{
+                  width: 54, height: 54, borderRadius: 14,
+                  background: "linear-gradient(135deg, #D1FAE5, #A7F3D0)",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  fontSize: 26, flexShrink: 0,
+                }}
+              >
+                🚀
+              </div>
+              <div>
+                <div style={{ fontSize: 15, fontWeight: 800, color: "#1E1B4B", marginBottom: 2 }}>Site is Live!</div>
+                <div style={{ fontSize: 13, color: "#9CA3AF", fontWeight: 400 }}>Delivered in 6 days</div>
               </div>
             </div>
           </motion.div>
-        </div>
-      </div>
 
-      {/* Wave divider → Services (white) */}
-      <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none pointer-events-none">
-        <svg viewBox="0 0 1440 64" preserveAspectRatio="none" className="w-full h-[48px] md:h-[64px]">
-          <path d="M0,0 C480,64 960,64 1440,0 L1440,64 L0,64 Z" fill="white" />
-        </svg>
+        </div>
       </div>
     </section>
   );
