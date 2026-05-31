@@ -12,7 +12,7 @@ export default function Hero({ onOpenContact }: HeroProps) {
       className="relative overflow-hidden"
       style={{
         background: "linear-gradient(160deg, #EFF6FF 0%, #F5F3FF 50%, #EDE9FE 100%)",
-        padding: "148px 5% 100px",
+        padding: "120px 5% 80px",
         minHeight: "100vh",
         display: "flex",
         alignItems: "center",
@@ -100,7 +100,7 @@ export default function Hero({ onOpenContact }: HeroProps) {
 
           {/* Right — mockup */}
           <motion.div
-            className="relative hidden lg:block"
+            className="relative pb-8"
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.18, ease: [0.21, 0.47, 0.32, 0.98] }}
