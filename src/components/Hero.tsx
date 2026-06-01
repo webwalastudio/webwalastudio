@@ -54,7 +54,7 @@ export default function Hero({ onOpenContact }: HeroProps) {
               }}
             >
               Your Business Deserves a Website{" "}
-              <span className="grad">That Works</span>
+              <span className="grad">that Works</span>
             </motion.h1>
 
             <motion.p
