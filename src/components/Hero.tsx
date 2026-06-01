@@ -37,7 +37,7 @@ export default function Hero({ onOpenContact }: HeroProps) {
       />
 
       <div className="w-full max-w-[1200px] mx-auto relative z-10">
-        <div className="grid lg:grid-cols-2 gap-20 items-center">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">
 
           {/* Left — copy */}
           <div>

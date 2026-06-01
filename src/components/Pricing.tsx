@@ -86,7 +86,7 @@ export default function Pricing({ onOpenContact }: PricingProps) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.5, delay: index * 0.1, ease: [0.21, 0.47, 0.32, 0.98] }}
-              className={`relative flex flex-col ${plan.featured ? "glow-ring" : ""}`}
+              className={`relative flex flex-col ${plan.featured ? "glow-ring md:scale-[1.04]" : ""}`}
               style={{
                 background: plan.featured
                   ? "linear-gradient(160deg, #1E1B4B 0%, #312E81 100%)"
@@ -94,7 +94,7 @@ export default function Pricing({ onOpenContact }: PricingProps) {
                 borderRadius: "var(--radius-lg)",
                 padding: 36,
                 border: plan.featured ? "none" : "1.5px solid var(--border)",
-                transform: plan.featured ? "scale(1.04)" : "none",
+                transform: undefined,
                 transition: "all 0.25s",
               }}
               whileHover={!plan.featured
