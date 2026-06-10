@@ -10,6 +10,7 @@
   --color-surface:      #EEF2FF;
   --color-ink-deep:     #1E1B4B;
   --color-text-mid:     #4B5563;
+  --color-border:       #E0E7FF;
   --color-text-light:   #9CA3AF;
 
   --font-display: "Plus Jakarta Sans", sans-serif;
@@ -17,13 +18,13 @@
 }
 
 :root {
-  --blue:       #38BDF8;
-  --blue-mid:   #0EA5E9;
-  --violet:     #A78BFA;
-  --violet-mid: #7C3AED;
-  --surface:    #EEF2FF;
-  --border:     #E0E7FF;
-  --text-dark:  #1E1B4B;
+  --blue:       var(--color-blue);
+  --blue-mid:   var(--color-blue-mid);
+  --violet:     var(--color-primary-soft);
+  --violet-mid: var(--color-primary);
+  --surface:    var(--color-surface);
+  --border:     var(--color-border);
+  --text-dark:  var(--color-brand-navy);
   --radius:     16px;
   --radius-lg:  24px;
 }
@@ -138,3 +139,10 @@
 }
 .orb-float   { animation: orb-float 14s ease-in-out infinite; will-change: transform; }
 .orb-float-2 { animation: orb-float 18s ease-in-out infinite reverse; will-change: transform; }
+
+@media (prefers-reduced-motion: reduce) {
+  .orb-float, .orb-float-2 { animation: none; }
+  .btn-shine::after { animation: none; }
+  .glow-ring { animation: none; }
+  .fade-up, .fade-up-1, .fade-up-2, .fade-up-3, .fade-up-4 { animation: none; opacity: 1; transform: none; }
+}

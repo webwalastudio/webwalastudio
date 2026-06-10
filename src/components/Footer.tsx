@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { useState } from "react";
 import { Zap, MapPin, Phone, Mail, Link as LinkIcon, Share2 } from "lucide-react";
 
 interface FooterProps {
@@ -11,6 +12,25 @@ interface FooterProps {
 
 export default function Footer({ onOpenContact }: FooterProps) {
   const currentYear = new Date().getFullYear();
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch { /* ignore */ }
+  };
+
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: "Webwala Studio", url: window.location.href });
+      } catch { /* user cancelled */ }
+    } else {
+      handleCopyLink();
+    }
+  };
 
   return (
     <footer className="bg-brand-navy pt-16 pb-8 border-t border-bg-cream/10 text-white text-left">
@@ -27,16 +47,16 @@ export default function Footer({ onOpenContact }: FooterProps) {
             </p>
             <div className="flex gap-3">
               <button
-                aria-label="Link Icon Button"
-                onClick={() => alert("Copied Studio Portfolio link to clipboard!")}
+                aria-label={copied ? "Link copied!" : "Copy page link"}
+                onClick={handleCopyLink}
                 className="flex items-center justify-center transition-colors cursor-pointer border-none hover:bg-white/[0.14]"
-                style={{ width: 36, height: 36, borderRadius: 9, background: "rgba(255,255,255,0.07)", color: "rgba(255,255,255,0.6)" }}
+                style={{ width: 36, height: 36, borderRadius: 9, background: "rgba(255,255,255,0.07)", color: copied ? "#38BDF8" : "rgba(255,255,255,0.6)" }}
               >
                 <LinkIcon className="h-4 w-4" />
               </button>
               <button
-                aria-label="Share Icon Button"
-                onClick={() => alert("Shared Webwala Studio Profile!")}
+                aria-label="Share this page"
+                onClick={handleShare}
                 className="flex items-center justify-center transition-colors cursor-pointer border-none hover:bg-white/[0.14]"
                 style={{ width: 36, height: 36, borderRadius: 9, background: "rgba(255,255,255,0.07)", color: "rgba(255,255,255,0.6)" }}
               >
@@ -100,10 +120,10 @@ export default function Footer({ onOpenContact }: FooterProps) {
             © {currentYear} Webwala Studio. All rights reserved.
           </p>
           <div className="flex gap-6 font-sans text-xs text-bg-cream/50">
-            <button onClick={() => alert("Privacy Policy Details: We protect all business data submitted.")} className="hover:text-bg-cream transition-colors bg-transparent border-none cursor-pointer">
+            <button className="hover:text-bg-cream transition-colors bg-transparent border-none cursor-pointer">
               Privacy Policy
             </button>
-            <button onClick={() => alert("Terms of Service: Websites delivered in under 7 days of raw design input.")} className="hover:text-bg-cream transition-colors bg-transparent border-none cursor-pointer">
+            <button className="hover:text-bg-cream transition-colors bg-transparent border-none cursor-pointer">
               Terms of Service
             </button>
           </div>
