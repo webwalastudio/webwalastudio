@@ -10,11 +10,12 @@ import Hero from "./components/Hero";
 import ScrollProgress from "./components/ScrollProgress";
 import { CalendarCheck } from "lucide-react";
 
-const Services     = lazy(() => import("./components/Services"));
-const HowItWorks   = lazy(() => import("./components/HowItWorks"));
-const Pricing      = lazy(() => import("./components/Pricing"));
-const Footer       = lazy(() => import("./components/Footer"));
-const ContactModal = lazy(() => import("./components/ContactModal"));
+const Services      = lazy(() => import("./components/Services"));
+const HowItWorks    = lazy(() => import("./components/HowItWorks"));
+const Pricing       = lazy(() => import("./components/Pricing"));
+const Testimonials  = lazy(() => import("./components/Testimonials"));
+const Footer        = lazy(() => import("./components/Footer"));
+const ContactModal  = lazy(() => import("./components/ContactModal"));
 
 const WA_NUMBER = "919818726094";
 const WA_PREFILL = encodeURIComponent("Hi Webwala Studio! 👋 I visited your website and I'm interested in getting a website built for my business. Can you help me?");
@@ -56,6 +57,9 @@ export default function App() {
 
           {/* PRICING PLANS CHART */}
           <Pricing onOpenContact={handleOpenContact} />
+
+          {/* CLIENT TESTIMONIALS */}
+          <Testimonials />
 
           {/* FINAL CTA BANNER */}
           <section

@@ -10,18 +10,24 @@ const words = ["that Works", "that Sells", "that Grows", "that Converts"];
 const devices = ["desktop", "tablet", "mobile"] as const;
 type Device = typeof devices[number];
 
+/* ── Shared chip label ── */
+function Chip({ text, color, bg }: { text: string; color: string; bg: string }) {
+  return (
+    <div style={{ display: "inline-flex", alignItems: "center", background: bg, borderRadius: 30, padding: "2px 8px", marginBottom: 8 }}>
+      <span style={{ fontSize: 7, fontWeight: 800, color, letterSpacing: "0.8px", textTransform: "uppercase", fontFamily: "inherit" }}>{text}</span>
+    </div>
+  );
+}
+
 /* ── Device mockups ── */
 function DesktopMockup() {
   return (
     <div
       className="rounded-2xl overflow-hidden"
-      style={{
-        background: "linear-gradient(160deg, #EEF2FF 0%, #F0F4FF 60%, #EDE9FE 100%)",
-        boxShadow: "0 40px 100px rgba(99,102,241,0.22), 0 8px 32px rgba(99,102,241,0.1), 0 0 0 1px rgba(224,231,255,0.9)",
-      }}
+      style={{ boxShadow: "0 40px 100px rgba(99,102,241,0.22), 0 8px 32px rgba(99,102,241,0.1), 0 0 0 1px rgba(224,231,255,0.9)" }}
     >
-      {/* Chrome */}
-      <div className="flex items-center gap-2 px-4 py-3" style={{ background: "rgba(255,255,255,0.72)", borderBottom: "1px solid rgba(224,231,255,0.7)" }}>
+      {/* Browser chrome */}
+      <div className="flex items-center gap-2 px-4 py-3" style={{ background: "rgba(255,255,255,0.92)", borderBottom: "1px solid rgba(224,231,255,0.7)" }}>
         <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#FF5F57", flexShrink: 0 }} />
         <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#FFBD2E", flexShrink: 0 }} />
         <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#28C840", flexShrink: 0 }} />
@@ -30,26 +36,90 @@ function DesktopMockup() {
           <div style={{ height: 6, borderRadius: 10, background: "rgba(99,102,241,0.18)", width: "55%" }} />
         </div>
       </div>
-      {/* Content */}
-      <div style={{ padding: "18px 18px 22px" }}>
-        <div style={{ background: "rgba(255,255,255,0.8)", borderRadius: 12, padding: "22px 22px 26px", marginBottom: 12 }}>
-          <div style={{ height: 9, borderRadius: 30, background: "rgba(124,58,237,0.2)", width: "70%", marginBottom: 9 }} />
-          <div style={{ height: 9, borderRadius: 30, background: "rgba(124,58,237,0.12)", width: "48%", marginBottom: 20 }} />
-          <div style={{ height: 34, width: 160, borderRadius: 50, background: "linear-gradient(135deg, #0EA5E9, #7C3AED)" }} />
-        </div>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10 }}>
-          {[
-            { accent: "rgba(56,189,248,0.25)", w: "75%" },
-            { accent: "rgba(167,139,250,0.25)", w: "60%" },
-            { accent: "rgba(14,165,233,0.25)", w: "80%" },
-          ].map((item, i) => (
-            <div key={i} style={{ background: "rgba(238,242,255,0.8)", borderRadius: 10, padding: "14px 12px 16px" }}>
-              <div style={{ width: 28, height: 28, borderRadius: 8, background: item.accent, marginBottom: 11 }} />
-              <div style={{ height: 6, borderRadius: 20, background: "rgba(124,58,237,0.22)", width: item.w, marginBottom: 6 }} />
-              <div style={{ height: 6, borderRadius: 20, background: "rgba(124,58,237,0.14)", width: "55%", marginBottom: 6 }} />
-              <div style={{ height: 6, borderRadius: 20, background: "rgba(124,58,237,0.1)", width: "68%" }} />
+
+      {/* Scrollable viewport */}
+      <div style={{ height: 248, overflow: "hidden", background: "linear-gradient(160deg, #EEF2FF 0%, #F0F4FF 60%, #EDE9FE 100%)" }}>
+        <div className="scroll-page" style={{ padding: "14px 14px 0" }}>
+
+          {/* USP 1 — Hero + Pricing */}
+          <div style={{ background: "rgba(255,255,255,0.88)", borderRadius: 12, padding: "16px 18px 18px", marginBottom: 10 }}>
+            <Chip text="Webwala Studio" color="#7C3AED" bg="rgba(124,58,237,0.1)" />
+            <div style={{ height: 9, borderRadius: 20, background: "rgba(30,27,75,0.18)", width: "72%", marginBottom: 6 }} />
+            <div style={{ height: 7, borderRadius: 20, background: "rgba(30,27,75,0.1)", width: "50%", marginBottom: 14 }} />
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <div style={{ height: 28, width: 130, borderRadius: 50, background: "linear-gradient(135deg, #0EA5E9, #7C3AED)" }} />
+              <div style={{ background: "rgba(16,185,129,0.12)", borderRadius: 30, padding: "4px 10px" }}>
+                <span style={{ fontSize: 8, fontWeight: 800, color: "#059669", fontFamily: "inherit" }}>From ₹12,000</span>
+              </div>
             </div>
-          ))}
+          </div>
+
+          {/* USP 2 — 7 Days Delivery */}
+          <div style={{ background: "rgba(255,255,255,0.82)", borderRadius: 12, padding: "14px 16px", marginBottom: 10 }}>
+            <Chip text="7 Days Delivery" color="#0EA5E9" bg="rgba(14,165,233,0.1)" />
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 6 }}>
+              {[
+                { label: "Day 1–2", title: "Discovery", color: "rgba(56,189,248,0.2)" },
+                { label: "Day 3–5", title: "Design & Build", color: "rgba(124,58,237,0.18)" },
+                { label: "Day 6–7", title: "Go Live 🚀", color: "rgba(16,185,129,0.18)" },
+              ].map((s, i) => (
+                <div key={i} style={{ background: s.color, borderRadius: 8, padding: "8px 9px" }}>
+                  <div style={{ fontSize: 7, fontWeight: 800, color: "#1E1B4B", opacity: 0.6, marginBottom: 3, fontFamily: "inherit" }}>{s.label}</div>
+                  <div style={{ fontSize: 8, fontWeight: 700, color: "#1E1B4B", fontFamily: "inherit" }}>{s.title}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* USP 3 — All Devices */}
+          <div style={{ background: "rgba(255,255,255,0.82)", borderRadius: 12, padding: "14px 16px", marginBottom: 10 }}>
+            <Chip text="Works on All Devices" color="#7C3AED" bg="rgba(124,58,237,0.1)" />
+            <div style={{ display: "flex", gap: 8, alignItems: "flex-end" }}>
+              {/* Desktop shape */}
+              <div style={{ flex: 1.4 }}>
+                <div style={{ background: "rgba(124,58,237,0.12)", borderRadius: 6, height: 42, marginBottom: 3, border: "1.5px solid rgba(124,58,237,0.2)" }} />
+                <div style={{ height: 5, background: "rgba(124,58,237,0.15)", borderRadius: 2, width: "40%", margin: "0 auto" }} />
+                <div style={{ fontSize: 7, textAlign: "center", color: "#7C3AED", fontWeight: 700, marginTop: 3, fontFamily: "inherit" }}>Desktop</div>
+              </div>
+              {/* Tablet shape */}
+              <div style={{ flex: 1 }}>
+                <div style={{ background: "rgba(14,165,233,0.12)", borderRadius: 5, height: 36, marginBottom: 3, border: "1.5px solid rgba(14,165,233,0.2)" }} />
+                <div style={{ fontSize: 7, textAlign: "center", color: "#0EA5E9", fontWeight: 700, marginTop: 3, fontFamily: "inherit" }}>Tablet</div>
+              </div>
+              {/* Mobile shape */}
+              <div style={{ flex: 0.6 }}>
+                <div style={{ background: "rgba(16,185,129,0.12)", borderRadius: 5, height: 28, marginBottom: 3, border: "1.5px solid rgba(16,185,129,0.2)" }} />
+                <div style={{ fontSize: 7, textAlign: "center", color: "#059669", fontWeight: 700, marginTop: 3, fontFamily: "inherit" }}>Mobile</div>
+              </div>
+            </div>
+          </div>
+
+          {/* USP 4 — Pricing cards */}
+          <div style={{ background: "rgba(255,255,255,0.82)", borderRadius: 12, padding: "14px 16px", marginBottom: 10 }}>
+            <Chip text="Transparent Pricing" color="#059669" bg="rgba(16,185,129,0.1)" />
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 6 }}>
+              {[
+                { price: "₹12K", label: "Starter", bg: "rgba(238,242,255,0.9)", accent: "#9CA3AF" },
+                { price: "₹28K", label: "Pro", bg: "linear-gradient(135deg,#1E1B4B,#312E81)", accent: "#A78BFA" },
+                { price: "₹55K", label: "Business", bg: "rgba(238,242,255,0.9)", accent: "#9CA3AF" },
+              ].map((p, i) => (
+                <div key={i} style={{ background: p.bg, borderRadius: 8, padding: "8px 9px", textAlign: "center" }}>
+                  <div style={{ fontSize: 11, fontWeight: 900, color: i === 1 ? "white" : "#1E1B4B", marginBottom: 2, fontFamily: "inherit" }}>{p.price}</div>
+                  <div style={{ fontSize: 7, color: p.accent, fontWeight: 700, fontFamily: "inherit" }}>{p.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* CTA strip */}
+          <div style={{ borderRadius: 10, padding: "13px 16px", background: "linear-gradient(135deg, #1E1B4B, #312E81)", display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
+            <div>
+              <div style={{ fontSize: 9, fontWeight: 800, color: "rgba(255,255,255,0.9)", marginBottom: 4, fontFamily: "inherit" }}>Ready to go live?</div>
+              <div style={{ fontSize: 7, color: "rgba(255,255,255,0.5)", fontFamily: "inherit" }}>Book a free consultation today</div>
+            </div>
+            <div style={{ height: 24, width: 72, borderRadius: 30, background: "linear-gradient(135deg, #0EA5E9, #7C3AED)", flexShrink: 0 }} />
+          </div>
+
         </div>
       </div>
     </div>
@@ -58,61 +128,113 @@ function DesktopMockup() {
 
 function TabletMockup() {
   return (
-    /* iPad-style portrait frame, centered */
     <div style={{ width: 270, margin: "0 auto" }}>
       <div
         style={{
           borderRadius: 28,
           border: "12px solid #C8D0E2",
-          background: "linear-gradient(160deg, #EEF2FF 0%, #F0F4FF 60%, #EDE9FE 100%)",
           overflow: "hidden",
           boxShadow: "0 32px 80px rgba(99,102,241,0.22), inset 0 0 0 1px rgba(255,255,255,0.6), 0 0 0 1px rgba(180,190,210,0.5)",
         }}
       >
-        {/* Top bezel — camera dot */}
-        <div style={{ height: 24, background: "rgba(255,255,255,0.6)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        {/* Top bezel — camera */}
+        <div style={{ height: 22, background: "rgba(255,255,255,0.92)", display: "flex", alignItems: "center", justifyContent: "center" }}>
           <div style={{ width: 7, height: 7, borderRadius: "50%", background: "#B8C2D6" }} />
         </div>
 
-        {/* Screen content */}
-        <div style={{ background: "linear-gradient(160deg, #EEF2FF 0%, #F0F4FF 60%, #EDE9FE 100%)", padding: "10px 10px 12px" }}>
-          {/* Mini browser chrome */}
-          <div
-            className="flex items-center gap-1.5 mb-2 px-2 py-1.5"
-            style={{ background: "rgba(255,255,255,0.75)", borderRadius: 8, border: "1px solid rgba(224,231,255,0.7)" }}
-          >
-            <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#FF5F57" }} />
-            <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#FFBD2E" }} />
-            <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#28C840" }} />
-            <div style={{ flex: 1, height: 10, borderRadius: 20, background: "rgba(224,231,255,0.8)", marginLeft: 6 }} />
-          </div>
+        {/* Scrollable screen */}
+        <div style={{ height: 300, overflow: "hidden", background: "linear-gradient(160deg, #EEF2FF 0%, #F0F4FF 60%, #EDE9FE 100%)" }}>
+          <div className="scroll-page" style={{ padding: "8px 8px 0" }}>
 
-          {/* Hero card */}
-          <div style={{ background: "rgba(255,255,255,0.82)", borderRadius: 10, padding: "14px", marginBottom: 8 }}>
-            <div style={{ height: 7, borderRadius: 20, background: "rgba(124,58,237,0.2)", width: "80%", marginBottom: 7 }} />
-            <div style={{ height: 7, borderRadius: 20, background: "rgba(124,58,237,0.12)", width: "58%", marginBottom: 14 }} />
-            <div style={{ height: 28, borderRadius: 30, background: "linear-gradient(135deg, #0EA5E9, #7C3AED)" }} />
-          </div>
+            {/* Mini browser bar */}
+            <div className="flex items-center gap-1 mb-2 px-2 py-1" style={{ background: "rgba(255,255,255,0.8)", borderRadius: 6 }}>
+              <div style={{ width: 5, height: 5, borderRadius: "50%", background: "#FF5F57" }} />
+              <div style={{ width: 5, height: 5, borderRadius: "50%", background: "#FFBD2E" }} />
+              <div style={{ width: 5, height: 5, borderRadius: "50%", background: "#28C840" }} />
+              <div style={{ flex: 1, height: 9, borderRadius: 20, background: "rgba(224,231,255,0.8)", marginLeft: 5 }} />
+            </div>
 
-          {/* 2-column service cards */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 7 }}>
-            {[
-              { accent: "rgba(56,189,248,0.25)", w: "78%" },
-              { accent: "rgba(167,139,250,0.25)", w: "62%" },
-              { accent: "rgba(14,165,233,0.25)", w: "85%" },
-              { accent: "rgba(124,58,237,0.2)", w: "70%" },
-            ].map((item, i) => (
-              <div key={i} style={{ background: "rgba(238,242,255,0.8)", borderRadius: 8, padding: "10px" }}>
-                <div style={{ width: 22, height: 22, borderRadius: 6, background: item.accent, marginBottom: 8 }} />
-                <div style={{ height: 5, borderRadius: 10, background: "rgba(124,58,237,0.22)", width: item.w, marginBottom: 5 }} />
-                <div style={{ height: 5, borderRadius: 10, background: "rgba(124,58,237,0.12)", width: "55%" }} />
+            {/* USP 1 — Hero + Pricing badge */}
+            <div style={{ background: "rgba(255,255,255,0.88)", borderRadius: 9, padding: "11px 12px 13px", marginBottom: 7 }}>
+              <Chip text="Webwala Studio" color="#7C3AED" bg="rgba(124,58,237,0.1)" />
+              <div style={{ height: 7, borderRadius: 20, background: "rgba(30,27,75,0.18)", width: "78%", marginBottom: 5 }} />
+              <div style={{ height: 6, borderRadius: 20, background: "rgba(30,27,75,0.1)", width: "55%", marginBottom: 10 }} />
+              <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
+                <div style={{ height: 22, width: 100, borderRadius: 30, background: "linear-gradient(135deg, #0EA5E9, #7C3AED)", flexShrink: 0 }} />
+                <div style={{ background: "rgba(16,185,129,0.12)", borderRadius: 30, padding: "3px 8px" }}>
+                  <span style={{ fontSize: 7, fontWeight: 800, color: "#059669", fontFamily: "inherit" }}>From ₹12,000</span>
+                </div>
               </div>
-            ))}
+            </div>
+
+            {/* USP 2 — 7 Days Delivery */}
+            <div style={{ background: "rgba(255,255,255,0.82)", borderRadius: 9, padding: "10px 11px", marginBottom: 7 }}>
+              <Chip text="7 Days Delivery" color="#0EA5E9" bg="rgba(14,165,233,0.1)" />
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 5 }}>
+                {[
+                  { label: "Day 1–2", title: "Discovery", color: "rgba(56,189,248,0.2)" },
+                  { label: "Day 3–5", title: "Build", color: "rgba(124,58,237,0.18)" },
+                  { label: "Day 6–7", title: "Go Live 🚀", color: "rgba(16,185,129,0.18)" },
+                ].map((s, i) => (
+                  <div key={i} style={{ background: s.color, borderRadius: 7, padding: "7px 8px" }}>
+                    <div style={{ fontSize: 6, fontWeight: 800, color: "#1E1B4B", opacity: 0.6, marginBottom: 2, fontFamily: "inherit" }}>{s.label}</div>
+                    <div style={{ fontSize: 7, fontWeight: 700, color: "#1E1B4B", fontFamily: "inherit" }}>{s.title}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* USP 3 — All Devices */}
+            <div style={{ background: "rgba(255,255,255,0.82)", borderRadius: 9, padding: "10px 11px", marginBottom: 7 }}>
+              <Chip text="All Devices" color="#7C3AED" bg="rgba(124,58,237,0.1)" />
+              <div style={{ display: "flex", gap: 6, alignItems: "flex-end" }}>
+                <div style={{ flex: 1.4 }}>
+                  <div style={{ background: "rgba(124,58,237,0.12)", borderRadius: 5, height: 32, border: "1.5px solid rgba(124,58,237,0.2)", marginBottom: 2 }} />
+                  <div style={{ fontSize: 6, textAlign: "center", color: "#7C3AED", fontWeight: 700, fontFamily: "inherit" }}>Desktop</div>
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ background: "rgba(14,165,233,0.12)", borderRadius: 5, height: 26, border: "1.5px solid rgba(14,165,233,0.2)", marginBottom: 2 }} />
+                  <div style={{ fontSize: 6, textAlign: "center", color: "#0EA5E9", fontWeight: 700, fontFamily: "inherit" }}>Tablet</div>
+                </div>
+                <div style={{ flex: 0.65 }}>
+                  <div style={{ background: "rgba(16,185,129,0.12)", borderRadius: 5, height: 20, border: "1.5px solid rgba(16,185,129,0.2)", marginBottom: 2 }} />
+                  <div style={{ fontSize: 6, textAlign: "center", color: "#059669", fontWeight: 700, fontFamily: "inherit" }}>Mobile</div>
+                </div>
+              </div>
+            </div>
+
+            {/* USP 4 — Pricing */}
+            <div style={{ background: "rgba(255,255,255,0.82)", borderRadius: 9, padding: "10px 11px", marginBottom: 7 }}>
+              <Chip text="Pricing from ₹12K" color="#059669" bg="rgba(16,185,129,0.1)" />
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 5 }}>
+                {[
+                  { price: "₹12K", label: "Starter", bg: "rgba(238,242,255,0.9)", c: "#1E1B4B", lc: "#9CA3AF" },
+                  { price: "₹28K", label: "Pro", bg: "linear-gradient(135deg,#1E1B4B,#312E81)", c: "white", lc: "#A78BFA" },
+                  { price: "₹55K", label: "Biz", bg: "rgba(238,242,255,0.9)", c: "#1E1B4B", lc: "#9CA3AF" },
+                ].map((p, i) => (
+                  <div key={i} style={{ background: p.bg, borderRadius: 7, padding: "7px 8px", textAlign: "center" }}>
+                    <div style={{ fontSize: 10, fontWeight: 900, color: p.c, marginBottom: 1, fontFamily: "inherit" }}>{p.price}</div>
+                    <div style={{ fontSize: 6, color: p.lc, fontWeight: 700, fontFamily: "inherit" }}>{p.label}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* CTA banner */}
+            <div style={{ borderRadius: 9, padding: "11px 12px", background: "linear-gradient(135deg, #1E1B4B, #312E81)", marginBottom: 7, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              <div>
+                <div style={{ fontSize: 8, fontWeight: 800, color: "rgba(255,255,255,0.9)", marginBottom: 3, fontFamily: "inherit" }}>Ready to go live?</div>
+                <div style={{ fontSize: 6, color: "rgba(255,255,255,0.5)", fontFamily: "inherit" }}>Book a free consultation</div>
+              </div>
+              <div style={{ height: 20, width: 55, borderRadius: 30, background: "linear-gradient(135deg, #0EA5E9, #7C3AED)", flexShrink: 0 }} />
+            </div>
+
+            <div style={{ height: 14 }} />
           </div>
         </div>
 
-        {/* Bottom bezel — home bar */}
-        <div style={{ height: 20, background: "rgba(255,255,255,0.6)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        {/* Bottom bezel */}
+        <div style={{ height: 20, background: "rgba(255,255,255,0.92)", display: "flex", alignItems: "center", justifyContent: "center" }}>
           <div style={{ width: 52, height: 4, borderRadius: 2, background: "#B8C2D6" }} />
         </div>
       </div>
@@ -122,53 +244,105 @@ function TabletMockup() {
 
 function MobileMockup() {
   return (
-    <div
-      style={{
-        width: 195,
-        margin: "0 auto",
-        borderRadius: 36,
-        border: "10px solid #D4DAEA",
-        background: "linear-gradient(160deg, #EEF2FF 0%, #F0F4FF 60%, #EDE9FE 100%)",
-        overflow: "hidden",
-        boxShadow: "0 32px 80px rgba(99,102,241,0.22), 0 0 0 1px rgba(224,231,255,0.6)",
-      }}
-    >
-      {/* Dynamic island / notch */}
-      <div style={{ height: 28, background: "rgba(255,255,255,0.72)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <div style={{ width: 68, height: 8, borderRadius: 20, background: "#C8D0E0" }} />
-      </div>
-      {/* Content */}
-      <div style={{ padding: "10px" }}>
-        {/* Hero card */}
-        <div style={{ background: "rgba(255,255,255,0.8)", borderRadius: 10, padding: "14px", marginBottom: 8 }}>
-          <div style={{ height: 7, borderRadius: 20, background: "rgba(124,58,237,0.2)", width: "90%", marginBottom: 7 }} />
-          <div style={{ height: 7, borderRadius: 20, background: "rgba(124,58,237,0.12)", width: "68%", marginBottom: 12 }} />
-          <div style={{ height: 30, borderRadius: 30, background: "linear-gradient(135deg, #0EA5E9, #7C3AED)" }} />
+    <div style={{ width: 195, margin: "0 auto" }}>
+      <div
+        style={{
+          borderRadius: 36,
+          border: "10px solid #D4DAEA",
+          overflow: "hidden",
+          boxShadow: "0 32px 80px rgba(99,102,241,0.22), 0 0 0 1px rgba(224,231,255,0.6)",
+        }}
+      >
+        {/* Dynamic island */}
+        <div style={{ height: 26, background: "rgba(255,255,255,0.92)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <div style={{ width: 58, height: 8, borderRadius: 20, background: "#C8D0E0" }} />
         </div>
-        {/* Stacked cards */}
-        {[
-          "rgba(56,189,248,0.22)",
-          "rgba(167,139,250,0.22)",
-          "rgba(14,165,233,0.22)",
-        ].map((accent, i) => (
-          <div key={i} style={{ background: "rgba(238,242,255,0.8)", borderRadius: 8, padding: "10px", marginBottom: 6, display: "flex", gap: 8, alignItems: "center" }}>
-            <div style={{ width: 26, height: 26, borderRadius: 7, background: accent, flexShrink: 0 }} />
-            <div style={{ flex: 1 }}>
-              <div style={{ height: 5, borderRadius: 10, background: "rgba(124,58,237,0.22)", width: "80%", marginBottom: 5 }} />
-              <div style={{ height: 5, borderRadius: 10, background: "rgba(124,58,237,0.12)", width: "60%" }} />
+
+        {/* Scrollable screen */}
+        <div style={{ height: 310, overflow: "hidden", background: "linear-gradient(160deg, #EEF2FF 0%, #F0F4FF 60%, #EDE9FE 100%)" }}>
+          <div className="scroll-page" style={{ padding: "9px 9px 0" }}>
+
+            {/* USP 1 — Hero + Price badge */}
+            <div style={{ background: "rgba(255,255,255,0.88)", borderRadius: 10, padding: "11px 11px 13px", marginBottom: 7 }}>
+              <Chip text="Webwala Studio" color="#7C3AED" bg="rgba(124,58,237,0.1)" />
+              <div style={{ height: 7, borderRadius: 20, background: "rgba(30,27,75,0.18)", width: "88%", marginBottom: 5 }} />
+              <div style={{ height: 6, borderRadius: 20, background: "rgba(30,27,75,0.1)", width: "65%", marginBottom: 10 }} />
+              <div style={{ height: 24, borderRadius: 30, background: "linear-gradient(135deg, #0EA5E9, #7C3AED)", width: "100%", marginBottom: 7 }} />
+              <div style={{ background: "rgba(16,185,129,0.12)", borderRadius: 30, padding: "3px 9px", display: "inline-block" }}>
+                <span style={{ fontSize: 7, fontWeight: 800, color: "#059669", fontFamily: "inherit" }}>Starting at ₹12,000</span>
+              </div>
             </div>
+
+            {/* USP 2 — 7 Days Delivery */}
+            <div style={{ background: "rgba(255,255,255,0.82)", borderRadius: 10, padding: "10px 11px", marginBottom: 7 }}>
+              <Chip text="7 Days Delivery" color="#0EA5E9" bg="rgba(14,165,233,0.1)" />
+              {[
+                { label: "Day 1–2", title: "Discovery", color: "rgba(56,189,248,0.18)" },
+                { label: "Day 3–5", title: "Design & Build", color: "rgba(124,58,237,0.14)" },
+                { label: "Day 6–7", title: "Go Live 🚀", color: "rgba(16,185,129,0.15)" },
+              ].map((s, i) => (
+                <div key={i} style={{ background: s.color, borderRadius: 7, padding: "6px 9px", marginBottom: i < 2 ? 5 : 0, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <div style={{ fontSize: 6, fontWeight: 800, color: "#1E1B4B", opacity: 0.55, fontFamily: "inherit" }}>{s.label}</div>
+                  <div style={{ fontSize: 7, fontWeight: 700, color: "#1E1B4B", fontFamily: "inherit" }}>{s.title}</div>
+                </div>
+              ))}
+            </div>
+
+            {/* USP 3 — All Devices */}
+            <div style={{ background: "rgba(255,255,255,0.82)", borderRadius: 10, padding: "10px 11px", marginBottom: 7 }}>
+              <Chip text="All Devices" color="#7C3AED" bg="rgba(124,58,237,0.1)" />
+              <div style={{ display: "flex", gap: 5, alignItems: "flex-end" }}>
+                <div style={{ flex: 1.4 }}>
+                  <div style={{ background: "rgba(124,58,237,0.12)", borderRadius: 4, height: 26, border: "1.5px solid rgba(124,58,237,0.2)", marginBottom: 2 }} />
+                  <div style={{ fontSize: 6, textAlign: "center", color: "#7C3AED", fontWeight: 700, fontFamily: "inherit" }}>Desktop</div>
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ background: "rgba(14,165,233,0.12)", borderRadius: 4, height: 20, border: "1.5px solid rgba(14,165,233,0.2)", marginBottom: 2 }} />
+                  <div style={{ fontSize: 6, textAlign: "center", color: "#0EA5E9", fontWeight: 700, fontFamily: "inherit" }}>Tablet</div>
+                </div>
+                <div style={{ flex: 0.65 }}>
+                  <div style={{ background: "rgba(16,185,129,0.12)", borderRadius: 4, height: 16, border: "1.5px solid rgba(16,185,129,0.2)", marginBottom: 2 }} />
+                  <div style={{ fontSize: 6, textAlign: "center", color: "#059669", fontWeight: 700, fontFamily: "inherit" }}>Mobile</div>
+                </div>
+              </div>
+            </div>
+
+            {/* USP 4 — Pricing */}
+            <div style={{ background: "rgba(255,255,255,0.82)", borderRadius: 10, padding: "10px 11px", marginBottom: 7 }}>
+              <Chip text="Pricing" color="#059669" bg="rgba(16,185,129,0.1)" />
+              {[
+                { price: "₹12,000", label: "Starter", bg: "rgba(238,242,255,0.9)", c: "#1E1B4B", lc: "#9CA3AF" },
+                { price: "₹28,000", label: "Professional", bg: "linear-gradient(135deg,#1E1B4B,#312E81)", c: "white", lc: "#A78BFA" },
+                { price: "₹55,000", label: "Business Pro", bg: "rgba(238,242,255,0.9)", c: "#1E1B4B", lc: "#9CA3AF" },
+              ].map((p, i) => (
+                <div key={i} style={{ background: p.bg, borderRadius: 7, padding: "6px 9px", marginBottom: i < 2 ? 4 : 0, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <div style={{ fontSize: 6, color: p.lc, fontWeight: 700, fontFamily: "inherit" }}>{p.label}</div>
+                  <div style={{ fontSize: 9, fontWeight: 900, color: p.c, fontFamily: "inherit" }}>{p.price}</div>
+                </div>
+              ))}
+            </div>
+
+            {/* CTA banner */}
+            <div style={{ borderRadius: 9, padding: "11px 12px", background: "linear-gradient(135deg, #1E1B4B, #312E81)", marginBottom: 7 }}>
+              <div style={{ fontSize: 8, fontWeight: 800, color: "rgba(255,255,255,0.9)", marginBottom: 4, fontFamily: "inherit" }}>Ready to go live?</div>
+              <div style={{ fontSize: 6, color: "rgba(255,255,255,0.5)", marginBottom: 9, fontFamily: "inherit" }}>Book a free consultation today</div>
+              <div style={{ height: 20, borderRadius: 30, background: "linear-gradient(135deg, #0EA5E9, #7C3AED)" }} />
+            </div>
+
+            <div style={{ height: 14 }} />
           </div>
-        ))}
-      </div>
-      {/* Bottom nav */}
-      <div style={{ padding: "8px 14px 4px", background: "rgba(255,255,255,0.85)", borderTop: "1px solid rgba(224,231,255,0.7)", display: "flex", justifyContent: "space-around" }}>
-        {[0, 1, 2, 3].map(i => (
-          <div key={i} style={{ width: 22, height: 22, borderRadius: 6, background: i === 0 ? "rgba(124,58,237,0.28)" : "rgba(124,58,237,0.07)" }} />
-        ))}
-      </div>
-      {/* Home indicator */}
-      <div style={{ display: "flex", justifyContent: "center", padding: "5px 0 7px", background: "rgba(255,255,255,0.85)" }}>
-        <div style={{ width: 50, height: 4, borderRadius: 2, background: "rgba(99,102,241,0.22)" }} />
+        </div>
+
+        {/* Bottom nav */}
+        <div style={{ padding: "7px 14px 3px", background: "rgba(255,255,255,0.92)", borderTop: "1px solid rgba(224,231,255,0.7)", display: "flex", justifyContent: "space-around" }}>
+          {[0, 1, 2, 3].map(i => (
+            <div key={i} style={{ width: 20, height: 20, borderRadius: 5, background: i === 0 ? "rgba(124,58,237,0.28)" : "rgba(124,58,237,0.07)" }} />
+          ))}
+        </div>
+        {/* Home indicator */}
+        <div style={{ display: "flex", justifyContent: "center", padding: "4px 0 6px", background: "rgba(255,255,255,0.92)" }}>
+          <div style={{ width: 48, height: 4, borderRadius: 2, background: "rgba(99,102,241,0.22)" }} />
+        </div>
       </div>
     </div>
   );
@@ -331,7 +505,7 @@ export default function Hero({ onOpenContact }: HeroProps) {
                 <CalendarCheck className="h-4 w-4" />
                 Book Free Consultation
               </motion.button>
-              <a href="#services" style={{ fontSize: 14, fontWeight: 700, color: "#7C3AED", textDecoration: "none" }}>
+              <a href="#testimonials" style={{ fontSize: 14, fontWeight: 700, color: "#7C3AED", textDecoration: "none" }}>
                 See our work →
               </a>
             </motion.div>

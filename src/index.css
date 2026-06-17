@@ -226,8 +226,19 @@ html { scroll-behavior: smooth; }
 }
 .scroll-bounce { animation: scroll-bounce 1.6s ease-in-out infinite; }
 
+/* ── Device mockup page scroll (alternate = auto-reverse back up) ── */
+@keyframes scroll-page {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(-52%); }
+}
+.scroll-page {
+  animation: scroll-page 6s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate;
+  will-change: transform;
+}
+
 /* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
+  .scroll-page,
   .orb-float, .orb-float-2, .orb-float-3,
   .float-y, .float-y-2, .float-y-3,
   .marquee-track,
