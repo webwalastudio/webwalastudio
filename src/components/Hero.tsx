@@ -566,7 +566,7 @@ export default function Hero({ onOpenContact }: HeroProps) {
                 </div>
                 <div>
                   <div style={{ fontSize: 13, fontWeight: 800, color: "#1E1B4B", lineHeight: 1.2 }}>Site is Live!</div>
-                  <div style={{ fontSize: 11, color: "#9CA3AF", marginTop: 2 }}>Delivered in 6 days</div>
+                  <div style={{ fontSize: 11, color: "#9CA3AF", marginTop: 2 }}>Delivered in 7 days</div>
                 </div>
               </div>
 
