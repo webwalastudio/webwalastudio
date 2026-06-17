@@ -29,6 +29,8 @@
   --radius-lg:  24px;
 }
 
+html { scroll-behavior: smooth; }
+
 @layer base {
   body {
     @apply bg-bg-cream text-ink-deep font-sans antialiased;
@@ -40,7 +42,7 @@
   }
 }
 
-/* Gradient text */
+/* ── Gradient text ── */
 .grad {
   background: linear-gradient(135deg, #0EA5E9, #7C3AED);
   -webkit-background-clip: text;
@@ -48,7 +50,21 @@
   background-clip: text;
 }
 
-/* Section label chip — light bg */
+/* Animated shimmer gradient text */
+.grad-shimmer {
+  background: linear-gradient(90deg, #0EA5E9 0%, #7C3AED 30%, #38BDF8 50%, #7C3AED 70%, #0EA5E9 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer-move 4s linear infinite;
+}
+@keyframes shimmer-move {
+  0%   { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+/* ── Section labels ── */
 .section-label {
   display: inline-block;
   background: var(--surface);
@@ -62,8 +78,6 @@
   margin-bottom: 16px;
   border: 1px solid var(--border);
 }
-
-/* Section label chip — dark bg */
 .section-label-dark {
   display: inline-block;
   background: rgba(56, 189, 248, 0.12);
@@ -78,7 +92,7 @@
   border: 1px solid rgba(56, 189, 248, 0.2);
 }
 
-/* Primary gradient button */
+/* ── Buttons ── */
 .btn-gradient {
   background: linear-gradient(135deg, #0EA5E9, #7C3AED);
   color: white;
@@ -93,8 +107,6 @@
   transform: translateY(-2px);
   box-shadow: 0 8px 30px rgba(124, 58, 237, 0.35);
 }
-
-/* Button shine sweep */
 .btn-shine { position: relative; overflow: hidden; }
 .btn-shine::after {
   content: '';
@@ -107,7 +119,7 @@
 .btn-shine:hover::after { animation: shine-sweep 0.55s ease forwards; }
 @keyframes shine-sweep { to { left: 130%; } }
 
-/* fadeUp */
+/* ── Fade-up ── */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -118,20 +130,43 @@
 .fade-up-3 { animation-delay: 0.28s; }
 .fade-up-4 { animation-delay: 0.38s; }
 
-/* Glow ring — featured pricing card */
+/* ── Glow ring ── */
 @keyframes glow-pulse {
   0%, 100% { box-shadow: 0 0 0 0 rgba(124,58,237,0), 0 20px 50px rgba(0,0,0,0.08); }
-  50%       { box-shadow: 0 0 40px 10px rgba(124,58,237,0.22), 0 20px 50px rgba(0,0,0,0.08); }
+  50%       { box-shadow: 0 0 50px 14px rgba(124,58,237,0.28), 0 20px 50px rgba(0,0,0,0.08); }
 }
 .glow-ring { animation: glow-pulse 2.8s ease-in-out infinite; }
 
-/* Mobile drawer */
-@keyframes slideIn {
-  from { transform: translateX(100%); }
-  to   { transform: translateX(0); }
+/* ── Animated rotating gradient border (featured pricing card) ── */
+.animated-border-wrap {
+  position: relative;
+  border-radius: 26px;
+  padding: 2px;
+  overflow: hidden;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.animated-border-wrap::before {
+  content: '';
+  position: absolute;
+  inset: -50%;
+  background: conic-gradient(from 0deg, #0EA5E9, #A78BFA, #7C3AED, #38BDF8, #0EA5E9);
+  animation: border-spin 5s linear infinite;
+  z-index: 0;
+}
+@keyframes border-spin { to { transform: rotate(360deg); } }
+.animated-border-inner {
+  position: relative;
+  z-index: 1;
+  border-radius: 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
-/* Orb float — hero blobs */
+/* ── Orb float ── */
 @keyframes orb-float {
   0%, 100% { transform: translate(0, 0) scale(1); }
   33%       { transform: translate(20px, -20px) scale(1.04); }
@@ -139,10 +174,73 @@
 }
 .orb-float   { animation: orb-float 14s ease-in-out infinite; will-change: transform; }
 .orb-float-2 { animation: orb-float 18s ease-in-out infinite reverse; will-change: transform; }
+.orb-float-3 { animation: orb-float 22s ease-in-out infinite; will-change: transform; animation-delay: -5s; }
 
+/* ── Float Y (for floating badges) ── */
+@keyframes float-y {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+.float-y   { animation: float-y 3.5s ease-in-out infinite; }
+.float-y-2 { animation: float-y 4.2s ease-in-out infinite; animation-delay: -1.5s; }
+.float-y-3 { animation: float-y 3.8s ease-in-out infinite; animation-delay: -0.8s; }
+
+/* ── Mobile drawer ── */
+@keyframes slideIn {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(0); }
+}
+
+/* ── Marquee scroll (TrustBar) ── */
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 32s linear infinite;
+}
+.marquee-track:hover { animation-play-state: paused; }
+
+/* ── Dot grid backgrounds ── */
+.dot-grid {
+  background-image: radial-gradient(circle, rgba(255,255,255,0.09) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+.dot-grid-light {
+  background-image: radial-gradient(circle, rgba(99,102,241,0.09) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+/* ── Live indicator ping ── */
+@keyframes ping-slow {
+  75%, 100% { transform: scale(2); opacity: 0; }
+}
+.ping-slow { animation: ping-slow 1.8s cubic-bezier(0, 0, 0.2, 1) infinite; }
+
+/* ── Scroll indicator bounce ── */
+@keyframes scroll-bounce {
+  0%, 100% { transform: translateY(0) translateX(-50%); }
+  50%       { transform: translateY(8px) translateX(-50%); }
+}
+.scroll-bounce { animation: scroll-bounce 1.6s ease-in-out infinite; }
+
+/* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
-  .orb-float, .orb-float-2 { animation: none; }
-  .btn-shine::after { animation: none; }
-  .glow-ring { animation: none; }
-  .fade-up, .fade-up-1, .fade-up-2, .fade-up-3, .fade-up-4 { animation: none; opacity: 1; transform: none; }
+  .orb-float, .orb-float-2, .orb-float-3,
+  .float-y, .float-y-2, .float-y-3,
+  .marquee-track,
+  .btn-shine::after,
+  .glow-ring,
+  .animated-border-wrap::before,
+  .grad-shimmer,
+  .ping-slow,
+  .scroll-bounce,
+  .fade-up, .fade-up-1, .fade-up-2, .fade-up-3, .fade-up-4 {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+    background-position: 0% center;
+  }
 }

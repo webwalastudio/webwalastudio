@@ -86,26 +86,16 @@ export default function Pricing({ onOpenContact }: PricingProps) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.5, delay: index * 0.1, ease: [0.21, 0.47, 0.32, 0.98] }}
-              className={`relative flex flex-col ${plan.featured ? "glow-ring md:scale-[1.04]" : ""}`}
-              style={{
-                background: plan.featured
-                  ? "linear-gradient(160deg, #1E1B4B 0%, #312E81 100%)"
-                  : "white",
-                borderRadius: "var(--radius-lg)",
-                padding: 36,
-                border: plan.featured ? "none" : "1.5px solid var(--border)",
-                transform: undefined,
-                transition: "all 0.25s",
-              }}
+              className={`relative flex flex-col ${plan.featured ? "md:scale-[1.04]" : ""}`}
               whileHover={!plan.featured
-                ? { y: -4, boxShadow: "0 16px 48px rgba(99,102,241,0.1)" }
+                ? { y: -5, boxShadow: "0 20px 56px rgba(99,102,241,0.12)" }
                 : { y: -4 }
               }
             >
-              {/* Most Popular badge */}
+              {/* Most Popular badge — outside border wrapper so it doesn't get clipped */}
               {plan.featured && (
                 <div
-                  className="absolute"
+                  className="absolute z-20"
                   style={{
                     top: -14,
                     left: "50%",
@@ -117,133 +107,182 @@ export default function Pricing({ onOpenContact }: PricingProps) {
                     padding: "5px 18px",
                     borderRadius: 50,
                     whiteSpace: "nowrap",
+                    boxShadow: "0 4px 16px rgba(124,58,237,0.4)",
                   }}
                 >
                   Most Popular
                 </div>
               )}
 
-              <div className="flex-1">
-                {/* Tier name */}
-                <p
-                  className="font-sans font-black uppercase mb-1"
-                  style={{
-                    fontSize: 11,
-                    letterSpacing: "1.5px",
-                    color: plan.featured ? "rgba(167,139,250,0.9)" : "var(--violet-mid)",
-                  }}
-                >
-                  {plan.name}
-                </p>
-                <p
-                  className="font-sans mb-6"
-                  style={{ fontSize: 13, color: plan.featured ? "rgba(255,255,255,0.5)" : "#4B5563" }}
-                >
-                  {plan.description}
-                </p>
-
-                {/* Price */}
-                <div className="mb-8">
-                  {plan.id === "business-pro" && (
-                    <span
-                      className="font-sans block mb-1"
-                      style={{ fontSize: 12, color: plan.featured ? "rgba(255,255,255,0.5)" : "#9CA3AF" }}
-                    >
-                      Starting from
-                    </span>
-                  )}
-                  <span
-                    className="font-display font-black"
+              {plan.featured ? (
+                /* ── Animated rotating gradient border wrap ── */
+                <div className="animated-border-wrap">
+                  <div
+                    className="animated-border-inner"
                     style={{
-                      fontSize: 48,
-                      letterSpacing: "-2px",
-                      lineHeight: 1,
-                      color: plan.featured ? "white" : "var(--text-dark)",
+                      background: "linear-gradient(160deg, #1E1B4B 0%, #2D2877 100%)",
+                      padding: 36,
                     }}
                   >
-                    {plan.price}
-                  </span>
+                    <CardContent plan={plan} onOpenContact={onOpenContact} />
+                  </div>
                 </div>
-
-                {/* Features */}
-                <ul className="space-y-4 mb-8">
-                  {plan.features.map((feature, fIdx) => (
-                    <li key={fIdx} className="flex items-center gap-3">
-                      {feature.active ? (
-                        <span
-                          className="flex items-center justify-center shrink-0"
-                          style={{
-                            width: 18, height: 18, borderRadius: "50%",
-                            background: plan.featured ? "rgba(167,139,250,0.2)" : "rgba(56,189,248,0.15)",
-                            color: plan.featured ? "#A78BFA" : "#0EA5E9",
-                          }}
-                        >
-                          <Check style={{ width: 10, height: 10, strokeWidth: 3 }} />
-                        </span>
-                      ) : (
-                        <span
-                          className="flex items-center justify-center shrink-0 font-bold"
-                          style={{
-                            width: 18, height: 18, borderRadius: "50%",
-                            background: "rgba(156,163,175,0.1)",
-                            color: "#D1D5DB",
-                            fontSize: 12,
-                          }}
-                        >
-                          —
-                        </span>
-                      )}
-                      <span
-                        className="font-sans"
-                        style={{
-                          fontSize: 14,
-                          fontWeight: feature.active ? 600 : 400,
-                          color: plan.featured
-                            ? (feature.active ? "rgba(255,255,255,0.9)" : "rgba(255,255,255,0.3)")
-                            : (feature.active ? "var(--text-dark)" : "#9CA3AF"),
-                          textDecoration: feature.active ? "none" : "line-through",
-                        }}
-                      >
-                        {feature.name}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* CTA button */}
-              <button
-                onClick={() => onOpenContact(`${plan.name} (${plan.price})`)}
-                className="btn-shine w-full font-sans font-bold cursor-pointer transition-all duration-[250ms]"
-                style={
-                  plan.featured
-                    ? {
-                        background: "linear-gradient(135deg, #0EA5E9, #7C3AED)",
-                        color: "white",
-                        border: "none",
-                        padding: "14px 24px",
-                        fontSize: 15,
-                        borderRadius: "var(--radius)",
-                        boxShadow: "0 6px 20px rgba(124,58,237,0.35)",
-                        fontFamily: "inherit",
-                      }
-                    : {
-                        background: "var(--surface)",
-                        color: "var(--violet-mid)",
-                        border: "1.5px solid var(--border)",
-                        padding: "14px 24px",
-                        fontSize: 15,
-                        borderRadius: "var(--radius)",
-                        fontFamily: "inherit",
-                      }
-                }
-              >
-                {plan.ctaText}
-              </button>
+              ) : (
+                <div
+                  className="flex flex-col flex-1"
+                  style={{
+                    background: "white",
+                    borderRadius: "var(--radius-lg)",
+                    padding: 36,
+                    border: "1.5px solid var(--border)",
+                    transition: "all 0.25s",
+                  }}
+                >
+                  <CardContent plan={plan} onOpenContact={onOpenContact} />
+                </div>
+              )}
             </motion.div>
           ))}
         </div>
       </div>
     </section>
+  );
+}
+
+function CardContent({
+  plan,
+  onOpenContact,
+}: {
+  plan: {
+    id: string;
+    name: string;
+    description: string;
+    price: string;
+    features: { name: string; active: boolean }[];
+    featured: boolean;
+    ctaText: string;
+  };
+  onOpenContact: (plan?: string) => void;
+}) {
+  return (
+    <>
+      <div className="flex-1">
+        {/* Tier name */}
+        <p
+          className="font-sans font-black uppercase mb-1"
+          style={{
+            fontSize: 11,
+            letterSpacing: "1.5px",
+            color: plan.featured ? "rgba(167,139,250,0.9)" : "var(--violet-mid)",
+          }}
+        >
+          {plan.name}
+        </p>
+        <p
+          className="font-sans mb-6"
+          style={{ fontSize: 13, color: plan.featured ? "rgba(255,255,255,0.5)" : "#4B5563" }}
+        >
+          {plan.description}
+        </p>
+
+        {/* Price */}
+        <div className="mb-8">
+          {plan.id === "business-pro" && (
+            <span
+              className="font-sans block mb-1"
+              style={{ fontSize: 12, color: plan.featured ? "rgba(255,255,255,0.5)" : "#9CA3AF" }}
+            >
+              Starting from
+            </span>
+          )}
+          <span
+            className="font-display font-black"
+            style={{
+              fontSize: 48,
+              letterSpacing: "-2px",
+              lineHeight: 1,
+              color: plan.featured ? "white" : "var(--text-dark)",
+            }}
+          >
+            {plan.price}
+          </span>
+        </div>
+
+        {/* Features */}
+        <ul className="space-y-4 mb-8">
+          {plan.features.map((feature, fIdx) => (
+            <li key={fIdx} className="flex items-center gap-3">
+              {feature.active ? (
+                <span
+                  className="flex items-center justify-center shrink-0"
+                  style={{
+                    width: 18, height: 18, borderRadius: "50%",
+                    background: plan.featured ? "rgba(167,139,250,0.22)" : "rgba(56,189,248,0.15)",
+                    color: plan.featured ? "#A78BFA" : "#0EA5E9",
+                  }}
+                >
+                  <Check style={{ width: 10, height: 10, strokeWidth: 3 }} />
+                </span>
+              ) : (
+                <span
+                  className="flex items-center justify-center shrink-0 font-bold"
+                  style={{
+                    width: 18, height: 18, borderRadius: "50%",
+                    background: "rgba(156,163,175,0.1)",
+                    color: "#D1D5DB",
+                    fontSize: 12,
+                  }}
+                >
+                  —
+                </span>
+              )}
+              <span
+                className="font-sans"
+                style={{
+                  fontSize: 14,
+                  fontWeight: feature.active ? 600 : 400,
+                  color: plan.featured
+                    ? (feature.active ? "rgba(255,255,255,0.92)" : "rgba(255,255,255,0.3)")
+                    : (feature.active ? "var(--text-dark)" : "#9CA3AF"),
+                  textDecoration: feature.active ? "none" : "line-through",
+                }}
+              >
+                {feature.name}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* CTA button */}
+      <button
+        onClick={() => onOpenContact(`${plan.name} (${plan.price})`)}
+        className="btn-shine w-full font-sans font-bold cursor-pointer transition-all duration-[250ms]"
+        style={
+          plan.featured
+            ? {
+                background: "linear-gradient(135deg, #0EA5E9, #7C3AED)",
+                color: "white",
+                border: "none",
+                padding: "14px 24px",
+                fontSize: 15,
+                borderRadius: "var(--radius)",
+                boxShadow: "0 6px 24px rgba(124,58,237,0.38)",
+                fontFamily: "inherit",
+              }
+            : {
+                background: "var(--surface)",
+                color: "var(--violet-mid)",
+                border: "1.5px solid var(--border)",
+                padding: "14px 24px",
+                fontSize: 15,
+                borderRadius: "var(--radius)",
+                fontFamily: "inherit",
+              }
+        }
+      >
+        {plan.ctaText}
+      </button>
+    </>
   );
 }

@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { motion } from "motion/react";
+import { useState, useRef } from "react";
+import type { ReactNode, CSSProperties } from "react";
+import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
 import {
   School, HeartPulse, Briefcase, Scissors,
   Coffee, ShoppingBag, ArrowRight, LayoutGrid,
@@ -49,6 +50,62 @@ const services = [
     features: ["Stripe / PayPal Gateway Setup", "Product Catalog Grid", "Shopping Cart Overlay", "Dynamic Stock Tracker UI"],
   },
 ];
+
+/* ── Per-card 3D tilt wrapper ── */
+function TiltCard({
+  children,
+  onClick,
+  isSelected,
+  className,
+  style,
+}: {
+  children: ReactNode;
+  onClick: () => void;
+  isSelected: boolean;
+  className?: string;
+  style?: CSSProperties;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const mx = useMotionValue(0);
+  const my = useMotionValue(0);
+  const sx = useSpring(mx, { stiffness: 220, damping: 24 });
+  const sy = useSpring(my, { stiffness: 220, damping: 24 });
+  const rotateX = useTransform(sy, [-1, 1], [6, -6]);
+  const rotateY = useTransform(sx, [-1, 1], [-7, 7]);
+
+  const onMove = (e: { clientX: number; clientY: number }) => {
+    if (isSelected) return;
+    const rect = ref.current?.getBoundingClientRect();
+    if (!rect) return;
+    mx.set(((e.clientX - rect.left) / rect.width - 0.5) * 2);
+    my.set(((e.clientY - rect.top) / rect.height - 0.5) * 2);
+  };
+  const onLeave = () => { mx.set(0); my.set(0); };
+
+  return (
+    <motion.div
+      ref={ref}
+      onClick={onClick}
+      onMouseMove={onMove}
+      onMouseLeave={onLeave}
+      className={`cursor-pointer ${className ?? ""}`}
+      style={{ perspective: "900px", ...style }}
+      whileHover={!isSelected ? { y: -4 } : {}}
+      whileTap={{ scale: 0.98 }}
+    >
+      <motion.div
+        style={{
+          rotateX: isSelected ? 0 : rotateX,
+          rotateY: isSelected ? 0 : rotateY,
+          transformStyle: "preserve-3d",
+          height: "100%",
+        }}
+      >
+        {children}
+      </motion.div>
+    </motion.div>
+  );
+}
 
 function BlueprintPanel({ service }: { service: typeof services[0] }) {
   const Icon = service.icon;
@@ -139,63 +196,81 @@ export default function Services() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-40px" }}
                     transition={{ duration: 0.5, delay: index * 0.07, ease: [0.21, 0.47, 0.32, 0.98] }}
-                    onClick={() => setSelectedCategory(isSelected ? null : service.id)}
-                    className="p-7 cursor-pointer"
-                    style={{
-                      border: `1.5px solid ${isSelected ? "#7C3AED" : "#E0E7FF"}`,
-                      borderRadius: "var(--radius)",
-                      background: isSelected ? "linear-gradient(135deg, #F5F3FF, #EDE9FE)" : "white",
-                      boxShadow: isSelected ? "0 8px 32px rgba(124,58,237,0.1)" : "none",
-                      transition: "all 0.25s",
-                    }}
-                    whileHover={!isSelected ? {
-                      y: -3,
-                      boxShadow: "0 12px 40px rgba(14,165,233,0.12)",
-                    } : {}}
                   >
-                    {/* Icon block */}
-                    <div
-                      className="flex items-center justify-center mb-4"
+                    <TiltCard
+                      onClick={() => setSelectedCategory(isSelected ? null : service.id)}
+                      isSelected={isSelected}
+                      className="p-7 h-full"
                       style={{
-                        width: 48, height: 48, borderRadius: 12,
-                        background: isSelected ? "#EDE9FE" : "var(--surface)",
-                        border: `1px solid ${isSelected ? "#DDD6FE" : "var(--border)"}`,
-                        transition: "all 0.25s",
+                        border: `1.5px solid ${isSelected ? "#7C3AED" : "#E0E7FF"}`,
+                        borderRadius: "var(--radius)",
+                        background: isSelected
+                          ? "linear-gradient(135deg, #F5F3FF, #EDE9FE)"
+                          : "white",
+                        boxShadow: isSelected
+                          ? "0 8px 40px rgba(124,58,237,0.14)"
+                          : "0 2px 12px rgba(99,102,241,0.04)",
+                        transition: "border-color 0.25s, background 0.25s, box-shadow 0.25s",
                       }}
                     >
-                      <Icon
-                        className="h-5 w-5"
-                        style={{ color: isSelected ? "#7C3AED" : "#0EA5E9" }}
-                      />
-                    </div>
+                      <div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
+                        {/* Icon block */}
+                        <div
+                          className="flex items-center justify-center mb-4"
+                          style={{
+                            width: 48, height: 48, borderRadius: 12,
+                            background: isSelected
+                              ? "linear-gradient(135deg, #EDE9FE, #DDD6FE)"
+                              : "var(--surface)",
+                            border: `1px solid ${isSelected ? "#DDD6FE" : "var(--border)"}`,
+                            boxShadow: isSelected ? "0 4px 16px rgba(124,58,237,0.16)" : "none",
+                            transition: "all 0.25s",
+                          }}
+                        >
+                          <Icon
+                            className="h-5 w-5"
+                            style={{ color: isSelected ? "#7C3AED" : "#0EA5E9" }}
+                          />
+                        </div>
 
-                    <h3
-                      className="font-display font-extrabold mb-2"
-                      style={{ fontSize: 15, color: "var(--text-dark)" }}
-                    >
-                      {service.title}
-                    </h3>
-                    <p
-                      className="font-sans leading-relaxed mb-5"
-                      style={{ fontSize: 14, color: "#4B5563" }}
-                    >
-                      {service.description}
-                    </p>
+                        <h3
+                          className="font-display font-extrabold mb-2"
+                          style={{ fontSize: 15, color: "var(--text-dark)" }}
+                        >
+                          {service.title}
+                        </h3>
+                        <p
+                          className="font-sans leading-relaxed mb-5 flex-1"
+                          style={{ fontSize: 14, color: "#4B5563" }}
+                        >
+                          {service.description}
+                        </p>
 
-                    <div className="flex items-center justify-between">
-                      <span
-                        className="font-sans font-bold"
-                        style={{ fontSize: 13, color: isSelected ? "#7C3AED" : "#9CA3AF" }}
-                      >
-                        {isSelected ? "Click to close" : "Click to view structure"}
-                      </span>
-                      <ArrowRight className="h-4 w-4" style={{ color: isSelected ? "#7C3AED" : "#0EA5E9" }} />
-                    </div>
+                        <div className="flex items-center justify-between">
+                          <span
+                            className="font-sans font-bold"
+                            style={{ fontSize: 13, color: isSelected ? "#7C3AED" : "#9CA3AF" }}
+                          >
+                            {isSelected ? "Click to close" : "Click to view structure"}
+                          </span>
+                          <ArrowRight
+                            className="h-4 w-4"
+                            style={{
+                              color: isSelected ? "#7C3AED" : "#0EA5E9",
+                              transform: isSelected ? "rotate(90deg)" : "none",
+                              transition: "transform 0.25s",
+                            }}
+                          />
+                        </div>
+                      </div>
+                    </TiltCard>
                   </motion.div>
 
                   {/* Inline blueprint — mobile only */}
                   {isSelected && (
-                    <div
+                    <motion.div
+                      initial={{ opacity: 0, y: -8 }}
+                      animate={{ opacity: 1, y: 0 }}
                       className="lg:hidden md:col-span-2 p-6"
                       style={{
                         background: "linear-gradient(135deg, #F0F9FF, #F5F3FF)",
@@ -204,7 +279,7 @@ export default function Services() {
                       }}
                     >
                       <BlueprintPanel service={service} />
-                    </div>
+                    </motion.div>
                   )}
                 </div>
               );
@@ -216,13 +291,24 @@ export default function Services() {
             <div
               className="sticky top-28 min-h-[400px] flex flex-col justify-between p-6"
               style={{
-                background: currentService ? "white" : "linear-gradient(135deg, #F0F9FF, #F5F3FF)",
+                background: currentService
+                  ? "white"
+                  : "linear-gradient(135deg, #F0F9FF, #F5F3FF)",
                 border: `1.5px ${currentService ? "solid" : "dashed"} var(--border)`,
                 borderRadius: "var(--radius)",
+                boxShadow: currentService ? "0 8px 40px rgba(99,102,241,0.08)" : "none",
+                transition: "all 0.3s",
               }}
             >
               {currentService ? (
-                <BlueprintPanel service={currentService} />
+                <motion.div
+                  key={currentService.id}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.28 }}
+                >
+                  <BlueprintPanel service={currentService} />
+                </motion.div>
               ) : (
                 <div className="flex flex-col items-center justify-center h-full text-center py-10">
                   <div

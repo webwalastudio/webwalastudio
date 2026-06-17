@@ -61,40 +61,46 @@ export default function App() {
           <section
             className="relative overflow-hidden text-center"
             style={{
-              padding: "100px 5%",
-              background: "linear-gradient(135deg, #EFF6FF 0%, #EDE9FE 100%)",
+              padding: "110px 5% 130px",
+              background: "linear-gradient(160deg, #EFF6FF 0%, #F5F3FF 50%, #EDE9FE 100%)",
               borderTop: "1.5px solid #E0E7FF",
-              borderBottom: "1.5px solid #E0E7FF",
             }}
           >
+            {/* Dot grid */}
+            <div className="dot-grid-light absolute inset-0 pointer-events-none" />
+            {/* Ambient orbs */}
+            <div className="orb-float absolute pointer-events-none" style={{ top: "-20%", right: "-5%", width: 400, height: 400, borderRadius: "50%", background: "radial-gradient(circle, rgba(56,189,248,0.16) 0%, transparent 70%)" }} />
+            <div className="orb-float-2 absolute pointer-events-none" style={{ bottom: "-20%", left: "-5%", width: 360, height: 360, borderRadius: "50%", background: "radial-gradient(circle, rgba(167,139,250,0.16) 0%, transparent 70%)" }} />
+
             <div className="max-w-[1200px] mx-auto relative z-10 flex flex-col items-center">
               <span className="section-label">READY TO LAUNCH</span>
               <h2
                 className="font-display font-black mb-6 max-w-2xl"
-                style={{ fontSize: "clamp(26px, 3.2vw, 42px)", letterSpacing: "-1.2px", color: "#1E1B4B" }}
+                style={{ fontSize: "clamp(26px, 3.2vw, 48px)", letterSpacing: "-1.5px", color: "#1E1B4B" }}
               >
-                Ready to Get Your Website Live?
+                Ready to Get Your Website Live{" "}
+                <span className="grad">in 7 Days?</span>
               </h2>
               <p
-                className="font-sans mb-10 max-w-2xl leading-relaxed font-semibold"
+                className="font-sans mb-10 max-w-xl leading-relaxed font-semibold"
                 style={{ fontSize: 16, color: "#4B5563" }}
               >
-                Join hundreds of businesses across NCR who have upgraded their digital presence with Webwala Studio and start witnessing real sales results in under 7 days.
+                Join businesses across NCR that upgraded their digital presence with Webwala Studio and started seeing real results fast.
               </p>
               <button
                 onClick={() => handleOpenContact("Final CTA - Ready to Go Live")}
                 className="btn-shine btn-gradient inline-flex items-center justify-center gap-2 font-sans font-bold"
-                style={{ fontSize: 14, padding: "14px 32px", borderRadius: 50 }}
+                style={{ fontSize: 15, padding: "15px 36px", borderRadius: 50, boxShadow: "0 6px 30px rgba(124,58,237,0.32)" }}
               >
                 <CalendarCheck className="h-5 w-5" />
-                Book a Consultation
+                Book a Free Consultation
               </button>
             </div>
 
             {/* Wave divider → Footer */}
             <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none pointer-events-none">
-              <svg viewBox="0 0 1440 64" preserveAspectRatio="none" className="w-full h-[48px] md:h-[64px]">
-                <path d="M0,64 C480,0 960,0 1440,64 L1440,64 L0,64 Z" fill="#1E1B4B" />
+              <svg viewBox="0 0 1440 80" preserveAspectRatio="none" className="w-full h-[56px] md:h-[80px]">
+                <path d="M0,80 C360,10 1080,10 1440,80 L1440,80 L0,80 Z" fill="#1E1B4B" />
               </svg>
             </div>
           </section>
