@@ -1,14 +1,19 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { useState } from "react";
-import { Zap, MapPin, Phone, Mail, Link as LinkIcon, Share2 } from "lucide-react";
+import { motion } from "motion/react";
+import { Zap, MapPin, Phone, Mail, Link as LinkIcon, Share2, Instagram, ArrowUp } from "lucide-react";
 
 interface FooterProps {
   onOpenContact: (prefilledService?: string) => void;
 }
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  show: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.52, delay: i * 0.08, ease: [0.21, 0.47, 0.32, 0.98] },
+  }),
+};
 
 export default function Footer({ onOpenContact }: FooterProps) {
   const currentYear = new Date().getFullYear();
@@ -32,41 +37,103 @@ export default function Footer({ onOpenContact }: FooterProps) {
     }
   };
 
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+
   return (
-    <footer className="bg-brand-navy pt-16 pb-8 border-t border-bg-cream/10 text-white text-left">
-      <div className="max-w-7xl mx-auto px-4 md:px-8">
+    <footer className="relative bg-brand-navy pt-16 pb-8 border-t border-bg-cream/10 text-white text-left overflow-hidden">
+      {/* Dot grid overlay */}
+      <div className="dot-grid absolute inset-0 pointer-events-none" />
+
+      {/* Ambient corner glows */}
+      <div className="absolute pointer-events-none" style={{ top: "-10%", right: "-5%", width: 320, height: 320, borderRadius: "50%", background: "radial-gradient(circle, rgba(124,58,237,0.08) 0%, transparent 70%)" }} />
+      <div className="absolute pointer-events-none" style={{ bottom: "-10%", left: "-5%", width: 280, height: 280, borderRadius: "50%", background: "radial-gradient(circle, rgba(56,189,248,0.06) 0%, transparent 70%)" }} />
+
+      <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
         <div className="grid md:grid-cols-3 gap-12 mb-16">
-          
-          {/* Logo & Intro Column */}
-          <div>
-            <a href="#" className="font-display text-2xl font-bold text-bg-cream flex items-center gap-2 mb-6">
+
+          {/* ── Logo & Intro ── */}
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-40px" }}
+            custom={0}
+          >
+            <a href="#" className="font-display text-2xl font-bold text-bg-cream flex items-center gap-2 mb-4">
               Webwala Studio <Zap className="h-5 w-5 text-primary fill-primary" />
             </a>
             <p className="font-sans text-sm text-bg-cream/70 mb-6 max-w-xs leading-relaxed">
               High-end, professional web design and development for businesses that want to stand out.
             </p>
+
+            {/* Social + share icons */}
             <div className="flex gap-3">
-              <button
+              {/* Instagram */}
+              <motion.a
+                href="https://www.instagram.com/webwalastudio/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Webwala Studio on Instagram"
+                className="flex items-center justify-center border-none cursor-pointer"
+                style={{ width: 36, height: 36, borderRadius: 9, background: "rgba(255,255,255,0.07)", color: "rgba(255,255,255,0.6)", textDecoration: "none" }}
+                whileHover={{
+                  scale: 1.12,
+                  backgroundColor: "rgba(225,48,108,0.22)",
+                  color: "#f472b6",
+                  boxShadow: "0 0 16px rgba(225,48,108,0.35)",
+                }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ duration: 0.18 }}
+              >
+                <Instagram className="h-4 w-4" />
+              </motion.a>
+
+              {/* Copy link */}
+              <motion.button
                 aria-label={copied ? "Link copied!" : "Copy page link"}
                 onClick={handleCopyLink}
-                className="flex items-center justify-center transition-colors cursor-pointer border-none hover:bg-white/[0.14]"
+                className="flex items-center justify-center border-none cursor-pointer"
                 style={{ width: 36, height: 36, borderRadius: 9, background: "rgba(255,255,255,0.07)", color: copied ? "#38BDF8" : "rgba(255,255,255,0.6)" }}
+                whileHover={{
+                  scale: 1.12,
+                  backgroundColor: "rgba(56,189,248,0.18)",
+                  color: "#38BDF8",
+                  boxShadow: "0 0 16px rgba(56,189,248,0.3)",
+                }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ duration: 0.18 }}
               >
                 <LinkIcon className="h-4 w-4" />
-              </button>
-              <button
+              </motion.button>
+
+              {/* Share */}
+              <motion.button
                 aria-label="Share this page"
                 onClick={handleShare}
-                className="flex items-center justify-center transition-colors cursor-pointer border-none hover:bg-white/[0.14]"
+                className="flex items-center justify-center border-none cursor-pointer"
                 style={{ width: 36, height: 36, borderRadius: 9, background: "rgba(255,255,255,0.07)", color: "rgba(255,255,255,0.6)" }}
+                whileHover={{
+                  scale: 1.12,
+                  backgroundColor: "rgba(167,139,250,0.2)",
+                  color: "#A78BFA",
+                  boxShadow: "0 0 16px rgba(167,139,250,0.3)",
+                }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ duration: 0.18 }}
               >
                 <Share2 className="h-4 w-4" />
-              </button>
+              </motion.button>
             </div>
-          </div>
+          </motion.div>
 
-          {/* Quick Services Links */}
-          <div>
+          {/* ── Services ── */}
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-40px" }}
+            custom={1}
+          >
             <h4 className="font-sans text-xs font-bold uppercase tracking-widest text-white/50 mb-6">Services</h4>
             <ul className="space-y-4">
               {[
@@ -78,30 +145,37 @@ export default function Footer({ onOpenContact }: FooterProps) {
                 <li key={index}>
                   <button
                     onClick={() => onOpenContact(serv.spec)}
-                    className="text-bg-cream/75 hover:text-primary transition-colors font-sans text-sm font-semibold border-none bg-transparent cursor-pointer"
+                    className="group flex items-center gap-1.5 text-bg-cream/75 hover:text-primary transition-colors font-sans text-sm font-semibold border-none bg-transparent cursor-pointer"
                   >
                     {serv.name}
+                    <span className="opacity-0 group-hover:opacity-100 transition-all duration-200 translate-x-[-4px] group-hover:translate-x-0" style={{ display: "inline-block" }}>
+                      →
+                    </span>
                   </button>
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
 
-          {/* Contact Details */}
-          <div>
+          {/* ── Contact ── */}
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-40px" }}
+            custom={2}
+          >
             <h4 className="font-sans text-xs font-bold uppercase tracking-widest text-white/50 mb-6">Contact</h4>
             <ul className="space-y-4">
               <li className="flex items-start gap-3 text-bg-cream/75 font-sans text-sm">
                 <MapPin className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                <span>
-                  Gurgaon, Haryana
-                  <br />
-                  India
-                </span>
+                <span>Gurgaon, Haryana<br />India</span>
               </li>
               <li className="flex items-center gap-3 text-bg-cream/75 font-sans text-sm">
                 <Phone className="h-5 w-5 text-primary shrink-0" />
-                <span>+91 98187 26094</span>
+                <a href="tel:+919818726094" className="hover:text-primary transition-colors">
+                  +91 98187 26094
+                </a>
               </li>
               <li className="flex items-center gap-3 text-bg-cream/75 font-sans text-sm">
                 <Mail className="h-5 w-5 text-primary shrink-0" />
@@ -110,24 +184,58 @@ export default function Footer({ onOpenContact }: FooterProps) {
                 </a>
               </li>
             </ul>
-          </div>
+          </motion.div>
 
         </div>
 
-        {/* Footer Bottom copyright block */}
-        <div className="border-t border-bg-cream/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+        {/* ── Bottom bar ── */}
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-20px" }}
+          custom={3}
+          className="border-t border-bg-cream/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4"
+        >
           <p className="font-sans text-xs text-bg-cream/50">
             © {currentYear} Webwala Studio. All rights reserved.
           </p>
-          <div className="flex gap-6 font-sans text-xs text-bg-cream/50">
-            <button className="hover:text-bg-cream transition-colors bg-transparent border-none cursor-pointer">
-              Privacy Policy
-            </button>
-            <button className="hover:text-bg-cream transition-colors bg-transparent border-none cursor-pointer">
-              Terms of Service
-            </button>
+
+          <div className="flex items-center gap-6">
+            <div className="flex gap-6 font-sans text-xs text-bg-cream/50">
+              <button className="hover:text-bg-cream transition-colors bg-transparent border-none cursor-pointer">
+                Privacy Policy
+              </button>
+              <button className="hover:text-bg-cream transition-colors bg-transparent border-none cursor-pointer">
+                Terms of Service
+              </button>
+            </div>
+
+            {/* Back to top */}
+            <motion.button
+              onClick={scrollToTop}
+              aria-label="Back to top"
+              className="flex items-center gap-1.5 font-sans text-xs font-bold border-none cursor-pointer"
+              style={{
+                background: "rgba(255,255,255,0.07)",
+                color: "rgba(255,255,255,0.6)",
+                borderRadius: 50,
+                padding: "7px 14px",
+              }}
+              whileHover={{
+                backgroundColor: "rgba(124,58,237,0.25)",
+                color: "#A78BFA",
+                boxShadow: "0 0 20px rgba(124,58,237,0.25)",
+                y: -2,
+              }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ duration: 0.18 }}
+            >
+              <ArrowUp className="h-3.5 w-3.5" />
+              Back to top
+            </motion.button>
           </div>
-        </div>
+        </motion.div>
       </div>
     </footer>
   );
