@@ -144,6 +144,14 @@ export default function Pricing({ onOpenContact }: PricingProps) {
 
                 {/* Price */}
                 <div className="mb-8">
+                  {plan.id === "business-pro" && (
+                    <span
+                      className="font-sans block mb-1"
+                      style={{ fontSize: 12, color: plan.featured ? "rgba(255,255,255,0.5)" : "#9CA3AF" }}
+                    >
+                      Starting from
+                    </span>
+                  )}
                   <span
                     className="font-display font-black"
                     style={{
@@ -155,14 +163,6 @@ export default function Pricing({ onOpenContact }: PricingProps) {
                   >
                     {plan.price}
                   </span>
-                  {plan.id === "business-pro" && (
-                    <span
-                      className="font-sans block mt-1"
-                      style={{ fontSize: 12, color: "#9CA3AF" }}
-                    >
-                      Starting from
-                    </span>
-                  )}
                 </div>
 
                 {/* Features */}

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import { CalendarCheck, Menu, X } from "lucide-react";
 
 interface NavbarProps {
@@ -118,19 +118,30 @@ export default function Navbar({ onOpenContact }: NavbarProps) {
       </header>
 
       {/* BACKDROP */}
-      {mobileMenuOpen && (
-        <div
-          className="fixed inset-0 z-[998] lg:hidden"
-          style={{ backgroundColor: "rgba(0,0,0,0.65)" }}
-          onClick={() => setMobileMenuOpen(false)}
-        />
-      )}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            className="fixed inset-0 z-[998] lg:hidden"
+            style={{ backgroundColor: "rgba(0,0,0,0.65)" }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
+            onClick={() => setMobileMenuOpen(false)}
+          />
+        )}
+      </AnimatePresence>
 
       {/* MOBILE DRAWER */}
-      {mobileMenuOpen && (
-        <div
+      <AnimatePresence>
+        {mobileMenuOpen && (
+        <motion.div
           className="fixed inset-y-0 right-0 z-[999] w-72 flex flex-col px-6 py-6 lg:hidden"
-          style={{ backgroundColor: "#1E1B4B", animation: "slideIn 0.15s ease-out" }}
+          style={{ backgroundColor: "#1E1B4B" }}
+          initial={{ x: "100%" }}
+          animate={{ x: 0 }}
+          exit={{ x: "100%" }}
+          transition={{ duration: 0.2, ease: "easeOut" }}
         >
           <div
             className="flex items-center justify-between mb-8 pb-4"
@@ -176,8 +187,9 @@ export default function Navbar({ onOpenContact }: NavbarProps) {
               Book a Consultation
             </button>
           </div>
-        </div>
-      )}
+        </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

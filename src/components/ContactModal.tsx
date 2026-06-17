@@ -34,6 +34,7 @@ export default function ContactModal({
   const [sending, setSending] = useState(false);
   const [emailSent, setEmailSent] = useState(false);
   const [emailError, setEmailError] = useState("");
+  const [formError, setFormError] = useState("");
 
   if (!isOpen) return null;
 
@@ -41,10 +42,10 @@ export default function ContactModal({
     e.preventDefault();
 
     if (!name || !phone) {
-      alert("Please provide both your name and WhatsApp telephone number.");
+      setFormError("Please provide your name and WhatsApp number.");
       return;
     }
-
+    setFormError("");
     setSending(true);
     setEmailError("");
 
@@ -130,9 +131,10 @@ export default function ContactModal({
                   id="fullname-input"
                   type="text"
                   required
+                  autoComplete="name"
                   placeholder="e.g. Ramesh Kumar"
                   value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={(e) => { setName(e.target.value); if (formError) setFormError(""); }}
                   whileFocus={{ scale: 1.01, boxShadow: "0 0 0 3px rgba(124, 58, 237, 0.15)" }}
                   transition={{ type: "spring", stiffness: 300, damping: 25 }}
                   className="w-full px-4 py-2.5 rounded-lg bg-white border border-brand-navy/15 text-sm font-semibold focus:outline-none focus:border-primary transition-colors font-sans"
@@ -150,9 +152,10 @@ export default function ContactModal({
                   id="phone-input"
                   type="tel"
                   required
+                  autoComplete="tel"
                   placeholder="e.g. +91 98765 12345"
                   value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
+                  onChange={(e) => { setPhone(e.target.value); if (formError) setFormError(""); }}
                   whileFocus={{ scale: 1.01, boxShadow: "0 0 0 3px rgba(124, 58, 237, 0.15)" }}
                   transition={{ type: "spring", stiffness: 300, damping: 25 }}
                   className="w-full px-4 py-2.5 rounded-lg bg-white border border-brand-navy/15 text-sm font-semibold focus:outline-none focus:border-primary transition-colors font-sans"
@@ -169,6 +172,7 @@ export default function ContactModal({
                 <motion.input
                   id="email-input"
                   type="email"
+                  autoComplete="email"
                   placeholder="e.g. ramesh@gmail.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -224,6 +228,10 @@ export default function ContactModal({
                   className="w-full px-4 py-2.5 rounded-lg bg-white border border-brand-navy/15 text-sm focus:outline-none focus:border-primary transition-colors font-sans"
                 />
               </div>
+
+              {formError && (
+                <p className="text-xs text-red-500 font-semibold -mt-1" role="alert">{formError}</p>
+              )}
 
               <button
                 type="submit"

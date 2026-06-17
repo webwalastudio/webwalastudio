@@ -4,6 +4,7 @@
  */
 
 import { useState, useCallback, lazy, Suspense } from "react";
+import { MotionConfig } from "motion/react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import ScrollProgress from "./components/ScrollProgress";
@@ -28,6 +29,7 @@ export default function App() {
   }, []);
 
   return (
+    <MotionConfig reducedMotion="user">
     <div className="relative min-h-screen bg-bg-cream selection:bg-primary/20 selection:text-brand-navy flex flex-col justify-between">
       {/* SCROLL PROGRESS */}
       <ScrollProgress />
@@ -125,5 +127,6 @@ export default function App() {
         />
       </Suspense>
     </div>
+    </MotionConfig>
   );
 }
