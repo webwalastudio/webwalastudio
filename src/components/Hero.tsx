@@ -404,7 +404,7 @@ export default function Hero({ onOpenContact }: HeroProps) {
       style={{
         background: "linear-gradient(160deg, #EFF6FF 0%, #F5F3FF 50%, #EDE9FE 100%)",
         padding: "120px 5% 100px",
-        minHeight: "100vh",
+        minHeight: "100dvh",
         display: "flex",
         alignItems: "center",
       }}
