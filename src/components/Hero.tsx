@@ -412,10 +412,10 @@ export default function Hero({ onOpenContact }: HeroProps) {
       {/* Dot grid */}
       <div className="dot-grid-light absolute inset-0 pointer-events-none" />
 
-      {/* Orbs */}
-      <div className="orb-float absolute pointer-events-none" style={{ top: "4%", right: "4%", width: 620, height: 620, borderRadius: "50%", background: "radial-gradient(circle, rgba(56,189,248,0.2) 0%, transparent 70%)" }} />
-      <div className="orb-float-2 absolute pointer-events-none" style={{ bottom: "-5%", left: "-3%", width: 500, height: 500, borderRadius: "50%", background: "radial-gradient(circle, rgba(167,139,250,0.18) 0%, transparent 70%)" }} />
-      <div className="orb-float-3 absolute pointer-events-none" style={{ top: "45%", left: "28%", width: 320, height: 320, borderRadius: "50%", background: "radial-gradient(circle, rgba(14,165,233,0.1) 0%, transparent 70%)" }} />
+      {/* Morphing liquid glass blobs */}
+      <div className="morph-blob-a absolute pointer-events-none" style={{ top: "4%", right: "4%", width: 620, height: 620, background: "radial-gradient(circle at 35% 30%, rgba(56,189,248,0.28) 0%, rgba(14,165,233,0.14) 40%, transparent 70%)" }} />
+      <div className="morph-blob-b absolute pointer-events-none" style={{ bottom: "-5%", left: "-3%", width: 500, height: 500, background: "radial-gradient(circle at 38% 32%, rgba(167,139,250,0.26) 0%, rgba(124,58,237,0.12) 45%, transparent 70%)" }} />
+      <div className="morph-blob-c absolute pointer-events-none" style={{ top: "45%", left: "28%", width: 320, height: 320, background: "radial-gradient(circle at 40% 35%, rgba(244,114,182,0.13) 0%, rgba(56,189,248,0.09) 50%, transparent 75%)" }} />
 
       <div className="w-full max-w-[1200px] mx-auto relative z-10">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
@@ -470,9 +470,13 @@ export default function Hero({ onOpenContact }: HeroProps) {
                 { value: "100%", label: "Mobile First" },
                 { value: "50+", label: "Sites Built" },
               ].map((stat, i) => (
-                <div key={i}>
-                  <div style={{ fontSize: 22, fontWeight: 900, color: "#1E1B4B", letterSpacing: "-1px", lineHeight: 1 }}>{stat.value}</div>
-                  <div style={{ fontSize: 11, fontWeight: 600, color: "#9CA3AF", marginTop: 3 }}>{stat.label}</div>
+                <div
+                  key={i}
+                  className="liquid-glass"
+                  style={{ padding: "8px 16px", borderRadius: 50 }}
+                >
+                  <div style={{ fontSize: 20, fontWeight: 900, color: "#1E1B4B", letterSpacing: "-0.8px", lineHeight: 1 }}>{stat.value}</div>
+                  <div style={{ fontSize: 10, fontWeight: 700, color: "#9CA3AF", marginTop: 3, letterSpacing: "0.3px" }}>{stat.label}</div>
                 </div>
               ))}
             </motion.div>
@@ -547,26 +551,27 @@ export default function Hero({ onOpenContact }: HeroProps) {
                 </AnimatePresence>
               </div>
 
-              {/* Floating "Site is Live!" badge */}
+              {/* Floating "Site is Live!" liquid glass badge */}
               <div
                 className="float-y absolute flex items-center gap-3"
                 style={{
                   bottom: 6, right: currentDevice === "mobile" ? "20%" : -22,
-                  background: "rgba(255,255,255,0.96)",
-                  backdropFilter: "blur(20px)",
-                  WebkitBackdropFilter: "blur(20px)",
+                  background: "rgba(255,255,255,0.45)",
+                  backdropFilter: "blur(24px) saturate(200%)",
+                  WebkitBackdropFilter: "blur(24px) saturate(200%)",
                   borderRadius: 18,
                   padding: "12px 16px",
-                  boxShadow: "0 20px 60px rgba(99,102,241,0.24), 0 0 0 1px rgba(224,231,255,0.9)",
+                  border: "1px solid rgba(255,255,255,0.72)",
+                  boxShadow: "inset 0 1.5px 0 rgba(255,255,255,0.95), 0 20px 60px rgba(99,102,241,0.18), 0 2px 12px rgba(99,102,241,0.08)",
                   transition: "right 0.4s",
                 }}
               >
-                <div style={{ width: 40, height: 40, borderRadius: 11, background: "linear-gradient(135deg, #D1FAE5, #6EE7B7)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                <div style={{ width: 40, height: 40, borderRadius: 11, background: "linear-gradient(135deg, rgba(209,250,229,0.9), rgba(110,231,183,0.85))", backdropFilter: "blur(8px)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, border: "1px solid rgba(255,255,255,0.6)", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.9)" }}>
                   <Zap className="h-4 w-4" style={{ color: "#059669", fill: "#059669" }} />
                 </div>
                 <div>
                   <div style={{ fontSize: 13, fontWeight: 800, color: "#1E1B4B", lineHeight: 1.2 }}>Site is Live!</div>
-                  <div style={{ fontSize: 11, color: "#9CA3AF", marginTop: 2 }}>Delivered in 7 days</div>
+                  <div style={{ fontSize: 11, color: "#6B7280", marginTop: 2 }}>Delivered in 7 days</div>
                 </div>
               </div>
 

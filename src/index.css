@@ -137,11 +137,11 @@ html { scroll-behavior: smooth; }
 }
 .glow-ring { animation: glow-pulse 2.8s ease-in-out infinite; }
 
-/* ── Animated rotating gradient border (featured pricing card) ── */
+/* ── Liquid glass pricing card border (iridescent conic) ── */
 .animated-border-wrap {
   position: relative;
   border-radius: 26px;
-  padding: 2px;
+  padding: 1.5px;
   overflow: hidden;
   flex: 1;
   display: flex;
@@ -151,19 +151,120 @@ html { scroll-behavior: smooth; }
   content: '';
   position: absolute;
   inset: -50%;
-  background: conic-gradient(from 0deg, #0EA5E9, #A78BFA, #7C3AED, #38BDF8, #0EA5E9);
-  animation: border-spin 5s linear infinite;
+  background: conic-gradient(from 0deg,
+    #38BDF8, #A78BFA, #F472B6, #FB923C,
+    #A78BFA, #38BDF8, #34D399, #38BDF8);
+  animation: border-spin 6s linear infinite;
   z-index: 0;
 }
 @keyframes border-spin { to { transform: rotate(360deg); } }
 .animated-border-inner {
   position: relative;
   z-index: 1;
-  border-radius: 24px;
+  border-radius: 24.5px;
   flex: 1;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+}
+
+/* ── Morphing glass blobs ── */
+@keyframes morph-blob-a {
+  0%, 100% { border-radius: 60% 40% 55% 45% / 48% 62% 38% 52%; }
+  25%       { border-radius: 40% 60% 45% 55% / 62% 38% 62% 38%; }
+  50%       { border-radius: 55% 45% 60% 40% / 38% 62% 48% 52%; }
+  75%       { border-radius: 45% 55% 38% 62% / 52% 48% 55% 45%; }
+}
+@keyframes morph-blob-b {
+  0%, 100% { border-radius: 45% 55% 38% 62% / 52% 48% 55% 45%; }
+  30%       { border-radius: 55% 45% 60% 40% / 38% 62% 48% 52%; }
+  60%       { border-radius: 40% 60% 45% 55% / 62% 38% 62% 38%; }
+}
+@keyframes morph-blob-c {
+  0%, 100% { border-radius: 50% 50% 70% 30% / 30% 70% 50% 50%; }
+  40%       { border-radius: 70% 30% 50% 50% / 50% 50% 30% 70%; }
+  70%       { border-radius: 30% 70% 30% 70% / 70% 30% 70% 30%; }
+}
+.morph-blob-a {
+  animation: orb-float 14s ease-in-out infinite, morph-blob-a 16s ease-in-out infinite;
+  will-change: border-radius, transform;
+}
+.morph-blob-b {
+  animation: orb-float 18s ease-in-out infinite reverse, morph-blob-b 20s ease-in-out infinite;
+  will-change: border-radius, transform;
+}
+.morph-blob-c {
+  animation: orb-float 22s ease-in-out infinite, morph-blob-c 24s ease-in-out infinite;
+  will-change: border-radius, transform;
+  animation-delay: -5s, -7s;
+}
+
+/* ── Glass sphere (simulated light refraction) ── */
+.glass-sphere {
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 32% 28%,
+    rgba(255,255,255,0.52) 0%,
+    rgba(167,139,250,0.26) 24%,
+    rgba(99,102,241,0.13) 55%,
+    rgba(56,189,248,0.06) 80%,
+    transparent 100%
+  );
+  box-shadow:
+    inset -10px -10px 24px rgba(124,58,237,0.1),
+    inset 5px 5px 14px rgba(255,255,255,0.25);
+}
+.glass-sphere-blue {
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 35% 28%,
+    rgba(255,255,255,0.58) 0%,
+    rgba(56,189,248,0.28) 22%,
+    rgba(14,165,233,0.13) 55%,
+    rgba(99,102,241,0.06) 80%,
+    transparent 100%
+  );
+  box-shadow:
+    inset -10px -10px 24px rgba(14,165,233,0.1),
+    inset 5px 5px 14px rgba(255,255,255,0.3);
+}
+
+/* ── Liquid glass surface utility ── */
+.liquid-glass {
+  backdrop-filter: blur(20px) saturate(200%);
+  -webkit-backdrop-filter: blur(20px) saturate(200%);
+  background: rgba(255,255,255,0.52);
+  border: 1px solid rgba(255,255,255,0.68);
+  box-shadow:
+    inset 0 1.5px 0 rgba(255,255,255,0.95),
+    inset 0 -1px 0 rgba(124,58,237,0.06),
+    0 6px 28px rgba(99,102,241,0.09);
+}
+
+/* ── Iridescent navbar bottom shimmer ── */
+@keyframes iridescent-slide {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+.navbar-iridescent-edge {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1.5px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(56,189,248,0.55) 12%,
+    rgba(167,139,250,0.75) 28%,
+    rgba(244,114,182,0.6) 44%,
+    rgba(52,211,153,0.55) 60%,
+    rgba(167,139,250,0.7) 76%,
+    rgba(56,189,248,0.5) 88%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: iridescent-slide 4s linear infinite;
+  pointer-events: none;
 }
 
 /* ── Orb float ── */
@@ -240,11 +341,13 @@ html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) {
   .scroll-page,
   .orb-float, .orb-float-2, .orb-float-3,
+  .morph-blob-a, .morph-blob-b, .morph-blob-c,
   .float-y, .float-y-2, .float-y-3,
   .marquee-track,
   .btn-shine::after,
   .glow-ring,
   .animated-border-wrap::before,
+  .navbar-iridescent-edge,
   .grad-shimmer,
   .ping-slow,
   .scroll-bounce,

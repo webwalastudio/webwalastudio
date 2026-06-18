@@ -45,8 +45,8 @@ export default function Footer({ onOpenContact }: FooterProps) {
       <div className="dot-grid absolute inset-0 pointer-events-none" />
 
       {/* Ambient corner glows */}
-      <div className="absolute pointer-events-none" style={{ top: "-10%", right: "-5%", width: 320, height: 320, borderRadius: "50%", background: "radial-gradient(circle, rgba(124,58,237,0.08) 0%, transparent 70%)" }} />
-      <div className="absolute pointer-events-none" style={{ bottom: "-10%", left: "-5%", width: 280, height: 280, borderRadius: "50%", background: "radial-gradient(circle, rgba(56,189,248,0.06) 0%, transparent 70%)" }} />
+      <div className="glass-sphere orb-float absolute pointer-events-none" style={{ top: "-10%", right: "-5%", width: 320, height: 320 }} />
+      <div className="glass-sphere-blue orb-float-2 absolute pointer-events-none" style={{ bottom: "-10%", left: "-5%", width: 280, height: 280 }} />
 
       <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
         <div className="grid md:grid-cols-3 gap-12 mb-16">
