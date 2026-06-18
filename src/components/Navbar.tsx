@@ -18,7 +18,7 @@ export default function Navbar({ onOpenContact }: NavbarProps) {
   }, []);
 
   useEffect(() => {
-    const sections = ["home", "services", "pricing"];
+    const sections = ["home", "services", "portfolio", "testimonials", "pricing"];
     let observers: (IntersectionObserver | null)[] = [];
 
     const setupObservers = () => {
@@ -72,8 +72,8 @@ export default function Navbar({ onOpenContact }: NavbarProps) {
           </a>
 
           {/* DESKTOP NAV */}
-          <nav className="hidden lg:flex items-center gap-8">
-            {[["home", "Home"], ["services", "Services"], ["pricing", "Pricing"]].map(([id, label]) => (
+          <nav className="hidden lg:flex items-center gap-6">
+            {[["home", "Home"], ["services", "Services"], ["portfolio", "Our Work"], ["testimonials", "Reviews"], ["pricing", "Pricing"]].map(([id, label]) => (
               <a
                 key={id}
                 href={`#${id}`}
@@ -165,7 +165,7 @@ export default function Navbar({ onOpenContact }: NavbarProps) {
           </div>
 
           <nav className="flex flex-col gap-1">
-            {[["home", "Home"], ["services", "Services"], ["pricing", "Pricing"]].map(([id, label]) => (
+            {[["home", "Home"], ["services", "Services"], ["portfolio", "Our Work"], ["testimonials", "Reviews"], ["pricing", "Pricing"]].map(([id, label]) => (
               <a
                 key={id}
                 href={`#${id}`}
