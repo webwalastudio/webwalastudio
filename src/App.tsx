@@ -12,6 +12,7 @@ import { CalendarCheck } from "lucide-react";
 
 const Services      = lazy(() => import("./components/Services"));
 const HowItWorks    = lazy(() => import("./components/HowItWorks"));
+const Portfolio     = lazy(() => import("./components/Portfolio"));
 const Pricing       = lazy(() => import("./components/Pricing"));
 const Testimonials  = lazy(() => import("./components/Testimonials"));
 const Footer        = lazy(() => import("./components/Footer"));
@@ -54,6 +55,9 @@ export default function App() {
 
           {/* TIMELINE PROCESS */}
           <HowItWorks />
+
+          {/* CLIENT PORTFOLIO */}
+          <Portfolio />
 
           {/* PRICING PLANS CHART */}
           <Pricing onOpenContact={handleOpenContact} />

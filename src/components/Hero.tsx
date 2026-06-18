@@ -509,7 +509,7 @@ export default function Hero({ onOpenContact }: HeroProps) {
                 <CalendarCheck className="h-4 w-4" />
                 Book Free Consultation
               </motion.button>
-              <a href="#testimonials" style={{ fontSize: 14, fontWeight: 700, color: "#7C3AED", textDecoration: "none" }}>
+              <a href="#portfolio" style={{ fontSize: 14, fontWeight: 700, color: "#7C3AED", textDecoration: "none" }}>
                 See our work →
               </a>
             </motion.div>
