@@ -115,13 +115,14 @@ export default function Pricing({ onOpenContact }: PricingProps) {
               )}
 
               {plan.featured ? (
-                /* ── Animated rotating gradient border wrap ── */
+                /* ── Liquid glass card with iridescent border ── */
                 <div className="animated-border-wrap">
                   <div
                     className="animated-border-inner"
                     style={{
-                      background: "linear-gradient(160deg, #1E1B4B 0%, #2D2877 100%)",
+                      background: "rgba(12, 8, 42, 0.82)",
                       padding: 36,
+                      boxShadow: "inset 0 1.5px 0 rgba(255,255,255,0.12), inset 0 -1px 0 rgba(167,139,250,0.08)",
                     }}
                   >
                     <CardContent plan={plan} onOpenContact={onOpenContact} />

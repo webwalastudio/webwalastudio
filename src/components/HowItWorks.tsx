@@ -56,9 +56,9 @@ export default function HowItWorks() {
       {/* Dot grid overlay */}
       <div className="dot-grid absolute inset-0 pointer-events-none" />
 
-      {/* Ambient orbs */}
-      <div className="absolute pointer-events-none" style={{ top: "-10%", right: "-5%", width: 500, height: 500, borderRadius: "50%", background: "radial-gradient(circle, rgba(56,189,248,0.08) 0%, transparent 65%)" }} />
-      <div className="absolute pointer-events-none" style={{ bottom: "-10%", left: "-5%", width: 420, height: 420, borderRadius: "50%", background: "radial-gradient(circle, rgba(167,139,250,0.1) 0%, transparent 65%)" }} />
+      {/* Glass sphere orbs */}
+      <div className="glass-sphere-blue orb-float absolute pointer-events-none" style={{ top: "-10%", right: "-5%", width: 500, height: 500 }} />
+      <div className="glass-sphere orb-float-2 absolute pointer-events-none" style={{ bottom: "-10%", left: "-5%", width: 420, height: 420 }} />
 
       <div className="max-w-[1200px] mx-auto relative z-10">
         {/* Title */}

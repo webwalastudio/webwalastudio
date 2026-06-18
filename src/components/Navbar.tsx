@@ -51,15 +51,20 @@ export default function Navbar({ onOpenContact }: NavbarProps) {
         style={{
           height: 68,
           padding: "0 5%",
-          background: "rgba(255, 255, 255, 0.85)",
-          backdropFilter: "blur(20px)",
-          WebkitBackdropFilter: "blur(20px)",
-          borderBottom: "1px solid #E0E7FF",
+          background: scrolled
+            ? "rgba(248,250,255,0.72)"
+            : "rgba(255,255,255,0.55)",
+          backdropFilter: "blur(32px) saturate(200%)",
+          WebkitBackdropFilter: "blur(32px) saturate(200%)",
           display: "flex",
           alignItems: "center",
-          boxShadow: scrolled ? "0 4px 24px rgba(99,102,241,0.12)" : "none",
+          boxShadow: scrolled
+            ? "inset 0 1.5px 0 rgba(255,255,255,0.9), 0 8px 32px rgba(99,102,241,0.1)"
+            : "inset 0 1.5px 0 rgba(255,255,255,0.8)",
         }}
       >
+        {/* Iridescent bottom edge */}
+        <div className="navbar-iridescent-edge" />
         <div className="w-full max-w-[1200px] mx-auto flex justify-between items-center">
           {/* LOGO */}
           <a href="#" className="flex items-center">

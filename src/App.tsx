@@ -72,9 +72,9 @@ export default function App() {
           >
             {/* Dot grid */}
             <div className="dot-grid-light absolute inset-0 pointer-events-none" />
-            {/* Ambient orbs */}
-            <div className="orb-float absolute pointer-events-none" style={{ top: "-20%", right: "-5%", width: 400, height: 400, borderRadius: "50%", background: "radial-gradient(circle, rgba(56,189,248,0.16) 0%, transparent 70%)" }} />
-            <div className="orb-float-2 absolute pointer-events-none" style={{ bottom: "-20%", left: "-5%", width: 360, height: 360, borderRadius: "50%", background: "radial-gradient(circle, rgba(167,139,250,0.16) 0%, transparent 70%)" }} />
+            {/* Glass sphere orbs */}
+            <div className="glass-sphere-blue orb-float absolute pointer-events-none" style={{ top: "-20%", right: "-5%", width: 400, height: 400 }} />
+            <div className="glass-sphere orb-float-2 absolute pointer-events-none" style={{ bottom: "-20%", left: "-5%", width: 360, height: 360 }} />
 
             <div className="max-w-[1200px] mx-auto relative z-10 flex flex-col items-center">
               <span className="section-label">READY TO LAUNCH</span>
