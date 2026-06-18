@@ -59,11 +59,11 @@ export default function App() {
           {/* CLIENT PORTFOLIO */}
           <Portfolio />
 
-          {/* PRICING PLANS CHART */}
-          <Pricing onOpenContact={handleOpenContact} />
-
           {/* CLIENT TESTIMONIALS */}
           <Testimonials />
+
+          {/* PRICING PLANS CHART */}
+          <Pricing onOpenContact={handleOpenContact} />
 
           {/* FINAL CTA BANNER */}
           <section
