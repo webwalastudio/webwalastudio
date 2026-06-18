@@ -73,10 +73,16 @@ export default function Navbar({ onOpenContact }: NavbarProps) {
 
           {/* DESKTOP NAV */}
           <nav className="hidden lg:flex items-center gap-6">
-            {[["home", "Home"], ["services", "Services"], ["portfolio", "Our Work"], ["testimonials", "Reviews"], ["pricing", "Pricing"]].map(([id, label]) => (
+            {[
+              { id: "home",         label: "Home",     href: "/#home" },
+              { id: "services",     label: "Services", href: "/#services" },
+              { id: "portfolio",    label: "Our Work", href: "/#portfolio" },
+              { id: "testimonials", label: "Reviews",  href: "/#testimonials" },
+              { id: "pricing",      label: "Pricing",  href: "/#pricing" },
+            ].map(({ id, label, href }) => (
               <a
                 key={id}
-                href={`#${id}`}
+                href={href}
                 className="relative pb-1 transition-colors"
                 style={{
                   fontSize: 14,
@@ -96,6 +102,13 @@ export default function Navbar({ onOpenContact }: NavbarProps) {
                 )}
               </a>
             ))}
+            <a
+              href="/faq"
+              className="relative pb-1 transition-colors"
+              style={{ fontSize: 14, fontWeight: 600, color: "#4B5563", textDecoration: "none" }}
+            >
+              FAQs
+            </a>
           </nav>
 
           {/* CTA BUTTON */}
@@ -165,10 +178,17 @@ export default function Navbar({ onOpenContact }: NavbarProps) {
           </div>
 
           <nav className="flex flex-col gap-1">
-            {[["home", "Home"], ["services", "Services"], ["portfolio", "Our Work"], ["testimonials", "Reviews"], ["pricing", "Pricing"]].map(([id, label]) => (
+            {[
+              { id: "home",         label: "Home",     href: "/#home" },
+              { id: "services",     label: "Services", href: "/#services" },
+              { id: "portfolio",    label: "Our Work", href: "/#portfolio" },
+              { id: "testimonials", label: "Reviews",  href: "/#testimonials" },
+              { id: "pricing",      label: "Pricing",  href: "/#pricing" },
+              { id: "faq",          label: "FAQs",     href: "/faq" },
+            ].map(({ id, label, href }) => (
               <a
                 key={id}
-                href={`#${id}`}
+                href={href}
                 onClick={() => setMobileMenuOpen(false)}
                 className="font-sans font-bold text-base py-3 px-4 rounded-lg transition-colors"
                 style={{
