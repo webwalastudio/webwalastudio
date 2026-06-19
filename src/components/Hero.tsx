@@ -528,8 +528,8 @@ export default function Hero({ onOpenContact }: HeroProps) {
           >
             <motion.div style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}>
 
-              {/* Slider container — clips the sliding motion */}
-              <div style={{ minHeight: 340, overflow: "hidden", display: "flex", flexDirection: "column", justifyContent: "center", paddingBottom: 36 }}>
+              {/* Slider container — fixed height prevents page jump when mockup heights differ */}
+              <div style={{ height: 460, overflow: "hidden", display: "flex", flexDirection: "column", justifyContent: "center", paddingBottom: 36 }}>
                 <AnimatePresence mode="wait" custom={direction.current}>
                   <motion.div
                     key={currentDevice}
