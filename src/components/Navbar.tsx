@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "motion/react";
 import { CalendarCheck, Menu, X } from "lucide-react";
 
@@ -8,6 +8,8 @@ interface NavbarProps {
 }
 
 export default function Navbar({ onOpenContact }: NavbarProps) {
+  const { pathname } = useLocation();
+  const onFaqPage = pathname === "/faq";
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [scrolled, setScrolled] = useState(false);
@@ -88,12 +90,12 @@ export default function Navbar({ onOpenContact }: NavbarProps) {
                 style={{
                   fontSize: 14,
                   fontWeight: 600,
-                  color: activeSection === id ? "#7C3AED" : "#4B5563",
+                  color: !onFaqPage && activeSection === id ? "#7C3AED" : "#4B5563",
                   textDecoration: "none",
                 }}
               >
                 {label}
-                {activeSection === id && (
+                {!onFaqPage && activeSection === id && (
                   <motion.span
                     layoutId="nav-underline"
                     className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full"
@@ -106,9 +108,17 @@ export default function Navbar({ onOpenContact }: NavbarProps) {
             <Link
               to="/faq"
               className="relative pb-1 transition-colors"
-              style={{ fontSize: 14, fontWeight: 600, color: "#4B5563", textDecoration: "none" }}
+              style={{ fontSize: 14, fontWeight: 600, color: onFaqPage ? "#7C3AED" : "#4B5563", textDecoration: "none" }}
             >
               FAQs
+              {onFaqPage && (
+                <motion.span
+                  layoutId="nav-underline"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full"
+                  style={{ background: "linear-gradient(135deg, #0EA5E9, #7C3AED)" }}
+                  transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                />
+              )}
             </Link>
           </nav>
 
@@ -186,21 +196,24 @@ export default function Navbar({ onOpenContact }: NavbarProps) {
               { id: "testimonials", label: "Reviews",  href: "/#testimonials" },
               { id: "pricing",      label: "Pricing",  href: "/#pricing" },
               { id: "faq",          label: "FAQs",     href: "/faq" },
-            ].map(({ id, label, href }) => (
-              <Link
-                key={id}
-                to={href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="font-sans font-bold text-base py-3 px-4 rounded-lg transition-colors"
-                style={{
-                  color: activeSection === id ? "#38BDF8" : "rgba(255,255,255,0.8)",
-                  background: activeSection === id ? "rgba(56,189,248,0.1)" : "transparent",
-                  textDecoration: "none",
-                }}
-              >
-                {label}
-              </Link>
-            ))}
+            ].map(({ id, label, href }) => {
+              const isActive = id === "faq" ? onFaqPage : (!onFaqPage && activeSection === id);
+              return (
+                <Link
+                  key={id}
+                  to={href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="font-sans font-bold text-base py-3 px-4 rounded-lg transition-colors"
+                  style={{
+                    color: isActive ? "#38BDF8" : "rgba(255,255,255,0.8)",
+                    background: isActive ? "rgba(56,189,248,0.1)" : "transparent",
+                    textDecoration: "none",
+                  }}
+                >
+                  {label}
+                </Link>
+              );
+            })}
           </nav>
 
           <div className="mt-auto">
