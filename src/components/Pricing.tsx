@@ -60,10 +60,11 @@ export default function Pricing({ onOpenContact }: PricingProps) {
         {/* Title */}
         <motion.div
           className="text-center mb-16 max-w-2xl mx-auto"
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 32, rotateX: 6 }}
+          whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
           viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.55, ease: [0.21, 0.47, 0.32, 0.98] }}
+          transition={{ duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98] }}
+          style={{ transformPerspective: 800 }}
         >
           <span className="section-label">PRICING</span>
           <h2
@@ -82,11 +83,12 @@ export default function Pricing({ onOpenContact }: PricingProps) {
           {plans.map((plan, index) => (
             <motion.div
               key={plan.id}
-              initial={{ opacity: 0, y: 32 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 48, rotateX: 10 }}
+              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
               viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.5, delay: index * 0.1, ease: [0.21, 0.47, 0.32, 0.98] }}
+              transition={{ duration: 0.65, delay: index * 0.12, ease: [0.21, 0.47, 0.32, 0.98] }}
               className={`relative flex flex-col ${plan.featured ? "md:scale-[1.04]" : ""}`}
+              style={{ transformPerspective: 1000 }}
               whileHover={!plan.featured
                 ? { y: -5, boxShadow: "0 20px 56px rgba(99,102,241,0.12)" }
                 : { y: -4 }
