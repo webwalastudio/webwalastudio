@@ -83,12 +83,11 @@ export default function Pricing({ onOpenContact }: PricingProps) {
           {plans.map((plan, index) => (
             <motion.div
               key={plan.id}
-              initial={{ opacity: 0, y: 48, rotateX: 10 }}
-              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.65, delay: index * 0.12, ease: [0.21, 0.47, 0.32, 0.98] }}
+              transition={{ duration: 0.5, delay: index * 0.1, ease: [0.21, 0.47, 0.32, 0.98] }}
               className={`relative flex flex-col ${plan.featured ? "md:scale-[1.04]" : ""}`}
-              style={{ transformPerspective: 1000 }}
               whileHover={!plan.featured
                 ? { y: -5, boxShadow: "0 20px 56px rgba(99,102,241,0.12)" }
                 : { y: -4 }
@@ -193,7 +192,7 @@ function CardContent({
           {plan.id === "business-pro" && (
             <span
               className="font-sans block mb-1"
-              style={{ fontSize: 12, color: plan.featured ? "rgba(255,255,255,0.5)" : "#9CA3AF" }}
+              style={{ fontSize: 12, color: plan.featured ? "rgba(255,255,255,0.5)" : "#6B7280" }}
             >
               Starting from
             </span>
@@ -246,7 +245,7 @@ function CardContent({
                   fontWeight: feature.active ? 600 : 400,
                   color: plan.featured
                     ? (feature.active ? "rgba(255,255,255,0.92)" : "rgba(255,255,255,0.3)")
-                    : (feature.active ? "var(--text-dark)" : "#9CA3AF"),
+                    : (feature.active ? "var(--text-dark)" : "#6B7280"),
                   textDecoration: feature.active ? "none" : "line-through",
                 }}
               >
