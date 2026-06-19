@@ -7,6 +7,7 @@ import { useState, useEffect, FormEvent } from "react";
 import emailjs from "@emailjs/browser";
 import { motion, AnimatePresence } from "motion/react";
 import { X, MessageSquare, Send, CheckCircle, Mail } from "lucide-react";
+import { trackEvent } from "../lib/analytics";
 
 const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID as string;
 const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID as string;
@@ -63,6 +64,7 @@ export default function ContactModal({
     setSending(true);
     setEmailError("");
 
+    let emailSuccess = false;
     try {
       await emailjs.send(
         EMAILJS_SERVICE_ID,
@@ -77,12 +79,14 @@ export default function ContactModal({
         EMAILJS_PUBLIC_KEY,
       );
       setEmailSent(true);
+      emailSuccess = true;
     } catch {
       setEmailError("Email delivery failed. Please try again or reach us via WhatsApp.");
     }
 
     setSending(false);
     setSubmitted(true);
+    trackEvent("lead_form_submit", { plan, email_sent: emailSuccess ? 1 : 0 });
   };
 
   return (
