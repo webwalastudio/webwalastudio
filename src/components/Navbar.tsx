@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "motion/react";
 import { CalendarCheck, Menu, X } from "lucide-react";
 
@@ -67,9 +68,9 @@ export default function Navbar({ onOpenContact }: NavbarProps) {
         <div className="navbar-iridescent-edge" />
         <div className="w-full max-w-[1200px] mx-auto flex justify-between items-center">
           {/* LOGO */}
-          <a href="#" className="flex items-center">
+          <Link to="/" className="flex items-center">
             <img src="/logo.png" alt="Webwala Studio" className="h-9 w-auto" />
-          </a>
+          </Link>
 
           {/* DESKTOP NAV */}
           <nav className="hidden lg:flex items-center gap-6">
@@ -80,9 +81,9 @@ export default function Navbar({ onOpenContact }: NavbarProps) {
               { id: "testimonials", label: "Reviews",  href: "/#testimonials" },
               { id: "pricing",      label: "Pricing",  href: "/#pricing" },
             ].map(({ id, label, href }) => (
-              <a
+              <Link
                 key={id}
-                href={href}
+                to={href}
                 className="relative pb-1 transition-colors"
                 style={{
                   fontSize: 14,
@@ -100,15 +101,15 @@ export default function Navbar({ onOpenContact }: NavbarProps) {
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
                 )}
-              </a>
+              </Link>
             ))}
-            <a
-              href="/faq"
+            <Link
+              to="/faq"
               className="relative pb-1 transition-colors"
               style={{ fontSize: 14, fontWeight: 600, color: "#4B5563", textDecoration: "none" }}
             >
               FAQs
-            </a>
+            </Link>
           </nav>
 
           {/* CTA BUTTON */}
@@ -186,9 +187,9 @@ export default function Navbar({ onOpenContact }: NavbarProps) {
               { id: "pricing",      label: "Pricing",  href: "/#pricing" },
               { id: "faq",          label: "FAQs",     href: "/faq" },
             ].map(({ id, label, href }) => (
-              <a
+              <Link
                 key={id}
-                href={href}
+                to={href}
                 onClick={() => setMobileMenuOpen(false)}
                 className="font-sans font-bold text-base py-3 px-4 rounded-lg transition-colors"
                 style={{
@@ -198,7 +199,7 @@ export default function Navbar({ onOpenContact }: NavbarProps) {
                 }}
               >
                 {label}
-              </a>
+              </Link>
             ))}
           </nav>
 
