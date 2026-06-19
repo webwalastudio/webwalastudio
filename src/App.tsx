@@ -9,6 +9,7 @@ import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import ScrollProgress from "./components/ScrollProgress";
 import { CalendarCheck } from "lucide-react";
+import { trackEvent } from "./lib/analytics";
 
 const Services      = lazy(() => import("./components/Services"));
 const HowItWorks    = lazy(() => import("./components/HowItWorks"));
@@ -32,6 +33,12 @@ export default function App() {
   const handleOpenContact = useCallback((planFocus: string | null = null) => {
     setPrefilledPlan(planFocus);
     setIsContactOpen(true);
+    trackEvent("consultation_open", {
+      source: planFocus?.startsWith("Final") ? "final_cta"
+            : planFocus ? "pricing_card"
+            : "general",
+      plan: planFocus ?? "none",
+    });
   }, []);
 
   return (
@@ -149,6 +156,7 @@ export default function App() {
           rel="noopener noreferrer"
           aria-label="Chat on WhatsApp"
           style={{ position: "relative", display: "flex" }}
+          onClick={() => trackEvent("whatsapp_click", { source: "floating_button" })}
           className="bg-[#25D366] text-white p-3.5 rounded-full shadow-xl hover:scale-110 active:scale-95 transition-transform duration-200"
         >
           <svg viewBox="0 0 24 24" className="h-6 w-6 fill-white" xmlns="http://www.w3.org/2000/svg">
