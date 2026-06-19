@@ -360,6 +360,36 @@ html { scroll-behavior: smooth; }
   will-change: transform;
 }
 
+/* ── WhatsApp floating button ── */
+@keyframes wa-ping {
+  0%   { transform: scale(1); opacity: 0.55; }
+  80%  { transform: scale(2.1); opacity: 0; }
+  100% { transform: scale(2.1); opacity: 0; }
+}
+.wa-ring {
+  position: absolute; inset: 0; border-radius: 50%;
+  background: #25D366;
+  animation: wa-ping 2.2s ease-out infinite;
+  pointer-events: none;
+}
+.wa-ring-2 { animation-delay: 0.7s; }
+.wa-wrapper .wa-tooltip {
+  opacity: 0;
+  transition: opacity 0.18s ease;
+}
+.wa-wrapper:hover .wa-tooltip { opacity: 1; }
+
+/* ── Section loading shimmer ── */
+@keyframes shimmer-slide {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+.section-shimmer {
+  background: linear-gradient(90deg, #EEF2FF 25%, #F5F3FF 50%, #EEF2FF 75%);
+  background-size: 200% 100%;
+  animation: shimmer-slide 1.6s ease-in-out infinite;
+}
+
 /* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
   .scroll-page,
@@ -375,6 +405,8 @@ html { scroll-behavior: smooth; }
   .grad-shimmer,
   .ping-slow,
   .scroll-bounce,
+  .wa-ring, .wa-ring-2,
+  .section-shimmer,
   .fade-up, .fade-up-1, .fade-up-2, .fade-up-3, .fade-up-4 {
     animation: none !important;
     opacity: 1;

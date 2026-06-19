@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "motion/react";
 import { CalendarCheck, Zap, Smartphone, ChevronDown, Monitor, Tablet } from "lucide-react";
 
@@ -509,9 +510,9 @@ export default function Hero({ onOpenContact }: HeroProps) {
                 <CalendarCheck className="h-4 w-4" />
                 Book Free Consultation
               </motion.button>
-              <a href="#portfolio" style={{ fontSize: 14, fontWeight: 700, color: "#7C3AED", textDecoration: "none" }}>
+              <Link to="/#portfolio" style={{ fontSize: 14, fontWeight: 700, color: "#7C3AED", textDecoration: "none" }}>
                 See our work →
-              </a>
+              </Link>
             </motion.div>
           </div>
 
