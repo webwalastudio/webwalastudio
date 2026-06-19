@@ -163,10 +163,11 @@ export default function Services() {
         {/* Title */}
         <motion.div
           className="text-center mb-14 max-w-3xl mx-auto"
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 32, rotateX: 6 }}
+          whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
           viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.55, ease: [0.21, 0.47, 0.32, 0.98] }}
+          transition={{ duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98] }}
+          style={{ transformPerspective: 800 }}
         >
           <span className="section-label">OUR SERVICES</span>
           <h2
@@ -192,10 +193,11 @@ export default function Services() {
               return (
                 <div key={service.id} className="contents">
                   <motion.div
-                    initial={{ opacity: 0, y: 28 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, y: 40, rotateX: 12 }}
+                    whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
                     viewport={{ once: true, margin: "-40px" }}
-                    transition={{ duration: 0.5, delay: index * 0.07, ease: [0.21, 0.47, 0.32, 0.98] }}
+                    transition={{ duration: 0.65, delay: index * 0.09, ease: [0.21, 0.47, 0.32, 0.98] }}
+                    style={{ transformPerspective: 1000 }}
                   >
                     <TiltCard
                       onClick={() => setSelectedCategory(isSelected ? null : service.id)}
