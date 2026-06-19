@@ -76,13 +76,12 @@ export default function Testimonials() {
           {reviews.map((r, idx) => (
             <motion.div
               key={idx}
-              initial={{ opacity: 0, y: 48, rotateX: 10 }}
-              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.65, delay: idx * 0.14, ease: [0.21, 0.47, 0.32, 0.98] }}
+              transition={{ duration: 0.5, delay: idx * 0.12, ease: [0.21, 0.47, 0.32, 0.98] }}
               whileHover={{ y: -5, boxShadow: "0 20px 56px rgba(99,102,241,0.13)" }}
               style={{
-                transformPerspective: 1000,
                 background: "white",
                 borderRadius: 24,
                 padding: "36px",

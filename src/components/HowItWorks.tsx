@@ -90,11 +90,10 @@ export default function HowItWorks() {
             return (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 36, rotateX: 10 }}
-                whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-20px" }}
-                transition={{ duration: 0.6, delay: index * 0.1, ease: [0.21, 0.47, 0.32, 0.98] }}
-                style={{ transformPerspective: 1000 }}
+                transition={{ duration: 0.5, delay: index * 0.08, ease: [0.21, 0.47, 0.32, 0.98] }}
               >
                 <div
                   onClick={() => setActiveTab(isActive ? -1 : index)}
@@ -207,12 +206,11 @@ export default function HowItWorks() {
                     key={index}
                     onClick={() => setActiveTab(index)}
                     className="cursor-pointer relative overflow-hidden"
-                    initial={{ opacity: 0, y: 36, rotateX: 10 }}
-                    whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-40px" }}
-                    transition={{ duration: 0.65, delay: index * 0.12, ease: [0.21, 0.47, 0.32, 0.98] }}
+                    transition={{ duration: 0.5, delay: index * 0.1, ease: [0.21, 0.47, 0.32, 0.98] }}
                     style={{
-                      transformPerspective: 1000,
                       padding: "40px 32px",
                       background: isActive ? "rgba(56,189,248,0.08)" : "rgba(255,255,255,0.04)",
                       transition: "background 0.25s",

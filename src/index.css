@@ -11,7 +11,7 @@
   --color-ink-deep:     #1E1B4B;
   --color-text-mid:     #4B5563;
   --color-border:       #E0E7FF;
-  --color-text-light:   #9CA3AF;
+  --color-text-light:   #6B7280;
 
   --font-display: "Plus Jakarta Sans", sans-serif;
   --font-sans:    "Plus Jakarta Sans", sans-serif;
@@ -345,6 +345,7 @@ html { scroll-behavior: smooth; }
 }
 .scroll-page {
   animation: scroll-page 6s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate;
+  animation-delay: 1s;
   will-change: transform;
 }
 

@@ -193,11 +193,10 @@ export default function Services() {
               return (
                 <div key={service.id} className="contents">
                   <motion.div
-                    initial={{ opacity: 0, y: 40, rotateX: 12 }}
-                    whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-40px" }}
-                    transition={{ duration: 0.65, delay: index * 0.09, ease: [0.21, 0.47, 0.32, 0.98] }}
-                    style={{ transformPerspective: 1000 }}
+                    transition={{ duration: 0.5, delay: index * 0.07, ease: [0.21, 0.47, 0.32, 0.98] }}
                   >
                     <TiltCard
                       onClick={() => setSelectedCategory(isSelected ? null : service.id)}
@@ -251,7 +250,7 @@ export default function Services() {
                         <div className="flex items-center justify-between">
                           <span
                             className="font-sans font-bold"
-                            style={{ fontSize: 13, color: isSelected ? "#7C3AED" : "#9CA3AF" }}
+                            style={{ fontSize: 13, color: isSelected ? "#7C3AED" : "#6B7280" }}
                           >
                             {isSelected ? "Click to close" : "Click to view structure"}
                           </span>
@@ -317,7 +316,7 @@ export default function Services() {
                     className="flex items-center justify-center w-16 h-16 mb-6"
                     style={{ borderRadius: "50%", border: "1.5px dashed var(--border)" }}
                   >
-                    <LayoutGrid className="h-6 w-6" style={{ color: "#9CA3AF" }} />
+                    <LayoutGrid className="h-6 w-6" style={{ color: "#6B7280" }} />
                   </div>
                   <h4
                     className="font-display font-extrabold mb-2"

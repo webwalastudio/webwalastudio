@@ -100,9 +100,9 @@ function DesktopMockup() {
             <Chip text="Transparent Pricing" color="#059669" bg="rgba(16,185,129,0.1)" />
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 6 }}>
               {[
-                { price: "₹12K", label: "Starter", bg: "rgba(238,242,255,0.9)", accent: "#9CA3AF" },
+                { price: "₹12K", label: "Starter", bg: "rgba(238,242,255,0.9)", accent: "#6B7280" },
                 { price: "₹28K", label: "Pro", bg: "linear-gradient(135deg,#1E1B4B,#312E81)", accent: "#A78BFA" },
-                { price: "₹55K", label: "Business", bg: "rgba(238,242,255,0.9)", accent: "#9CA3AF" },
+                { price: "₹55K", label: "Business", bg: "rgba(238,242,255,0.9)", accent: "#6B7280" },
               ].map((p, i) => (
                 <div key={i} style={{ background: p.bg, borderRadius: 8, padding: "8px 9px", textAlign: "center" }}>
                   <div style={{ fontSize: 11, fontWeight: 900, color: i === 1 ? "white" : "#1E1B4B", marginBottom: 2, fontFamily: "inherit" }}>{p.price}</div>
@@ -209,9 +209,9 @@ function TabletMockup() {
               <Chip text="Pricing from ₹12K" color="#059669" bg="rgba(16,185,129,0.1)" />
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 5 }}>
                 {[
-                  { price: "₹12K", label: "Starter", bg: "rgba(238,242,255,0.9)", c: "#1E1B4B", lc: "#9CA3AF" },
+                  { price: "₹12K", label: "Starter", bg: "rgba(238,242,255,0.9)", c: "#1E1B4B", lc: "#6B7280" },
                   { price: "₹28K", label: "Pro", bg: "linear-gradient(135deg,#1E1B4B,#312E81)", c: "white", lc: "#A78BFA" },
-                  { price: "₹55K", label: "Biz", bg: "rgba(238,242,255,0.9)", c: "#1E1B4B", lc: "#9CA3AF" },
+                  { price: "₹55K", label: "Biz", bg: "rgba(238,242,255,0.9)", c: "#1E1B4B", lc: "#6B7280" },
                 ].map((p, i) => (
                   <div key={i} style={{ background: p.bg, borderRadius: 7, padding: "7px 8px", textAlign: "center" }}>
                     <div style={{ fontSize: 10, fontWeight: 900, color: p.c, marginBottom: 1, fontFamily: "inherit" }}>{p.price}</div>
@@ -312,9 +312,9 @@ function MobileMockup() {
             <div style={{ background: "rgba(255,255,255,0.82)", borderRadius: 10, padding: "10px 11px", marginBottom: 7 }}>
               <Chip text="Pricing" color="#059669" bg="rgba(16,185,129,0.1)" />
               {[
-                { price: "₹12,000", label: "Starter", bg: "rgba(238,242,255,0.9)", c: "#1E1B4B", lc: "#9CA3AF" },
+                { price: "₹12,000", label: "Starter", bg: "rgba(238,242,255,0.9)", c: "#1E1B4B", lc: "#6B7280" },
                 { price: "₹28,000", label: "Professional", bg: "linear-gradient(135deg,#1E1B4B,#312E81)", c: "white", lc: "#A78BFA" },
-                { price: "₹55,000", label: "Business Pro", bg: "rgba(238,242,255,0.9)", c: "#1E1B4B", lc: "#9CA3AF" },
+                { price: "₹55,000", label: "Business Pro", bg: "rgba(238,242,255,0.9)", c: "#1E1B4B", lc: "#6B7280" },
               ].map((p, i) => (
                 <div key={i} style={{ background: p.bg, borderRadius: 7, padding: "6px 9px", marginBottom: i < 2 ? 4 : 0, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                   <div style={{ fontSize: 6, color: p.lc, fontWeight: 700, fontFamily: "inherit" }}>{p.label}</div>
@@ -476,7 +476,7 @@ export default function Hero({ onOpenContact }: HeroProps) {
                   style={{ padding: "8px 16px", borderRadius: 50 }}
                 >
                   <div style={{ fontSize: 20, fontWeight: 900, color: "#1E1B4B", letterSpacing: "-0.8px", lineHeight: 1 }}>{stat.value}</div>
-                  <div style={{ fontSize: 10, fontWeight: 700, color: "#9CA3AF", marginTop: 3, letterSpacing: "0.3px" }}>{stat.label}</div>
+                  <div style={{ fontSize: 10, fontWeight: 700, color: "#6B7280", marginTop: 3, letterSpacing: "0.3px" }}>{stat.label}</div>
                 </div>
               ))}
             </motion.div>
@@ -509,7 +509,7 @@ export default function Hero({ onOpenContact }: HeroProps) {
                 <CalendarCheck className="h-4 w-4" />
                 Book Free Consultation
               </motion.button>
-              <Link to="/#portfolio" style={{ fontSize: 14, fontWeight: 700, color: "#7C3AED", textDecoration: "none" }}>
+              <Link to="/#portfolio" className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2 rounded" style={{ fontSize: 14, fontWeight: 700, color: "#7C3AED", textDecoration: "none" }}>
                 See our work →
               </Link>
             </motion.div>
@@ -520,9 +520,9 @@ export default function Hero({ onOpenContact }: HeroProps) {
             ref={mockupRef}
             className="relative"
             style={{ perspective: "1100px" }}
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.18, ease: [0.21, 0.47, 0.32, 0.98] }}
+            initial={{ x: 40 }}
+            animate={{ x: 0 }}
+            transition={{ duration: 0.6, delay: 0.1, ease: [0.21, 0.47, 0.32, 0.98] }}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
           >
@@ -588,16 +588,19 @@ export default function Hero({ onOpenContact }: HeroProps) {
                     background: i === deviceIndex ? "rgba(124,58,237,0.1)" : "transparent",
                     border: `1px solid ${i === deviceIndex ? "rgba(124,58,237,0.3)" : "rgba(224,231,255,0.8)"}`,
                     borderRadius: 50,
-                    padding: "5px 12px",
+                    padding: "10px 16px",
+                    minHeight: 44,
                     cursor: "pointer",
                     fontFamily: "inherit",
+                    display: "flex",
+                    alignItems: "center",
                   }}
                 >
                   <Icon
                     className="h-3 w-3"
-                    style={{ color: i === deviceIndex ? "#7C3AED" : "#9CA3AF" }}
+                    style={{ color: i === deviceIndex ? "#7C3AED" : "#6B7280" }}
                   />
-                  <span style={{ fontSize: 11, fontWeight: 700, color: i === deviceIndex ? "#7C3AED" : "#9CA3AF" }}>
+                  <span style={{ fontSize: 11, fontWeight: 700, color: i === deviceIndex ? "#7C3AED" : "#6B7280" }}>
                     {label}
                   </span>
                 </button>
