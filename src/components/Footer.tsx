@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { motion } from "motion/react";
 import { Zap, MapPin, Phone, Mail, Link as LinkIcon, Share2, Instagram, ArrowUp } from "lucide-react";
 
@@ -59,9 +60,9 @@ export default function Footer({ onOpenContact }: FooterProps) {
             viewport={{ once: true, margin: "-40px" }}
             custom={0}
           >
-            <a href="#" className="font-display text-2xl font-bold text-bg-cream flex items-center gap-2 mb-4">
+            <Link to="/" className="font-display text-2xl font-bold text-bg-cream flex items-center gap-2 mb-4" style={{ textDecoration: "none" }}>
               Webwala Studio <Zap className="h-5 w-5 text-primary fill-primary" />
-            </a>
+            </Link>
             <p className="font-sans text-sm text-bg-cream/70 mb-6 max-w-xs leading-relaxed">
               High-end, professional web design and development for businesses that want to stand out.
             </p>

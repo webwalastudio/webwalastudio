@@ -469,7 +469,6 @@ export default function Hero({ onOpenContact }: HeroProps) {
               {[
                 { value: "7 Days", label: "Delivery" },
                 { value: "100%", label: "Mobile First" },
-                { value: "50+", label: "Sites Built" },
               ].map((stat, i) => (
                 <div
                   key={i}
