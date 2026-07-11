@@ -64,9 +64,19 @@ function FAQAccordion() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: idx * 0.04, ease: [0.21, 0.47, 0.32, 0.98] }}
-            className="liquid-glass"
+            className="liquid-glass focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2"
             style={{ borderRadius: 16, overflow: "hidden", cursor: "pointer" }}
+            role="button"
+            tabIndex={0}
+            aria-expanded={isOpen}
+            aria-controls={`faqpage-answer-${idx}`}
             onClick={() => setOpenIndex(isOpen ? null : idx)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                setOpenIndex(isOpen ? null : idx);
+              }
+            }}
           >
             <div className="flex items-center justify-between gap-4" style={{ padding: "20px 24px" }}>
               <span
@@ -98,6 +108,7 @@ function FAQAccordion() {
                   exit={{ height: 0, opacity: 0 }}
                   transition={{ duration: 0.3, ease: [0.21, 0.47, 0.32, 0.98] }}
                   style={{ overflow: "hidden" }}
+                  id={`faqpage-answer-${idx}`}
                 >
                   <div style={{ padding: "0 24px 22px", borderTop: "1px solid rgba(224,231,255,0.6)", paddingTop: 16 }}>
                     <p className="font-sans" style={{ fontSize: 14, color: "#4B5563", lineHeight: 1.75 }}>

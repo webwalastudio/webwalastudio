@@ -86,13 +86,23 @@ export default function FAQ() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-20px" }}
                 transition={{ duration: 0.45, delay: idx * 0.05, ease: [0.21, 0.47, 0.32, 0.98] }}
-                className="liquid-glass"
+                className="liquid-glass focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2"
                 style={{
                   borderRadius: 16,
                   overflow: "hidden",
                   cursor: "pointer",
                 }}
+                role="button"
+                tabIndex={0}
+                aria-expanded={isOpen}
+                aria-controls={`faq-answer-${idx}`}
                 onClick={() => setOpenIndex(isOpen ? null : idx)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setOpenIndex(isOpen ? null : idx);
+                  }
+                }}
               >
                 {/* Question row */}
                 <div
@@ -144,6 +154,7 @@ export default function FAQ() {
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.3, ease: [0.21, 0.47, 0.32, 0.98] }}
                       style={{ overflow: "hidden" }}
+                      id={`faq-answer-${idx}`}
                     >
                       <div
                         style={{

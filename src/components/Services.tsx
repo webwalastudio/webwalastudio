@@ -88,7 +88,16 @@ function TiltCard({
       onClick={onClick}
       onMouseMove={onMove}
       onMouseLeave={onLeave}
-      className={`cursor-pointer ${className ?? ""}`}
+      role="button"
+      tabIndex={0}
+      aria-expanded={isSelected}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onClick();
+        }
+      }}
+      className={`cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2 ${className ?? ""}`}
       style={{ perspective: "900px", ...style }}
       whileHover={!isSelected ? { y: -4 } : {}}
       whileTap={{ scale: 0.98 }}
