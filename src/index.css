@@ -207,7 +207,6 @@ html { scroll-behavior: smooth; }
   .morph-blob-a { animation: orb-float 14s ease-in-out infinite; border-radius: 50%; }
   .morph-blob-b { animation: orb-float 18s ease-in-out infinite reverse; border-radius: 50%; }
   .morph-blob-c { animation: orb-float 22s ease-in-out infinite; border-radius: 50%; }
-  .scroll-portfolio { animation: none; transform: translateY(-20%); }
   .animated-border-wrap::before { animation: border-spin 10s linear infinite; }
   .navbar-iridescent-edge { animation: none; opacity: 0.5; }
 }
@@ -349,17 +348,8 @@ html { scroll-behavior: smooth; }
   will-change: transform;
 }
 
-/* ── Portfolio card scroll (tall full-page screenshots) ── */
-@keyframes scroll-portfolio {
-  0%    { transform: translateY(0); }
-  8%    { transform: translateY(0); }
-  92%   { transform: translateY(-68%); }
-  100%  { transform: translateY(-68%); }
-}
-.scroll-portfolio {
-  animation: scroll-portfolio 14s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate;
-  will-change: transform;
-}
+/* Portfolio screenshots are scrubbed by GSAP ScrollTrigger (see Portfolio.tsx) */
+.portfolio-shot { will-change: transform; }
 
 /* ── WhatsApp floating button ── */
 @keyframes wa-ping {
@@ -394,7 +384,6 @@ html { scroll-behavior: smooth; }
 /* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
   .scroll-page,
-  .scroll-portfolio,
   .orb-float, .orb-float-2, .orb-float-3,
   .morph-blob-a, .morph-blob-b, .morph-blob-c,
   .float-y, .float-y-2, .float-y-3,

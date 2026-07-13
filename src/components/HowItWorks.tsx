@@ -97,7 +97,17 @@ export default function HowItWorks() {
               >
                 <div
                   onClick={() => setActiveTab(isActive ? -1 : index)}
-                  className="flex items-center gap-4 p-4 cursor-pointer transition-all duration-200"
+                  role="button"
+                  tabIndex={0}
+                  aria-expanded={isActive}
+                  aria-controls={`howitworks-panel-${index}`}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      setActiveTab(isActive ? -1 : index);
+                    }
+                  }}
+                  className="flex items-center gap-4 p-4 cursor-pointer transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-brand-navy"
                   style={{
                     background: isActive ? "rgba(56,189,248,0.1)" : "rgba(255,255,255,0.04)",
                     border: `1px solid ${isActive ? "rgba(56,189,248,0.3)" : "rgba(255,255,255,0.08)"}`,
@@ -132,6 +142,7 @@ export default function HowItWorks() {
                       exit={{ opacity: 0, height: 0 }}
                       transition={{ duration: 0.25 }}
                       className="overflow-hidden"
+                      id={`howitworks-panel-${index}`}
                     >
                       <div
                         className="mt-2 p-4"
@@ -205,7 +216,17 @@ export default function HowItWorks() {
                   <motion.div
                     key={index}
                     onClick={() => setActiveTab(index)}
-                    className="cursor-pointer relative overflow-hidden"
+                    role="button"
+                    tabIndex={0}
+                    aria-pressed={isActive}
+                    aria-controls="howitworks-desktop-deliverables"
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        setActiveTab(index);
+                      }
+                    }}
+                    className="cursor-pointer relative overflow-hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-sky-400 focus-visible:-outline-offset-2"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-40px" }}
@@ -288,6 +309,7 @@ export default function HowItWorks() {
           <AnimatePresence mode="wait">
             <motion.div
               key={desktopTab}
+              id="howitworks-desktop-deliverables"
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
