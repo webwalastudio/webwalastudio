@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "motion/react";
 import { CalendarCheck, Zap, Smartphone, ChevronDown, Monitor, Tablet } from "lucide-react";
+import { gsap, useGSAP } from "../lib/scroll";
 
 interface HeroProps {
   onOpenContact: () => void;
@@ -354,6 +355,33 @@ export default function Hero({ onOpenContact }: HeroProps) {
   const [deviceIndex, setDeviceIndex] = useState(0);
   const direction = useRef(1); // 1 = forward, -1 = backward
   const mockupRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  /* ── Scroll parallax: blobs, copy, and mockup drift at different speeds ── */
+  useGSAP(() => {
+    const mm = gsap.matchMedia();
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      const exitScrub = {
+        trigger: sectionRef.current,
+        start: "top top",
+        end: "bottom top",
+        scrub: true,
+      };
+      gsap.utils.toArray<HTMLElement>("[data-hero-parallax]").forEach((el) => {
+        gsap.to(el, {
+          yPercent: parseFloat(el.dataset.heroParallax ?? "0.15") * 100,
+          ease: "none",
+          scrollTrigger: exitScrub,
+        });
+      });
+      gsap.to(".hero-copy", { y: -36, ease: "none", scrollTrigger: exitScrub });
+      gsap.to(".hero-mock-wrap", { y: -64, ease: "none", scrollTrigger: exitScrub });
+      gsap.to(".hero-scroll-hint", {
+        opacity: 0,
+        scrollTrigger: { trigger: sectionRef.current, start: "top top", end: "15% top", scrub: true },
+      });
+    });
+  }, { scope: sectionRef });
 
   /* ── 3D tilt ── */
   const mouseX = useMotionValue(0);
@@ -401,6 +429,7 @@ export default function Hero({ onOpenContact }: HeroProps) {
   return (
     <section
       id="home"
+      ref={sectionRef}
       className="relative overflow-hidden"
       style={{
         background: "linear-gradient(160deg, #EFF6FF 0%, #F5F3FF 50%, #EDE9FE 100%)",
@@ -413,16 +442,22 @@ export default function Hero({ onOpenContact }: HeroProps) {
       {/* Dot grid */}
       <div className="dot-grid-light absolute inset-0 pointer-events-none" />
 
-      {/* Morphing liquid glass blobs */}
-      <div className="morph-blob-a absolute pointer-events-none" style={{ top: "4%", right: "4%", width: 620, height: 620, background: "radial-gradient(circle at 35% 30%, rgba(56,189,248,0.28) 0%, rgba(14,165,233,0.14) 40%, transparent 70%)" }} />
-      <div className="morph-blob-b absolute pointer-events-none" style={{ bottom: "-5%", left: "-3%", width: 500, height: 500, background: "radial-gradient(circle at 38% 32%, rgba(167,139,250,0.26) 0%, rgba(124,58,237,0.12) 45%, transparent 70%)" }} />
-      <div className="morph-blob-c absolute pointer-events-none" style={{ top: "45%", left: "28%", width: 320, height: 320, background: "radial-gradient(circle at 40% 35%, rgba(244,114,182,0.13) 0%, rgba(56,189,248,0.09) 50%, transparent 75%)" }} />
+      {/* Morphing liquid glass blobs — parallax wrappers move, inner blobs morph */}
+      <div data-hero-parallax="0.1" className="absolute pointer-events-none" style={{ top: "4%", right: "4%", width: 620, height: 620 }}>
+        <div className="morph-blob-a" style={{ width: "100%", height: "100%", background: "radial-gradient(circle at 35% 30%, rgba(56,189,248,0.28) 0%, rgba(14,165,233,0.14) 40%, transparent 70%)" }} />
+      </div>
+      <div data-hero-parallax="0.22" className="absolute pointer-events-none" style={{ bottom: "-5%", left: "-3%", width: 500, height: 500 }}>
+        <div className="morph-blob-b" style={{ width: "100%", height: "100%", background: "radial-gradient(circle at 38% 32%, rgba(167,139,250,0.26) 0%, rgba(124,58,237,0.12) 45%, transparent 70%)" }} />
+      </div>
+      <div data-hero-parallax="0.34" className="absolute pointer-events-none" style={{ top: "45%", left: "28%", width: 320, height: 320 }}>
+        <div className="morph-blob-c" style={{ width: "100%", height: "100%", background: "radial-gradient(circle at 40% 35%, rgba(244,114,182,0.13) 0%, rgba(56,189,248,0.09) 50%, transparent 75%)" }} />
+      </div>
 
       <div className="w-full max-w-[1200px] mx-auto relative z-10">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
           {/* ── Left copy ── */}
-          <div>
+          <div className="hero-copy">
             {/* H1 */}
             <motion.h1
               initial={{ opacity: 0, y: 24 }}
@@ -516,6 +551,7 @@ export default function Hero({ onOpenContact }: HeroProps) {
           </div>
 
           {/* ── Right: cycling device mockup ── */}
+          <div className="hero-mock-wrap">
           <motion.div
             ref={mockupRef}
             className="relative"
@@ -607,12 +643,13 @@ export default function Hero({ onOpenContact }: HeroProps) {
               ))}
             </div>
           </motion.div>
+          </div>
 
         </div>
       </div>
 
       {/* Scroll indicator */}
-      <div className="scroll-bounce absolute pointer-events-none" style={{ bottom: 28, left: "50%" }}>
+      <div className="hero-scroll-hint scroll-bounce absolute pointer-events-none" style={{ bottom: 28, left: "50%" }}>
         <ChevronDown className="h-5 w-5" style={{ color: "rgba(124,58,237,0.35)" }} />
       </div>
     </section>
