@@ -1,7 +1,5 @@
-import { useRef } from "react";
 import { motion } from "motion/react";
 import { ExternalLink } from "lucide-react";
-import { gsap, ScrollTrigger, useGSAP } from "../lib/scroll";
 
 const projects = [
   {
@@ -95,12 +93,12 @@ function BrowserFrame({ screenshot, domain, accentFrom, accentTo }: {
         </div>
       </div>
 
-      {/* Screenshot scrubs with page scroll */}
+      {/* Scrolling screenshot */}
       <div style={{ height: 340, overflow: "hidden", background: "#f8f8f8" }}>
         <img
           src={screenshot}
           alt={domain}
-          className="portfolio-shot"
+          className="scroll-portfolio"
           style={{
             width: "100%",
             display: "block",
@@ -113,39 +111,9 @@ function BrowserFrame({ screenshot, domain, accentFrom, accentTo }: {
 }
 
 export default function Portfolio() {
-  const sectionRef = useRef<HTMLElement>(null);
-
-  /* ── Screenshots scroll inside their browser frames, driven by page scroll ── */
-  useGSAP(() => {
-    const mm = gsap.matchMedia();
-    mm.add("(prefers-reduced-motion: no-preference)", () => {
-      gsap.utils.toArray<HTMLImageElement>(".portfolio-shot").forEach((img) => {
-        const frame = img.parentElement!;
-        gsap.fromTo(img,
-          { y: 0 },
-          {
-            y: () => -Math.max(0, img.offsetHeight - frame.offsetHeight),
-            ease: "none",
-            scrollTrigger: {
-              trigger: frame,
-              start: "top 90%",
-              end: "bottom 10%",
-              scrub: 0.4,
-              invalidateOnRefresh: true,
-            },
-          }
-        );
-        if (!img.complete) {
-          img.addEventListener("load", () => ScrollTrigger.refresh(), { once: true });
-        }
-      });
-    });
-  }, { scope: sectionRef });
-
   return (
     <section
       id="portfolio"
-      ref={sectionRef}
       className="relative overflow-hidden py-24 scroll-mt-10"
       style={{ background: "#F8FAFF" }}
     >
