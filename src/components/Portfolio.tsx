@@ -24,6 +24,17 @@ const projects = [
     accentTo: "#EF4444",
     tag: "Manufacturing",
   },
+  {
+    name: "Master Salon",
+    category: "Salon & Wellness",
+    description: "Premium hair artistry and aesthetic wellness studio in Bengaluru — service menus, colour transformations, and WhatsApp booking.",
+    url: "https://www.master-salon.com",
+    domain: "master-salon.com",
+    screenshot: "/screenshot-master-salon.webp",
+    accentFrom: "#B45309",
+    accentTo: "#DB2777",
+    tag: "Salon",
+  },
 ];
 
 function BrowserFrame({ screenshot, domain, accentFrom, accentTo }: {
@@ -155,7 +166,7 @@ export default function Portfolio() {
         </motion.div>
 
         {/* Project cards */}
-        <div className="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto">
           {projects.map((project, idx) => (
             <motion.div
               key={idx}
