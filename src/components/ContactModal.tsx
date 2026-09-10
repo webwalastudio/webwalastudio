@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useEffect, FormEvent } from "react";
+import { useState, useEffect, useRef, FormEvent } from "react";
 import emailjs from "@emailjs/browser";
 import { motion, AnimatePresence } from "motion/react";
 import { X, MessageSquare, Send, CheckCircle, Mail } from "lucide-react";
@@ -36,6 +36,42 @@ export default function ContactModal({
   const [emailSent, setEmailSent] = useState(false);
   const [emailError, setEmailError] = useState("");
   const [formError, setFormError] = useState("");
+  const panelRef = useRef<HTMLDivElement>(null);
+
+  // Escape-to-close + focus trap while open
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+        return;
+      }
+      if (e.key === "Tab" && panelRef.current) {
+        const focusable = panelRef.current.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        );
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, onClose]);
+
+  // Move focus into the dialog when it opens
+  useEffect(() => {
+    if (isOpen) panelRef.current?.focus();
+  }, [isOpen]);
 
   // Reset all state when modal opens/closes
   useEffect(() => {
@@ -102,7 +138,12 @@ export default function ContactModal({
           onClick={onClose}
         >
           <motion.div
-            className="bg-bg-cream w-full max-w-lg rounded-2xl shadow-2xl border border-brand-navy/15 overflow-hidden"
+            ref={panelRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="contact-modal-title"
+            tabIndex={-1}
+            className="bg-bg-cream w-full max-w-lg rounded-2xl shadow-2xl border border-brand-navy/15 overflow-hidden outline-none"
             initial={{ opacity: 0, scale: 0.94, y: 16 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.96, y: 8 }}
@@ -113,7 +154,7 @@ export default function ContactModal({
             <div className="bg-brand-navy p-5 flex items-center justify-between text-white">
               <div className="flex items-center gap-2">
                 <MessageSquare className="h-5 w-5" style={{ color: "#38BDF8" }} />
-                <h3 className="font-display text-lg font-bold">
+                <h3 id="contact-modal-title" className="font-display text-lg font-bold">
                   Book a Free Consultation
                 </h3>
               </div>

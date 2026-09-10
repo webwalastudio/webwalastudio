@@ -74,7 +74,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 aria-label="Webwala Studio on Instagram"
                 className="flex items-center justify-center border-none cursor-pointer"
-                style={{ width: 36, height: 36, borderRadius: 9, background: "rgba(255,255,255,0.07)", color: "rgba(255,255,255,0.6)", textDecoration: "none" }}
+                style={{ width: 44, height: 44, borderRadius: 11, background: "rgba(255,255,255,0.07)", color: "rgba(255,255,255,0.6)", textDecoration: "none" }}
                 whileHover={{
                   scale: 1.12,
                   backgroundColor: "rgba(225,48,108,0.22)",
@@ -92,7 +92,7 @@ export default function Footer() {
                 aria-label={copied ? "Link copied!" : "Copy page link"}
                 onClick={handleCopyLink}
                 className="flex items-center justify-center border-none cursor-pointer"
-                style={{ width: 36, height: 36, borderRadius: 9, background: "rgba(255,255,255,0.07)", color: copied ? "#38BDF8" : "rgba(255,255,255,0.6)" }}
+                style={{ width: 44, height: 44, borderRadius: 11, background: "rgba(255,255,255,0.07)", color: copied ? "#38BDF8" : "rgba(255,255,255,0.6)" }}
                 whileHover={{
                   scale: 1.12,
                   backgroundColor: "rgba(56,189,248,0.18)",
@@ -110,7 +110,7 @@ export default function Footer() {
                 aria-label="Share this page"
                 onClick={handleShare}
                 className="flex items-center justify-center border-none cursor-pointer"
-                style={{ width: 36, height: 36, borderRadius: 9, background: "rgba(255,255,255,0.07)", color: "rgba(255,255,255,0.6)" }}
+                style={{ width: 44, height: 44, borderRadius: 11, background: "rgba(255,255,255,0.07)", color: "rgba(255,255,255,0.6)" }}
                 whileHover={{
                   scale: 1.12,
                   backgroundColor: "rgba(167,139,250,0.2)",

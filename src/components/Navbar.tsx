@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "motion/react";
 import { CalendarCheck, Menu, X } from "lucide-react";
@@ -16,6 +16,38 @@ export default function Navbar({ onOpenContact }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [scrolled, setScrolled] = useState(false);
+  const drawerRef = useRef<HTMLDivElement>(null);
+
+  // Escape-to-close + focus trap for the mobile drawer
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setMobileMenuOpen(false);
+        return;
+      }
+      if (e.key === "Tab" && drawerRef.current) {
+        const focusable = drawerRef.current.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        );
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    drawerRef.current?.focus();
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [mobileMenuOpen]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -147,6 +179,8 @@ export default function Navbar({ onOpenContact }: NavbarProps) {
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle Menu"
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-nav-drawer"
             className="lg:hidden p-2 rounded-lg active:scale-95 transition-all"
             style={{ color: "#1E1B4B", background: "transparent", border: "none", cursor: "pointer" }}
           >
@@ -174,7 +208,13 @@ export default function Navbar({ onOpenContact }: NavbarProps) {
       <AnimatePresence>
         {mobileMenuOpen && (
         <motion.div
-          className="fixed inset-y-0 right-0 z-[999] w-72 flex flex-col px-6 py-6 lg:hidden"
+          id="mobile-nav-drawer"
+          ref={drawerRef}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Mobile navigation"
+          tabIndex={-1}
+          className="fixed inset-y-0 right-0 z-[999] w-72 flex flex-col px-6 py-6 lg:hidden outline-none"
           style={{ backgroundColor: "#1E1B4B" }}
           initial={{ x: "100%" }}
           animate={{ x: 0 }}
