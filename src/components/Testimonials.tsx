@@ -85,15 +85,10 @@ export default function Testimonials() {
         </motion.div>
 
         {/* Cards */}
-        <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {reviews.map((r, idx) => (
             <motion.div
               key={idx}
-              className={
-                idx === reviews.length - 1 && reviews.length % 2 !== 0
-                  ? "md:col-span-2 md:max-w-md md:mx-auto md:w-full"
-                  : undefined
-              }
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
