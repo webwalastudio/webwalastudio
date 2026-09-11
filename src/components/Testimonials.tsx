@@ -28,6 +28,19 @@ const reviews = [
     accentFrom: "#7C3AED",
     accentTo: "#38BDF8",
   },
+  {
+    stars: 5,
+    quote:
+      "Thanks to Mr. Bhalinder — great job on this project! The quality of work is excellent and it was delivered right on time. Extremely professional and detail-oriented. The final output exceeded my expectations, highly recommend.",
+    name: "Murshad Ali",
+    role: "Owner",
+    company: "Master Salon",
+    initials: "MA",
+    website: "https://www.master-salon.com",
+    domain: "master-salon.com",
+    accentFrom: "#B45309",
+    accentTo: "#DB2777",
+  },
 ];
 
 function Stars({ count }: { count: number }) {
@@ -76,6 +89,11 @@ export default function Testimonials() {
           {reviews.map((r, idx) => (
             <motion.div
               key={idx}
+              className={
+                idx === reviews.length - 1 && reviews.length % 2 !== 0
+                  ? "md:col-span-2 md:max-w-md md:mx-auto md:w-full"
+                  : undefined
+              }
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
