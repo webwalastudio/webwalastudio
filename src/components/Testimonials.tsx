@@ -31,7 +31,7 @@ const reviews = [
   {
     stars: 5,
     quote:
-      "Thanks to Mr. Bhalinder — great job on this project! The quality of work is excellent and it was delivered right on time. Extremely professional and detail-oriented. The final output exceeded my expectations, highly recommend.",
+      "Thanks to Webwala Studio — great job on this project! The quality of work is excellent and it was delivered right on time. Extremely professional and detail-oriented. The final output exceeded my expectations, highly recommend.",
     name: "Murshad Ali",
     role: "Owner",
     company: "Master Salon",
