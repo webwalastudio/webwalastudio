@@ -464,7 +464,7 @@ export default function Hero({ onOpenContact }: HeroProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, delay: 0.08 }}
               className="font-display font-black leading-tight mb-6"
-              style={{ fontSize: "clamp(36px, 4.6vw, 60px)", letterSpacing: "-2px", color: "#1E1B4B" }}
+              style={{ fontSize: "clamp(36px, 4.6vw, 60px)", letterSpacing: "-1.2px", color: "#1E1B4B" }}
             >
               Your Business Deserves a Website{" "}
               <span style={{ display: "inline-block" }}>

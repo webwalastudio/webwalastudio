@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "motion/react";
+import { motion, type Variants } from "motion/react";
 import { Zap, MapPin, Phone, Mail, Link as LinkIcon, Share2, Instagram, ArrowUp } from "lucide-react";
 import { services } from "../data/services";
 import { locations } from "../data/locations";
 
-const fadeUp = {
+/* Annotated so the cubic-bezier array is contextually typed as Motion's
+   4-tuple `Easing`; without it the literal widens to `number[]` and won't
+   satisfy `Transition.ease`. */
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 24 },
   show: (i: number) => ({
     opacity: 1,

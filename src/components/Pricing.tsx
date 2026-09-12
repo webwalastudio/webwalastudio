@@ -58,8 +58,23 @@ export default function Pricing({ onOpenContact }: PricingProps) {
   ];
 
   return (
-    <section id="pricing" className="py-24 scroll-mt-10" style={{ background: "#F8FAFF" }}>
-      <div className="max-w-[1200px] mx-auto px-[5%]">
+    <section
+      id="pricing"
+      className="relative overflow-hidden py-24 scroll-mt-10"
+      style={{
+        /* Deliberately a deeper, cooler navy than the How-It-Works section so the
+           page's two dark moments don't read as the same slab repeated. */
+        background: "linear-gradient(170deg, #16133A 0%, #1E1B4B 45%, #241F5C 100%)",
+      }}
+    >
+      {/* Dot grid overlay */}
+      <div className="dot-grid absolute inset-0 pointer-events-none" />
+
+      {/* Glass sphere orbs */}
+      <div className="glass-sphere orb-float absolute pointer-events-none" style={{ top: "-12%", left: "-6%", width: 460, height: 460 }} />
+      <div className="glass-sphere-blue orb-float-2 absolute pointer-events-none" style={{ bottom: "-12%", right: "-6%", width: 400, height: 400 }} />
+
+      <div className="max-w-[1200px] mx-auto px-[5%] relative z-10">
         {/* Title */}
         <motion.div
           className="text-center mb-16 max-w-2xl mx-auto"
@@ -69,14 +84,14 @@ export default function Pricing({ onOpenContact }: PricingProps) {
           transition={{ duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98] }}
           style={{ transformPerspective: 800 }}
         >
-          <span className="section-label">PRICING</span>
+          <span className="section-label-dark">PRICING</span>
           <h2
-            className="font-display font-black mb-4"
-            style={{ fontSize: "clamp(26px, 3.2vw, 42px)", letterSpacing: "-1.2px", color: "var(--text-dark)" }}
+            className="font-display font-black mb-4 text-white"
+            style={{ fontSize: "clamp(26px, 3.2vw, 42px)", letterSpacing: "-0.6px" }}
           >
             Transparent Pricing, No Surprises
           </h2>
-          <p className="font-sans" style={{ fontSize: 16, color: "#4B5563", lineHeight: 1.7 }}>
+          <p className="font-sans" style={{ fontSize: 16, color: "rgba(255,255,255,0.7)", lineHeight: 1.7 }}>
             One-time payment for the build. Affordable annual maintenance. Pick the plan that fits your current needs.
           </p>
         </motion.div>
@@ -92,7 +107,7 @@ export default function Pricing({ onOpenContact }: PricingProps) {
               transition={{ duration: 0.5, delay: index * 0.1, ease: [0.21, 0.47, 0.32, 0.98] }}
               className={`relative flex flex-col ${plan.featured ? "md:scale-[1.04]" : ""}`}
               whileHover={!plan.featured
-                ? { y: -5, boxShadow: "0 20px 56px rgba(99,102,241,0.12)" }
+                ? { y: -5, boxShadow: "0 20px 56px rgba(0,0,0,0.28)" }
                 : { y: -4 }
               }
             >
@@ -119,14 +134,15 @@ export default function Pricing({ onOpenContact }: PricingProps) {
               )}
 
               {plan.featured ? (
-                /* ── Liquid glass card with iridescent border ── */
+                /* On the dark section the featured plan inverts to a bright card —
+                   it's the single lightest surface here, so the eye lands on it first. */
                 <div className="animated-border-wrap">
                   <div
                     className="animated-border-inner"
                     style={{
-                      background: "rgba(12, 8, 42, 0.82)",
+                      background: "rgba(255,255,255,0.97)",
                       padding: 36,
-                      boxShadow: "inset 0 1.5px 0 rgba(255,255,255,0.12), inset 0 -1px 0 rgba(167,139,250,0.08)",
+                      boxShadow: "inset 0 1.5px 0 rgba(255,255,255,0.9), 0 24px 64px rgba(0,0,0,0.32)",
                     }}
                   >
                     <CardContent plan={plan} onOpenContact={onOpenContact} />
@@ -136,10 +152,13 @@ export default function Pricing({ onOpenContact }: PricingProps) {
                 <div
                   className="flex flex-col flex-1"
                   style={{
-                    background: "white",
+                    background: "rgba(255,255,255,0.05)",
+                    backdropFilter: "blur(20px) saturate(160%)",
+                    WebkitBackdropFilter: "blur(20px) saturate(160%)",
                     borderRadius: "var(--radius-lg)",
                     padding: 36,
-                    border: "1.5px solid var(--border)",
+                    border: "1px solid rgba(255,255,255,0.12)",
+                    boxShadow: "inset 0 1px 0 rgba(255,255,255,0.1)",
                     transition: "all 0.25s",
                   }}
                 >
@@ -170,51 +189,67 @@ function CardContent({
   };
   onOpenContact: (plan?: string) => void;
 }) {
+  /* The section runs dark, so the FEATURED plan is the light card and every other
+     plan sits on dark glass — the inverse of the old light-section arrangement.
+     All values below hold 5:1+ against their own surface. */
+  const onLight = plan.featured;
+
+  const c = onLight
+    ? {
+        tier: "var(--violet-mid)",
+        muted: "#4B5563",
+        subtle: "#6B7280",
+        price: "var(--text-dark)",
+        checkBg: "rgba(124,58,237,0.14)",
+        checkFg: "#7C3AED",
+        offBg: "rgba(156,163,175,0.12)",
+        offFg: "#9CA3AF",
+        featureOn: "var(--text-dark)",
+        featureOff: "#6B7280",
+      }
+    : {
+        tier: "#A78BFA",
+        muted: "rgba(255,255,255,0.55)",
+        subtle: "rgba(255,255,255,0.55)",
+        price: "white",
+        checkBg: "rgba(56,189,248,0.2)",
+        checkFg: "#38BDF8",
+        offBg: "rgba(255,255,255,0.08)",
+        offFg: "rgba(255,255,255,0.45)",
+        featureOn: "rgba(255,255,255,0.92)",
+        featureOff: "rgba(255,255,255,0.5)",
+      };
+
   return (
     <>
       <div className="flex-1">
         {/* Tier name */}
         <p
           className="font-sans font-black uppercase mb-1"
-          style={{
-            fontSize: 11,
-            letterSpacing: "1.5px",
-            color: plan.featured ? "rgba(167,139,250,0.9)" : "var(--violet-mid)",
-          }}
+          style={{ fontSize: 11, letterSpacing: "1.5px", color: c.tier }}
         >
           {plan.name}
         </p>
-        <p
-          className="font-sans mb-6"
-          style={{ fontSize: 13, color: plan.featured ? "rgba(255,255,255,0.5)" : "#4B5563" }}
-        >
+        <p className="font-sans mb-6" style={{ fontSize: 13, color: c.muted }}>
           {plan.description}
         </p>
 
         {/* Price */}
         <div className="mb-8">
           {plan.id === "business-pro" && (
-            <span
-              className="font-sans block mb-1"
-              style={{ fontSize: 12, color: plan.featured ? "rgba(255,255,255,0.5)" : "#6B7280" }}
-            >
+            <span className="font-sans block mb-1" style={{ fontSize: 12, color: c.subtle }}>
               Starting from
             </span>
           )}
           <span
             className="font-display font-black"
-            style={{
-              fontSize: 48,
-              letterSpacing: "-2px",
-              lineHeight: 1,
-              color: plan.featured ? "white" : "var(--text-dark)",
-            }}
+            style={{ fontSize: 48, letterSpacing: "-1.2px", lineHeight: 1, color: c.price }}
           >
             {plan.price}
           </span>
           <span
             className="font-sans font-semibold block mt-1"
-            style={{ fontSize: 13, color: plan.featured ? "rgba(255,255,255,0.5)" : "#6B7280" }}
+            style={{ fontSize: 13, color: c.subtle }}
           >
             ≈ {plan.priceUSD} USD
           </span>
@@ -229,8 +264,8 @@ function CardContent({
                   className="flex items-center justify-center shrink-0"
                   style={{
                     width: 18, height: 18, borderRadius: "50%",
-                    background: plan.featured ? "rgba(167,139,250,0.22)" : "rgba(56,189,248,0.15)",
-                    color: plan.featured ? "#A78BFA" : "#0EA5E9",
+                    background: c.checkBg,
+                    color: c.checkFg,
                   }}
                 >
                   <Check style={{ width: 10, height: 10, strokeWidth: 3 }} />
@@ -240,8 +275,8 @@ function CardContent({
                   className="flex items-center justify-center shrink-0 font-bold"
                   style={{
                     width: 18, height: 18, borderRadius: "50%",
-                    background: "rgba(156,163,175,0.1)",
-                    color: "#D1D5DB",
+                    background: c.offBg,
+                    color: c.offFg,
                     fontSize: 12,
                   }}
                 >
@@ -253,9 +288,7 @@ function CardContent({
                 style={{
                   fontSize: 14,
                   fontWeight: feature.active ? 600 : 400,
-                  color: plan.featured
-                    ? (feature.active ? "rgba(255,255,255,0.92)" : "rgba(255,255,255,0.3)")
-                    : (feature.active ? "var(--text-dark)" : "#6B7280"),
+                  color: feature.active ? c.featureOn : c.featureOff,
                   textDecoration: feature.active ? "none" : "line-through",
                 }}
               >
@@ -271,7 +304,7 @@ function CardContent({
         onClick={() => onOpenContact(`${plan.name} (${plan.price} / ${plan.priceUSD})`)}
         className="btn-shine w-full font-sans font-bold cursor-pointer transition-all duration-[250ms]"
         style={
-          plan.featured
+          onLight
             ? {
                 background: "linear-gradient(135deg, #0EA5E9, #7C3AED)",
                 color: "white",
@@ -283,9 +316,9 @@ function CardContent({
                 fontFamily: "inherit",
               }
             : {
-                background: "var(--surface)",
-                color: "var(--violet-mid)",
-                border: "1.5px solid var(--border)",
+                background: "rgba(255,255,255,0.1)",
+                color: "white",
+                border: "1px solid rgba(255,255,255,0.22)",
                 padding: "14px 24px",
                 fontSize: 15,
                 borderRadius: "var(--radius)",

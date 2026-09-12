@@ -5,13 +5,19 @@ import {
   Coffee, ShoppingBag, Building2, Scale, Calculator,
 } from "lucide-react";
 
+/**
+ * `size` drives real grid spans via the .bento-* classes in index.css:
+ * sm = 2 cols, lg = 4 cols, wide = full 6-col row.
+ */
+type ServiceSize = "wide" | "lg" | "sm";
+
 interface ServiceItem {
   id: string;
   title: string;
   description: string;
   icon: LucideIcon;
   features: string[];
-  size: "lg" | "sm";
+  size: ServiceSize;
 }
 
 const services: ServiceItem[] = [
@@ -85,7 +91,7 @@ const services: ServiceItem[] = [
     description: "Full product catalogs, shopping carts, secure payment gateways, and inventory management setups.",
     icon: ShoppingBag,
     features: ["Stripe / PayPal Gateway Setup", "Product Catalog Grid", "Shopping Cart Overlay", "Dynamic Stock Tracker UI"],
-    size: "lg",
+    size: "wide",
   },
 ];
 
@@ -105,7 +111,7 @@ export default function Services() {
           <span className="section-label">OUR SERVICES</span>
           <h2
             className="font-display font-black mb-4"
-            style={{ fontSize: "clamp(26px, 3.2vw, 42px)", letterSpacing: "-1.2px", color: "var(--text-dark)" }}
+            style={{ fontSize: "clamp(26px, 3.2vw, 42px)", letterSpacing: "-0.6px", color: "var(--text-dark)" }}
           >
             Tailored Solutions for Every Industry
           </h2>
@@ -119,69 +125,73 @@ export default function Services() {
         <div className="services-bento">
           {services.map((service, index) => {
             const Icon = service.icon;
-            const isLarge = service.size === "lg";
+            const isAnchor = service.size !== "sm";
 
             return (
               <motion.div
                 key={service.id}
+                className={`bento-${service.size} group`}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.5, delay: index * 0.06, ease: [0.21, 0.47, 0.32, 0.98] }}
+                whileHover={{ y: -4, boxShadow: "0 18px 48px rgba(99,102,241,0.13)" }}
                 style={{
                   position: "relative",
                   overflow: "hidden",
                   background: "white",
                   border: "1.5px solid var(--border)",
                   borderRadius: "var(--radius)",
-                  padding: isLarge ? "32px" : "24px",
+                  padding: isAnchor ? 32 : 24,
                   display: "flex",
-                  flexDirection: "column",
-                  gap: isLarge ? 20 : 14,
+                  gap: isAnchor ? 20 : 14,
                 }}
               >
-                <span
-                  aria-hidden="true"
-                  style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: "linear-gradient(90deg, #0EA5E9, #7C3AED)" }}
-                />
+                {/* Gradient rule marks the two anchor industries only — on every
+                    card it was wallpaper and signalled no hierarchy at all. */}
+                {isAnchor && (
+                  <span
+                    aria-hidden="true"
+                    style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: "linear-gradient(90deg, #0EA5E9, #7C3AED)" }}
+                  />
+                )}
 
-                {/* Icon + label block */}
-                <div className="flex items-center gap-3">
-                  <div
-                    className="flex items-center justify-center shrink-0"
-                    style={{ width: isLarge ? 52 : 44, height: isLarge ? 52 : 44, borderRadius: 12, background: "var(--surface)", border: "1px solid var(--border)" }}
-                  >
-                    <Icon className={isLarge ? "h-6 w-6" : "h-5 w-5"} style={{ color: "var(--violet-mid)" }} />
-                  </div>
-                  <div>
-                    <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase" as const, color: "var(--blue-mid)" }}>
-                      Custom Spec
-                    </span>
+                <div className="bento-copy">
+                  {/* Icon + title */}
+                  <div className="flex items-center gap-3">
+                    <div
+                      className="bento-icon flex items-center justify-center shrink-0"
+                      style={{ width: isAnchor ? 52 : 44, height: isAnchor ? 52 : 44, borderRadius: 12, background: "var(--surface)", border: "1px solid var(--border)" }}
+                    >
+                      <Icon className={isAnchor ? "h-6 w-6" : "h-5 w-5"} style={{ color: "var(--violet-mid)" }} />
+                    </div>
                     <h3
                       className="font-display font-extrabold"
-                      style={{ fontSize: isLarge ? 22 : 16, color: "var(--text-dark)", lineHeight: 1.25 }}
+                      style={{ fontSize: isAnchor ? 22 : 16, color: "var(--text-dark)", lineHeight: 1.25, letterSpacing: "-0.3px" }}
                     >
                       {service.title}
                     </h3>
                   </div>
-                </div>
 
-                {/* Description + features */}
-                <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-                  <p className="font-sans" style={{ fontSize: isLarge ? 15 : 13.5, color: "#4B5563", lineHeight: 1.65 }}>
+                  <p
+                    className="font-sans"
+                    style={{ fontSize: isAnchor ? 15 : 13.5, color: "#4B5563", lineHeight: 1.65, marginTop: 14 }}
+                  >
                     {service.description}
                   </p>
-                  <div className="flex flex-wrap gap-2">
-                    {service.features.map((feature) => (
-                      <span
-                        key={feature}
-                        className="font-sans font-semibold"
-                        style={{ fontSize: 12, color: "var(--text-dark)", background: "var(--surface)", border: "1px solid var(--border)", padding: "6px 12px", borderRadius: 50 }}
-                      >
-                        {feature}
-                      </span>
-                    ))}
-                  </div>
+                </div>
+
+                {/* Every spec is always visible on every card — no truncation. */}
+                <div className="bento-specs flex flex-wrap gap-2">
+                  {service.features.map((feature) => (
+                    <span
+                      key={feature}
+                      className="font-sans font-semibold"
+                      style={{ fontSize: 12, color: "var(--text-dark)", background: "var(--surface)", border: "1px solid var(--border)", padding: "6px 12px", borderRadius: 50 }}
+                    >
+                      {feature}
+                    </span>
+                  ))}
                 </div>
               </motion.div>
             );

@@ -75,7 +75,7 @@ export default function Testimonials() {
           <span className="section-label">CLIENT REVIEWS</span>
           <h2
             className="font-display font-black mb-4"
-            style={{ fontSize: "clamp(26px, 3.2vw, 42px)", letterSpacing: "-1.2px", color: "#1E1B4B" }}
+            style={{ fontSize: "clamp(26px, 3.2vw, 42px)", letterSpacing: "-0.6px", color: "#1E1B4B" }}
           >
             What Our Clients Say
           </h2>
