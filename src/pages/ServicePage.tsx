@@ -10,7 +10,7 @@ function NotFoundContent() {
   return (
     <section className="relative overflow-hidden text-center" style={{ padding: "160px 5% 120px" }}>
       <div className="relative z-10 max-w-xl mx-auto">
-        <h1 className="font-display font-black mb-5" style={{ fontSize: "clamp(28px, 3.6vw, 44px)", letterSpacing: "-1.5px", color: "#1E1B4B" }}>
+        <h1 className="font-display font-black mb-5" style={{ fontSize: "clamp(28px, 3.6vw, 44px)", letterSpacing: "-0.9px", color: "#1E1B4B" }}>
           Service not found
         </h1>
         <p className="font-sans mb-8" style={{ fontSize: 16, color: "#4B5563", lineHeight: 1.75 }}>

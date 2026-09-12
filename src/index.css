@@ -13,7 +13,11 @@
   --color-border:       #E0E7FF;
   --color-text-light:   #6B7280;
 
-  --font-display: "Plus Jakarta Sans", sans-serif;
+  /* Display and body are deliberately different families — Bricolage Grotesque's
+     tighter apertures and optical-size axis give headings a voice Plus Jakarta
+     Sans can't. Its wght axis tops out at 800, so `font-black` (900) clamps to
+     800; that is intentional, not a bug. */
+  --font-display: "Bricolage Grotesque", "Plus Jakarta Sans", sans-serif;
   --font-sans:    "Plus Jakarta Sans", sans-serif;
 }
 
@@ -43,9 +47,14 @@ html { scroll-behavior: smooth; }
   }
 }
 
-/* ── Gradient text ── */
+/* ── Gradient text ──
+   Stops are deliberately darker than the brand's UI gradient (#0EA5E9 → #7C3AED):
+   gradient text sits on the pale lavender page background, where #38BDF8 measures
+   only 2.0:1 and #0EA5E9 2.6:1 — both below the 3:1 WCAG AA floor for large text.
+   Every stop below holds 5.2:1 or better, so the shimmer reads as a hue shift
+   rather than a luminance dip and never drops out of legibility mid-cycle. */
 .grad {
-  background: linear-gradient(135deg, #0EA5E9, #7C3AED);
+  background: linear-gradient(135deg, #0369A1, #6D28D9);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -53,7 +62,7 @@ html { scroll-behavior: smooth; }
 
 /* Animated shimmer gradient text */
 .grad-shimmer {
-  background: linear-gradient(90deg, #0EA5E9 0%, #7C3AED 30%, #38BDF8 50%, #7C3AED 70%, #0EA5E9 100%);
+  background: linear-gradient(90deg, #6D28D9 0%, #0369A1 30%, #7C3AED 50%, #0369A1 70%, #6D28D9 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -93,11 +102,46 @@ html { scroll-behavior: smooth; }
   border: 1px solid rgba(56, 189, 248, 0.2);
 }
 
-/* ── Services stack ── */
+/* ── Services bento ──
+   6-column grid so the `size` field in Services.tsx actually drives layout.
+   Rows land as 4+2 / 2+2+2 / 2+2+2 / 6, which keeps every row full while giving
+   the two anchor industries (education, e-commerce) visibly more weight. */
 .services-bento {
-  display: flex;
-  flex-direction: column;
+  display: grid;
   gap: 16px;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 640px) {
+  /* Two columns: the eight tiered cards fill four exact rows and only the
+     closing wide card spans — letting `lg` span here would orphan a half-row. */
+  .services-bento { grid-template-columns: repeat(2, 1fr); }
+  .services-bento > .bento-wide { grid-column: span 2; }
+}
+/* Cards stack their copy above their spec pills by default. */
+.services-bento > [class*="bento-"] {
+  flex-direction: column;
+  align-items: stretch;
+}
+.bento-icon { transition: background 0.2s, border-color 0.2s; }
+.group:hover .bento-icon {
+  background: rgba(124, 58, 237, 0.1);
+  border-color: rgba(124, 58, 237, 0.28);
+}
+@media (min-width: 1024px) {
+  .services-bento { grid-template-columns: repeat(6, 1fr); }
+  .services-bento > .bento-sm   { grid-column: span 2; }
+  .services-bento > .bento-lg   { grid-column: span 4; }
+  .services-bento > .bento-wide { grid-column: span 6; }
+
+  /* Only the full-width card goes side-by-side, so the closing row reads
+     differently from the tiles above it. */
+  .services-bento > .bento-wide {
+    flex-direction: row;
+    align-items: center;
+    gap: 40px;
+  }
+  .services-bento > .bento-wide > .bento-copy  { flex: 0 0 42%; }
+  .services-bento > .bento-wide > .bento-specs { flex: 1; }
 }
 
 /* ── Buttons ── */
@@ -640,7 +684,7 @@ html { scroll-behavior: smooth; }
   font-family: var(--font-display);
   font-weight: 900;
   font-size: clamp(20px, 2.4vw, 28px);
-  letter-spacing: -0.8px;
+  letter-spacing: -0.4px;
   color: #1E1B4B;
   margin-top: 40px;
   margin-bottom: 18px;

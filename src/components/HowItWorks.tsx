@@ -73,7 +73,7 @@ export default function HowItWorks() {
           <span className="section-label-dark">HOW IT WORKS</span>
           <h2
             className="font-display font-black mb-4"
-            style={{ fontSize: "clamp(26px, 3.2vw, 42px)", letterSpacing: "-1.2px" }}
+            style={{ fontSize: "clamp(26px, 3.2vw, 42px)", letterSpacing: "-0.6px" }}
           >
             Simple. Fast. Effective.
           </h2>

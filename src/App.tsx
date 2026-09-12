@@ -48,7 +48,6 @@ function HomeContent() {
           style={{
             padding: "110px 5% 130px",
             background: "linear-gradient(160deg, #EFF6FF 0%, #F5F3FF 50%, #EDE9FE 100%)",
-            borderTop: "1.5px solid #E0E7FF",
           }}
         >
           {/* Dot grid */}
@@ -61,7 +60,7 @@ function HomeContent() {
             <span className="section-label">READY TO LAUNCH</span>
             <h2
               className="font-display font-black mb-6 max-w-2xl"
-              style={{ fontSize: "clamp(26px, 3.2vw, 48px)", letterSpacing: "-1.5px", color: "#1E1B4B" }}
+              style={{ fontSize: "clamp(26px, 3.2vw, 48px)", letterSpacing: "-0.9px", color: "#1E1B4B" }}
             >
               Ready to Get Your Website Live{" "}
               <span className="grad">in 7 Days?</span>
