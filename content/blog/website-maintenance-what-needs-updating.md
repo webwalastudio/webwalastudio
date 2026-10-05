@@ -2,6 +2,7 @@
 title: "Website Maintenance: What Actually Needs Updating After Launch?"
 slug: "website-maintenance-what-needs-updating"
 date: "2026-06-20"
+updated: "2026-10-05"
 excerpt: "What ongoing website maintenance actually involves once a site is live — beyond vague reassurances that it's 'taken care of.'"
 metaDescription: "What does website maintenance actually involve after launch? A clear breakdown of what needs updating, how often, and what it should cost."
 tags: ["maintenance", "post-launch"]

@@ -2,6 +2,7 @@
 title: "How Long Should It Take to Launch a Business Website?"
 slug: "how-long-website-launch-timeline"
 date: "2026-07-18"
+updated: "2026-10-05"
 excerpt: "A realistic breakdown of what actually determines website timelines — and why 7 days is achievable when the process is right."
 metaDescription: "How long does it take to launch a business website? A realistic breakdown of timelines, what causes delays, and how a 7-day build actually works."
 tags: ["process", "timeline"]

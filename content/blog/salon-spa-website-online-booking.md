@@ -2,6 +2,7 @@
 title: "Why Your Salon or Spa Needs Online Booking, Not Just a WhatsApp Number"
 slug: "salon-spa-website-online-booking"
 date: "2026-08-23"
+updated: "2026-10-05"
 excerpt: "A WhatsApp number isn't a booking system — here's why salons and spas that move to real online booking see fewer no-shows and more filled slots."
 metaDescription: "Why salons and spas need real online booking instead of WhatsApp or phone-only booking. Fewer no-shows, more filled slots, and what a proper booking flow needs."
 tags: ["salons", "spas", "booking"]

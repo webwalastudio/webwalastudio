@@ -201,8 +201,10 @@ async function startServer() {
     });
 
     app.use(express.static(distPath));
+    // Unknown URLs get the empty app shell, not dist/index.html (which now holds
+    // the prerendered homepage and would fail to hydrate on any other path).
     app.get("*", (req, res) => {
-      res.sendFile(path.join(distPath, "index.html"));
+      res.sendFile(path.join(distPath, "app-shell.html"));
     });
   }
 

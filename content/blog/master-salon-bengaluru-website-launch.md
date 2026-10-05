@@ -2,6 +2,7 @@
 title: "New Launch: Master Salon's Website Is Live in Bengaluru"
 slug: "master-salon-bengaluru-website-launch"
 date: "2026-09-10"
+updated: "2026-10-05"
 excerpt: "We just shipped the new website for Master Salon in Sahakara Nagar, Bengaluru — a full service menu, colour-transformation showcase, and WhatsApp-first booking. Here's what went into it."
 metaDescription: "Master Salon's new website is live — built by Webwala Studio with a full service menu, colour transformation gallery, reviews, and WhatsApp booking for their Bengaluru salon."
 tags: ["salons", "launch", "case study"]

@@ -102,10 +102,11 @@ export interface BlogPostingSchemaInput {
   description: string;
   path: string;
   datePublished: string;
+  dateModified?: string;
   imageUrl?: string;
 }
 
-export function buildBlogPostingSchema({ title, description, path, datePublished, imageUrl }: BlogPostingSchemaInput) {
+export function buildBlogPostingSchema({ title, description, path, datePublished, dateModified, imageUrl }: BlogPostingSchemaInput) {
   const url = `${SITE_URL}${path}`;
   return {
     "@context": "https://schema.org",
@@ -114,6 +115,7 @@ export function buildBlogPostingSchema({ title, description, path, datePublished
     description,
     url,
     datePublished,
+    dateModified: dateModified ?? datePublished,
     author: { "@type": "Organization", name: SITE_NAME },
     publisher: {
       "@type": "Organization",
