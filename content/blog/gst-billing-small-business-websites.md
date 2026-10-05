@@ -31,6 +31,6 @@ CA and accounting firms have a specific real need that isn't billing, but often 
 
 - **Consultants and service businesses**: a clear fee/service breakdown page + lead form. No billing functionality needed.
 - **CA & accounting firms**: a secure document upload portal, tax appointment booking, and a GST/compliance resource section — see our [CA & accounting firm website page](/services/ca-accounting-firms) for the full breakdown.
-- **Retailers selling online**: real GST-compliant checkout as part of a proper [e-commerce build](/services/ecommerce-stores), not a workaround.
+- **Retailers selling online**: real GST-compliant checkout as part of a proper [e-commerce build](/services/ecommerce-stores), not a workaround. Our [e-commerce checklist for small retailers](/blog/ecommerce-checklist-small-retailers-ncr) covers the rest of what that build needs.
 
 If you're not sure which category your business falls into, that's a completely normal question to bring to a consultation rather than guess at — [book a free 15-minute call](/faq) and we'll tell you plainly what you do and don't need, even if that means recommending less than you expected.

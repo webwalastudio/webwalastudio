@@ -35,6 +35,6 @@ The majority of online shopping in India happens on mobile, full stop. If your p
 
 ## What this looks like as an actual build
 
-We build [e-commerce websites](/services/ecommerce-stores) around this exact checklist — real payment gateway setup, a proper catalog grid, a clean cart flow, and live inventory tracking — as part of our Business Pro plan (₹55,000 / $699), live within 7 days.
+We build [e-commerce websites](/services/ecommerce-stores) around this exact checklist — real payment gateway setup, a proper catalog grid, a clean cart flow, and live inventory tracking — as part of our Business Pro plan (₹55,000 / $699), live within 7 days. If you'll be issuing tax invoices at checkout, read [whether your site needs GST billing](/blog/gst-billing-small-business-websites) first, and for how this plan compares with what other agencies charge, see [how much a website costs in India in 2026](/blog/website-cost-india-2026).
 
 If you're currently selling through Instagram or WhatsApp and considering the jump to a real store, [book a free consultation](/faq) — we'll walk through what moving to e-commerce would actually look like for your specific catalog and volume.

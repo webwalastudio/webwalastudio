@@ -7,7 +7,7 @@ metaDescription: "Where to hire a web designer for your small business: freelanc
 tags: ["hiring", "guide"]
 ---
 
-Once you've decided to hire rather than DIY, the next problem is just as common: there are too many places to look, and each one has a different failure mode. Here's how the main options actually compare.
+Once you've decided to hire rather than DIY, the next problem is just as common: there are too many places to look, and each one has a different failure mode. Here's how the main options actually compare. (For how to judge the candidates you find, see [how to pick the right web designer](/blog/how-to-pick-right-web-designer).)
 
 ## Freelance marketplaces (Upwork, Fiverr, Freelancer.com)
 
@@ -48,11 +48,11 @@ Generally more trustworthy than a marketplace's own star rating, since they veri
 A strong, recent referral from someone still using and happy with their site is one of the best signals you can get — it's worth weighing more heavily than a cold search result. Just don't skip your own vetting entirely on the strength of one recommendation.
 
 **Is it worth hiring an overseas freelancer to save money?**
-It can save money upfront, but factor in time zone gaps for feedback and revisions, and confirm ownership and support terms extra carefully — recourse is harder if something goes wrong with someone you can't easily reach or meet.
+It can save money upfront, but factor in time zone gaps for feedback and revisions, and confirm ownership and support terms extra carefully — recourse is harder if something goes wrong with someone you can't easily reach or meet. We compared typical rates in [website design costs in India vs the USA and UAE](/blog/website-cost-india-vs-usa-canada-uae).
 
 **Where shouldn't I hire a web designer?**
 Be cautious of anyone found through unsolicited cold outreach (an unexpected email or WhatsApp message offering a "free website audit") — it's a common low-quality sales tactic, not a sign of real expertise. Always verify live work independently rather than trusting the pitch.
 
 ## Where we fit
 
-We're a local studio serving businesses across Delhi NCR and internationally (US, Canada, UAE) — you can [see live examples of our work](/) across schools, clinics, restaurants, and retailers, check our process, and talk to us directly before deciding. [Book a free 15-minute consultation](/faq) to see if we're the right fit, no obligation either way.
+We're a local studio serving businesses across Delhi NCR and internationally (US, Canada, UAE) — you can [see live examples of our work](/#portfolio) across schools, clinics, restaurants, and retailers, check our process, and talk to us directly before deciding. [Book a free 15-minute consultation](/faq) to see if we're the right fit, no obligation either way.

@@ -15,7 +15,7 @@ The overwhelming majority of patients searching for a doctor or clinic do it on 
 
 ## 2. There's no way to book an appointment without calling
 
-A phone number is not a booking system — it's a barrier for anyone searching outside your clinic's working hours, which given search behavior, is a lot of your traffic. A simple appointment request form (even one that just requests a callback, if a live booking calendar isn't feasible yet) converts far more visitors than "call us."
+A phone number is not a booking system — it's a barrier for anyone searching outside your clinic's working hours, which given search behavior, is a lot of your traffic. A simple appointment request form (even one that just requests a callback, if a live booking calendar isn't feasible yet) converts far more visitors than "call us." Salons run into the same problem, and [our post on salon booking](/blog/salon-spa-website-online-booking) walks through what a proper booking flow needs.
 
 ## 3. Doctor information is missing or outdated
 
@@ -33,4 +33,4 @@ Design dates a site faster than most people expect, and an outdated-looking clin
 
 None of these are expensive problems to solve individually, but they add up to a real difference in how many people who find your clinic online actually book. We build [clinic and medical practice websites](/services/medical-clinics) specifically around doctor scheduling, patient feedback sections, and a clean, fast, mobile-first build — live within 7 days.
 
-If your clinic's site has more than one of the signs above, it's worth [a free 15-minute conversation](/faq) about what a rebuild would actually involve — most clinics are surprised by how fast and affordable it is once the scope is clear.
+If your clinic's site has more than one of the signs above, it's worth [a free 15-minute conversation](/faq) about what a rebuild would actually involve — most clinics are surprised by how fast and affordable it is once the scope is clear. (For actual numbers, see [how much a website costs in India in 2026](/blog/website-cost-india-2026).)
