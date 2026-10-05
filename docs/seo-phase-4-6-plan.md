@@ -2,7 +2,14 @@
 
 These are the three phases that follow the technical/content work already shipped (Phase 1–3: technical foundation, service/location pages, blog). Nothing here is code — it's Google Business Profile access, outreach, and account dashboards, so it needs you (or whoever holds those accounts), not another build.
 
-Context: Phases 1–3 gave the site 28 real, indexable pages (home, FAQ, 9 service pages, 5 location pages, 10 blog posts) with correct technical SEO. That work makes the site *rankable*. Phases 4–6 are what actually moves rank — local presence, external trust signals, and knowing what's working so effort goes where it pays off.
+Context: Phases 1–3 gave the site 33 real, indexable pages (home, FAQ, services index + 9 service pages, locations index + 5 location pages, blog index + 14 blog posts) with correct technical SEO. That work makes the site *rankable*. Phases 4–6 are what actually moves rank — local presence, external trust signals, and knowing what's working so effort goes where it pays off.
+
+## Status — 2026-10-05
+
+- **Indexing:** only 3 of 33 pages were indexed; 30 were stuck at "Discovered – currently not indexed" because pages shipped empty HTML. Fixed in PR #3 (full content now prerendered). Validation and request-indexing follow-up tracked in `docs/search-console-indexing-checklist.md`.
+- **NAP:** website now says "Gurugram" everywhere (footer previously said "Gurgaon"). GBP side still needs checking.
+- **Phase 4 (GBP), Phase 5 (backlinks):** not started.
+- **Next up:** mark GA4 key events → ask Master Salon for a footer credit link → Clutch + GoodFirms listings → GBP reviews.
 
 ---
 
@@ -14,8 +21,8 @@ Since you already have a GBP listing, this is optimization, not setup. Local-pac
 "NAP" = Name, Address, Phone — and it needs to match **exactly**, character for character, across every place your business appears online.
 
 - [ ] Compare your GBP listing's business name, address, and phone against the website's footer and the `LocalBusiness` schema in `index.html` (currently: "Webwala Studio", Gurugram/Haryana, +91-98187-26094).
-- [ ] Check specifically for "Gurugram" vs "Gurgaon" — pick one and use it everywhere. Mismatches here are one of the most common reasons a listing quietly underperforms.
-- [ ] Check phone number formatting matches (+91 98187 26094 vs 09818726094 vs other variants) across GBP, website, and any directory listing you already have.
+- [ ] Check specifically for "Gurugram" vs "Gurgaon" — pick one and use it everywhere. *(Website side done 2026-10-05: standardized on "Gurugram"; the footer was the only place saying "Gurgaon". Still check GBP and directory listings.)* Mismatches here are one of the most common reasons a listing quietly underperforms.
+- [ ] Check phone number formatting matches *(website is consistent: +91 98187 26094 / +91-98187-26094 in schema)* (+91 98187 26094 vs 09818726094 vs other variants) across GBP, website, and any directory listing you already have.
 
 ### Categories & services
 - [ ] Set your primary GBP category to the closest match (e.g., "Website designer" or "Web design company").
@@ -70,7 +77,7 @@ For each one: use the exact same NAP as your (now-corrected) GBP listing, and li
 ### Client backlinks
 This is the highest-quality backlink source you have, and it's already built into your existing pipeline — you deliver a finished site to every client.
 
-- [ ] Ask each client, as part of the handoff conversation, whether they'd add a small "Website by Webwala Studio" credit link in their site's footer, linking back to `webwalastudio.com`.
+- [ ] Ask each client, as part of the handoff conversation, whether they'd add a small "Website by Webwala Studio" credit link *(start with Master Salon — no credit link found in master-salon.com's HTML on 2026-10-05; confirm in a browser)* in their site's footer, linking back to `webwalastudio.com`.
 - [ ] Not every client will say yes — that's fine. Even a 30–40% acceptance rate compounds meaningfully over time as you deliver more sites.
 - [ ] Keep a simple log (a spreadsheet is enough) of which clients have added the link, so you can follow up with the ones who haven't yet.
 
@@ -82,7 +89,7 @@ One relevant, high-trust backlink from a real local organization is worth more t
 - [ ] If any client is a prominent local business, ask if they'd be open to a short case-study writeup on your blog with a quote from them — this gives them a reason to share/link back too.
 
 ### Social profile consistency
-- [ ] Confirm the bio links on Instagram, Facebook, and LinkedIn all point to the live site (these are already referenced in the site's `sameAs` structured data, so keeping them live and correct matters for entity consistency, not just traffic).
+- [ ] Confirm the bio links on Instagram, Facebook, and LinkedIn all point to the live site *(2026-10-05: the three `sameAs` profile URLs all load; the bio links back to the site still need checking in each app)* (these are already referenced in the site's `sameAs` structured data, so keeping them live and correct matters for entity consistency, not just traffic).
 
 ### Tracking
 - [ ] Keep a simple spreadsheet: site name, date submitted, status (pending/live/rejected), URL of the resulting listing. This takes five minutes per entry and saves you from re-doing work or losing track of what's outstanding.
@@ -94,17 +101,17 @@ One relevant, high-trust backlink from a real local organization is worth more t
 Everything above is wasted effort if you can't tell what's working. This phase is a recurring rhythm, not a one-time checklist — treat it as a monthly (or biweekly, early on) habit.
 
 ### Google Search Console
-- [ ] Confirm the property is verified (it already is — via the meta tag in `index.html`).
-- [ ] Submit the sitemap: `https://www.webwalastudio.com/sitemap.xml` (Search Console → Sitemaps). This is auto-generated at every build now, so it always reflects the current 28+ pages.
-- [ ] Weekly: check **Coverage** — are new pages (services, locations, blog posts) actually getting indexed? A page that isn't indexed after a couple of weeks is worth investigating rather than ignoring.
+- [x] Confirm the property is verified (it already is — via the meta tag in `index.html`).
+- [x] Submit the sitemap: `https://www.webwalastudio.com/sitemap.xml` (Search Console → Sitemaps). This is auto-generated at every build now, so it always reflects the current 33 pages. *(Resubmitted 2026-10-05.)*
+- [ ] Weekly: check **Indexing → Pages** (formerly Coverage) *(started 2026-10-05 — see `docs/search-console-indexing-checklist.md`)* — are new pages (services, locations, blog posts) actually getting indexed? A page that isn't indexed after a couple of weeks is worth investigating rather than ignoring.
 - [ ] Weekly/biweekly: check **Performance** — which queries are gaining impressions and clicks. This is where your *next* blog topics should come from — real search queries beat guessing.
 
 ### Google Analytics 4
-- [ ] Confirm `consultation_open` and `whatsapp_click` (already tracked via `src/lib/analytics.ts`) are marked as **Key events / conversions** in GA4 — otherwise you're tracking activity without tracking what actually matters (leads).
+- [ ] Confirm `consultation_open`, `whatsapp_click`, and `lead_form_submit` (already tracked via `src/lib/analytics.ts`) are marked as **Key events / conversions** in GA4 — otherwise you're tracking activity without tracking what actually matters (leads).
 - [ ] Set up a simple monthly check: traffic by landing page (are the new service/location/blog pages actually pulling visitors?), and conversions by source.
 
 ### Core Web Vitals / page speed
-- [ ] Monthly: run the homepage and a couple of new pages through [PageSpeed Insights](https://pagespeed.web.dev/). The build already flags a ~535KB main JS chunk — watch that this doesn't creep up further as more content gets added.
+- [ ] Monthly: run the homepage and a couple of new pages through [PageSpeed Insights](https://pagespeed.web.dev/). The build already flags a ~535KB main JS chunk — watch that this doesn't creep up further as more content gets added. *(2026-10-05: ~536KB, unchanged.)*
 
 ### Rank tracking
 - [ ] Pick 15–20 target keywords to track monthly — a mix of service+city combinations (e.g., "website design Gurugram", "clinic website design NCR", "school website Delhi") plus a couple of the harder generic terms ("web design agency Gurugram").
@@ -124,6 +131,6 @@ If you only do five things this month, do these — they're the highest-leverage
 
 1. Fix any NAP mismatches between GBP and the website (Phase 4).
 2. Build "ask for a Google review" into your existing client handoff (Phase 4).
-3. Submit the sitemap in Search Console (Phase 6) — takes five minutes, unlocks everything else.
+3. ~~Submit the sitemap in Search Console (Phase 6)~~ — done 2026-10-05.
 4. List the business on Clutch and GoodFirms (Phase 5).
-5. Mark `consultation_open` and `whatsapp_click` as GA4 conversions (Phase 6) — otherwise you won't be able to tell if any of this is working.
+5. Mark `consultation_open`, `whatsapp_click`, and `lead_form_submit` as GA4 conversions (Phase 6) — otherwise you won't be able to tell if any of this is working.
