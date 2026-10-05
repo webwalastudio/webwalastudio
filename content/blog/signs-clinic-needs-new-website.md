@@ -2,6 +2,7 @@
 title: "5 Signs Your Clinic Needs a New Website"
 slug: "signs-clinic-needs-new-website"
 date: "2026-08-08"
+updated: "2026-10-05"
 excerpt: "If your clinic's website shows any of these five signs, it's actively costing you patients — here's how to tell, and what to do about it."
 metaDescription: "5 clear signs your clinic or medical practice needs a new website — from mobile issues to missing appointment booking. What to fix and why it matters."
 tags: ["medical", "clinics"]

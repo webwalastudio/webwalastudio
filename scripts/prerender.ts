@@ -3,10 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-// Generates dist/<route>/index.html for every non-home route, patching the
-// built dist/index.html's <head> (title, description, canonical, OG/Twitter)
-// and injecting page-specific JSON-LD, so crawlers that don't execute JS still
-// see correct per-route metadata. The client-side useSeoMeta/useJsonLd hooks
+// Generates dist/<route>/index.html for every route, patching the built
+// dist/index.html's <head> (title, description, canonical, OG/Twitter), injecting
+// page-specific JSON-LD, and filling #root with the page's server-rendered markup
+// (via the SSR bundle in dist-ssr/, built from src/entry-server.tsx), so crawlers
+// see the real page content and metadata without executing JS. main.tsx then
+// hydrates that markup. The untouched shell is kept as dist/app-shell.html for
+// unknown URLs (see vercel.json / server.ts). The client-side useSeoMeta/useJsonLd hooks
 // (src/hooks/useSeoMeta.ts) keep the same tags in sync during SPA navigation.
 // Also generates dist/sitemap.xml from the same expanded page list, so it can't
 // go stale independently of the actual content (see public/robots.txt for the
@@ -21,6 +24,8 @@
 
 import fs from "fs";
 import path from "path";
+import { execFileSync } from "child_process";
+import { pathToFileURL } from "url";
 import { faqs, FAQ_TITLE, FAQ_DESCRIPTION } from "../src/data/faqs";
 import { services, SERVICES_INDEX_TITLE, SERVICES_INDEX_DESCRIPTION } from "../src/data/services";
 import { locations, LOCATIONS_INDEX_TITLE, LOCATIONS_INDEX_DESCRIPTION } from "../src/data/locations";
@@ -37,8 +42,10 @@ interface PageMeta {
   jsonLd: object | object[];
   /** Sitemap priority — defaults to 0.7 if omitted. */
   priority?: string;
-  /** Sitemap lastmod — defaults to today's build date if omitted. */
+  /** Sitemap lastmod, when known up front (blog posts: frontmatter updated ?? date). */
   lastmod?: string;
+  /** Files whose last git commit date becomes lastmod when `lastmod` isn't set. */
+  sources?: string[];
 }
 
 const PAGE_META: PageMeta[] = [
@@ -47,6 +54,7 @@ const PAGE_META: PageMeta[] = [
     title: FAQ_TITLE,
     description: FAQ_DESCRIPTION,
     jsonLd: buildFaqPageSchema(faqs),
+    sources: ["src/pages/FAQPage.tsx", "src/data/faqs.ts"],
   },
   {
     path: "/services",
@@ -54,6 +62,7 @@ const PAGE_META: PageMeta[] = [
     description: SERVICES_INDEX_DESCRIPTION,
     jsonLd: buildBreadcrumbSchema([{ name: "Home", path: "/" }, { name: "Services", path: "/services" }]),
     priority: "0.8",
+    sources: ["src/pages/ServicesIndexPage.tsx", "src/data/services.ts"],
   },
   ...services.map((service): PageMeta => ({
     path: `/services/${service.slug}`,
@@ -68,6 +77,7 @@ const PAGE_META: PageMeta[] = [
       ]),
     ],
     priority: "0.8",
+    sources: ["src/pages/ServicePage.tsx", "src/data/services.ts"],
   })),
   {
     path: "/locations",
@@ -75,6 +85,7 @@ const PAGE_META: PageMeta[] = [
     description: LOCATIONS_INDEX_DESCRIPTION,
     jsonLd: buildBreadcrumbSchema([{ name: "Home", path: "/" }, { name: "Locations", path: "/locations" }]),
     priority: "0.8",
+    sources: ["src/pages/LocationsIndexPage.tsx", "src/data/locations.ts"],
   },
   ...locations.map((location): PageMeta => ({
     path: `/locations/${location.slug}`,
@@ -89,6 +100,7 @@ const PAGE_META: PageMeta[] = [
       ]),
     ],
     priority: "0.8",
+    sources: ["src/pages/LocationPage.tsx", "src/data/locations.ts"],
   })),
   {
     path: "/blog",
@@ -96,13 +108,14 @@ const PAGE_META: PageMeta[] = [
     description: BLOG_INDEX_DESCRIPTION,
     jsonLd: buildBreadcrumbSchema([{ name: "Home", path: "/" }, { name: "Blog", path: "/blog" }]),
     priority: "0.7",
+    sources: ["src/pages/BlogIndexPage.tsx", "content/blog"],
   },
   ...blogPosts.map((post): PageMeta => ({
     path: `/blog/${post.slug}`,
     title: `${post.title} | Webwala Studio`,
     description: post.metaDescription,
     jsonLd: [
-      buildBlogPostingSchema({ title: post.title, description: post.metaDescription, path: `/blog/${post.slug}`, datePublished: post.date }),
+      buildBlogPostingSchema({ title: post.title, description: post.metaDescription, path: `/blog/${post.slug}`, datePublished: post.date, dateModified: post.updated }),
       buildBreadcrumbSchema([
         { name: "Home", path: "/" },
         { name: "Blog", path: "/blog" },
@@ -110,7 +123,7 @@ const PAGE_META: PageMeta[] = [
       ]),
     ],
     priority: "0.6",
-    lastmod: post.date,
+    lastmod: post.updated ?? post.date,
   })),
 ];
 
@@ -123,6 +136,31 @@ if (!fs.existsSync(sourceHtmlPath)) {
 }
 
 const sourceHtml = fs.readFileSync(sourceHtmlPath, "utf-8");
+
+// Keep the bare shell for unknown URLs before dist/index.html is overwritten
+// with the prerendered homepage below.
+fs.writeFileSync(path.join(distPath, "app-shell.html"), sourceHtml, "utf-8");
+
+const ssrEntryPath = path.join(process.cwd(), "dist-ssr", "entry-server.js");
+if (!fs.existsSync(ssrEntryPath)) {
+  console.error("prerender: dist-ssr/entry-server.js not found — run vite build --ssr src/entry-server.tsx --outDir dist-ssr first.");
+  process.exit(1);
+}
+const { render } = (await import(pathToFileURL(ssrEntryPath).href)) as { render: (url: string) => Promise<string> };
+
+const ROOT_DIV = '<div id="root"></div>';
+if (!sourceHtml.includes(ROOT_DIV)) {
+  console.error(`prerender: ${ROOT_DIV} not found in dist/index.html.`);
+  process.exit(1);
+}
+
+async function withRenderedRoot(html: string, routePath: string): Promise<string> {
+  const appHtml = await render(routePath);
+  // Function replacer — rendered copy contains "$" + digits (e.g. "$149").
+  return html.replace(ROOT_DIV, () => `<div id="root">${appHtml}</div>`);
+}
+
+fs.writeFileSync(sourceHtmlPath, await withRenderedRoot(sourceHtml, "/"), "utf-8");
 
 // Function replacers only, never string patterns — page copy can contain a literal
 // "$" + digits (e.g. "$149"), which String.replace would misread as a backreference.
@@ -147,27 +185,44 @@ for (const page of PAGE_META) {
   const jsonLdScripts = jsonLdEntries
     .map((entry) => `<script type="application/ld+json">${JSON.stringify(entry)}</script>`)
     .join("\n  ");
-  html = html.replace(/<\/head>/, `${jsonLdScripts}\n  </head>`);
+  html = html.replace(/<\/head>/, () => `${jsonLdScripts}\n  </head>`);
+  html = await withRenderedRoot(html, page.path);
 
   const outDir = path.join(distPath, page.path);
   const outHtmlPath = path.join(outDir, "index.html");
   fs.mkdirSync(outDir, { recursive: true });
   fs.writeFileSync(outHtmlPath, html, "utf-8");
 }
-console.log(`prerender: wrote ${PAGE_META.length} route(s) under dist/`);
+console.log(`prerender: wrote ${PAGE_META.length + 1} route(s) under dist/ (with rendered content)`);
 
 // --- Sitemap ---
 
-const today = new Date().toISOString().slice(0, 10);
+// lastmod must reflect real content changes — stamping every page with the build
+// date teaches Google to ignore it. Pages without a known date use the last git
+// commit touching their source files; if git history isn't available (or is a
+// shallow clone, where old files all look freshly added) lastmod is omitted.
+function gitLastModified(sources: string[]): string | undefined {
+  try {
+    if (execFileSync("git", ["rev-parse", "--is-shallow-repository"], { encoding: "utf-8" }).trim() !== "false") return undefined;
+    const date = execFileSync("git", ["log", "-1", "--format=%cs", "--", ...sources], { encoding: "utf-8" }).trim();
+    return date || undefined;
+  } catch {
+    return undefined;
+  }
+}
 
 const sitemapEntries = [
-  { path: "/", priority: "1.0", lastmod: today },
-  ...PAGE_META.map((page) => ({ path: page.path, priority: page.priority ?? "0.7", lastmod: page.lastmod ?? today })),
+  { path: "/", priority: "1.0", lastmod: gitLastModified(["src/App.tsx", "src/components"]) },
+  ...PAGE_META.map((page) => ({
+    path: page.path,
+    priority: page.priority ?? "0.7",
+    lastmod: page.lastmod ?? (page.sources ? gitLastModified(page.sources) : undefined),
+  })),
 ];
 
 const sitemapUrls = sitemapEntries
   .map(({ path: p, priority, lastmod }) => (
-    `  <url>\n    <loc>${SITE_URL}${p}</loc>\n    <lastmod>${lastmod}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>${priority}</priority>\n  </url>`
+    `  <url>\n    <loc>${SITE_URL}${p}</loc>\n${lastmod ? `    <lastmod>${lastmod}</lastmod>\n` : ""}    <changefreq>monthly</changefreq>\n    <priority>${priority}</priority>\n  </url>`
   ))
   .join("\n");
 

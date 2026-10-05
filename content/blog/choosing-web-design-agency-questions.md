@@ -2,6 +2,7 @@
 title: "Choosing a Web Design Agency: Questions to Ask Before You Hire"
 slug: "choosing-web-design-agency-questions"
 date: "2026-06-27"
+updated: "2026-10-05"
 excerpt: "The specific questions that reveal whether a web design agency will actually deliver — asked before you sign anything, not after."
 metaDescription: "Choosing a web design agency? Here are the specific questions to ask before hiring — about timeline, ownership, pricing, and post-launch support."
 tags: ["hiring", "process"]

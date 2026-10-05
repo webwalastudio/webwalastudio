@@ -2,6 +2,7 @@
 title: "Do Restaurants Need Online Ordering Built Into Their Website?"
 slug: "restaurants-online-ordering-website"
 date: "2026-07-04"
+updated: "2026-10-05"
 excerpt: "Whether your restaurant needs a full online ordering system on its website, or something simpler — and how to decide."
 metaDescription: "Do restaurants need online ordering on their website? A practical breakdown of what to build based on delivery apps, dine-in, and reservations."
 tags: ["restaurants", "ordering"]

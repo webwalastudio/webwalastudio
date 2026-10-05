@@ -2,6 +2,7 @@
 title: "Website for Schools in Gurugram: What to Include"
 slug: "school-website-gurugram-checklist"
 date: "2026-08-15"
+updated: "2026-10-05"
 excerpt: "A practical checklist for what a school or educational institute website in Gurugram actually needs — beyond just looking nice."
 metaDescription: "What should a school website in Gurugram include? A practical checklist covering admissions, notice boards, fees, and parent communication."
 tags: ["schools", "gurugram", "checklist"]

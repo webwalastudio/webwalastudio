@@ -21,6 +21,8 @@ interface BlogPostFrontmatter {
   title: string;
   slug: string;
   date: string;
+  /** Optional "YYYY-MM-DD" of the last substantive edit; drives sitemap lastmod + dateModified. */
+  updated?: string;
   excerpt: string;
   metaDescription: string;
   tags: string[];
@@ -75,6 +77,8 @@ export interface BlogPost {
   title: string;
   slug: string;
   date: string;
+  /** Optional "YYYY-MM-DD" of the last substantive edit; drives sitemap lastmod + dateModified. */
+  updated?: string;
   excerpt: string;
   metaDescription: string;
   tags: string[];

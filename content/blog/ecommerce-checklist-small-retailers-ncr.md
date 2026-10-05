@@ -2,6 +2,7 @@
 title: "E-Commerce Website Checklist for Small Retailers in Delhi NCR"
 slug: "ecommerce-checklist-small-retailers-ncr"
 date: "2026-07-11"
+updated: "2026-10-05"
 excerpt: "What a small retailer in Delhi NCR actually needs to sell online — beyond just listing products on a page."
 metaDescription: "E-commerce checklist for small retailers in Delhi NCR — payment gateways, product catalogs, inventory, and what to prioritize when launching an online store."
 tags: ["ecommerce", "ncr", "checklist"]

@@ -34,7 +34,7 @@ function BlogPostContent({ post }: { post: BlogPost }) {
 
   useSeoMeta({ title: `${post.title} | Webwala Studio`, description: post.metaDescription, path: `/blog/${post.slug}` });
   useJsonLd([
-    buildBlogPostingSchema({ title: post.title, description: post.metaDescription, path: `/blog/${post.slug}`, datePublished: post.date }),
+    buildBlogPostingSchema({ title: post.title, description: post.metaDescription, path: `/blog/${post.slug}`, datePublished: post.date, dateModified: post.updated }),
     buildBreadcrumbSchema([
       { name: "Home", path: "/" },
       { name: "Blog", path: "/blog" },

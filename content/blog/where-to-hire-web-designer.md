@@ -2,6 +2,7 @@
 title: "Where to Hire a Web Designer: Complete Guide for Small Business Owners"
 slug: "where-to-hire-web-designer"
 date: "2026-08-26"
+updated: "2026-10-05"
 excerpt: "Freelance marketplaces, local studios, referrals, or review platforms — where each option actually works best, and where it tends to go wrong."
 metaDescription: "Where to hire a web designer for your small business: freelance marketplaces, local agencies, referrals, and review platforms compared, with an FAQ on which to trust."
 tags: ["hiring", "guide"]

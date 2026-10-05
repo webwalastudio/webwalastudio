@@ -2,6 +2,7 @@
 title: "GST Invoicing & Billing Pages: Do Small Business Sites Need Them?"
 slug: "gst-billing-small-business-websites"
 date: "2026-08-01"
+updated: "2026-10-05"
 excerpt: "Whether your small business website needs GST-compliant invoicing or billing functionality — and what to build instead if it doesn't."
 metaDescription: "Does your small business website need GST invoicing or billing pages? A practical answer for Indian small businesses, plus what to build instead."
 tags: ["gst", "compliance", "small-business"]

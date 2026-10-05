@@ -2,6 +2,7 @@
 title: "How to Pick the Right Web Designer for Your Business"
 slug: "how-to-pick-right-web-designer"
 date: "2026-08-25"
+updated: "2026-10-05"
 excerpt: "The criteria that actually predict a good outcome when hiring a web designer — and the specific questions to ask each candidate before you decide."
 metaDescription: "How to pick the right web designer for your business: the criteria that matter (portfolio, process, ownership, support) plus an FAQ of questions to ask before hiring."
 tags: ["hiring", "guide"]

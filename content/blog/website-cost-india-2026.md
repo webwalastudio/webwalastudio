@@ -2,6 +2,7 @@
 title: "How Much Does a Website Cost in India in 2026?"
 slug: "website-cost-india-2026"
 date: "2026-08-21"
+updated: "2026-10-05"
 excerpt: "A realistic breakdown of what a professional business website actually costs in India in 2026 — and what changes the price."
 metaDescription: "What does a website cost in India in 2026? A realistic breakdown by plan, page count, and features — from ₹12,000 starter builds to full e-commerce stores."
 tags: ["pricing", "india"]
