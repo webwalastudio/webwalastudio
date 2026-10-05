@@ -30,6 +30,6 @@ A booking page doesn't just capture demand — it can be used to fill dead time.
 
 ## What fixing this actually looks like
 
-We build [salon and spa websites](/services/salons-spas) with stylist-level slot booking, a proper service and pricing menu, and a before-and-after gallery that does the selling before a client ever reaches out — all live within 7 days.
+We build [salon and spa websites](/services/salons-spas) with stylist-level slot booking, a proper service and pricing menu, and a before-and-after gallery that does the selling before a client ever reaches out — all live within 7 days. For a recent example, see [the Master Salon website we launched in Bengaluru](/blog/master-salon-bengaluru-website-launch), which starts with one-tap WhatsApp booking and is set up to move to full online booking next.
 
 If your salon or spa is still running bookings entirely through WhatsApp or phone calls, [a free 15-minute conversation](/faq) is enough to see what moving to real online booking would look like for your slots specifically.

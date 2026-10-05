@@ -15,7 +15,7 @@ If you've searched for "website cost India" and landed on quotes ranging from �
 
 **Functionality beyond static pages.** A site that just displays information costs less than one that needs booking forms, payment processing, inventory tracking, or a parent/patient portal. Each of these is a real feature with its own build and testing time, not a checkbox.
 
-**E-commerce.** Selling online — a real product catalog, cart, and payment gateway — is its own category of cost, separate from a marketing site with a "buy now that redirects to WhatsApp" workaround.
+**E-commerce.** Selling online — a real product catalog, cart, and payment gateway — is its own category of cost, separate from a marketing site with a "buy now that redirects to WhatsApp" workaround. Our [e-commerce checklist for small retailers](/blog/ecommerce-checklist-small-retailers-ncr) lists what that build actually includes.
 
 ## What a realistic price band looks like
 
@@ -25,7 +25,7 @@ At [Webwala Studio](/), our pricing is structured around exactly these three fac
 - **Professional (up to 15 pages)** — ₹28,000 / $349. Room for a proper services breakdown, multiple locations, a blog, or a more built-out gallery — the right tier for most schools, clinics, and multi-service businesses.
 - **Business Pro (unlimited pages + e-commerce)** — ₹55,000 / $699. For businesses that need to actually sell online or run a site with continuously growing content.
 
-All three include a working, mobile-first site built and launched within 7 days, plus a free maintenance window after launch (1–3 months depending on plan) to fix bugs and make small changes at no extra cost.
+All three include a working, mobile-first site built and launched within 7 days, plus a free maintenance window after launch (1–3 months depending on plan) to fix bugs and make small changes at no extra cost. (Here's [what that maintenance actually covers](/blog/website-maintenance-what-needs-updating).) If you're outside India, see [how these prices compare with the USA and UAE](/blog/website-cost-india-vs-usa-canada-uae).
 
 ## What's *not* included in most quotes — and should be
 

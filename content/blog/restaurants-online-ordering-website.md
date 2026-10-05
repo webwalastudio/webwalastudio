@@ -14,7 +14,7 @@ Restaurant owners ask this constantly, usually after noticing they're paying ste
 If most of your business is walk-ins and table reservations rather than delivery, full online ordering is probably the wrong first investment. What you need instead is:
 
 - A digital, easy-to-update menu — ideally contactless-friendly, since customers increasingly expect to scan a code and browse rather than wait for a physical menu.
-- A reservation request form, so a table booking doesn't depend on someone answering the phone during a dinner rush.
+- A reservation request form, so a table booking doesn't depend on someone answering the phone during a dinner rush. (Salons face the same problem with phone and WhatsApp bookings — we covered it in [why salons need real online booking](/blog/salon-spa-website-online-booking).)
 - Real food photography, not stock images — this is consistently the highest-impact, lowest-cost improvement a restaurant website can make.
 
 ## If delivery commissions are the actual pain point
@@ -25,7 +25,7 @@ If you're specifically trying to reduce dependency on aggregator commissions, di
 - You still likely need a delivery logistics solution (in-house riders or a delivery-only partner), which is a separate problem from the website itself.
 - Customers need a reason to order directly instead of through an app they already have installed and trust — usually a modest discount or loyalty incentive works better than hoping habit changes on its own.
 
-Built well, this can meaningfully reduce commission costs over time. Built as an afterthought bolted onto an otherwise simple site, it usually just adds complexity without changing customer behavior.
+Built well, this can meaningfully reduce commission costs over time. Built as an afterthought bolted onto an otherwise simple site, it usually just adds complexity without changing customer behavior. If you do go ahead, the payment, cart, and checkout basics in our [e-commerce checklist](/blog/ecommerce-checklist-small-retailers-ncr) apply to food ordering too.
 
 ## The middle ground most NCR restaurants actually need
 

@@ -17,7 +17,7 @@ tags: ["maintenance", "post-launch"]
 
 **Security and platform updates.** The software underlying most websites needs periodic updates to stay secure. Skipped long enough, this is how sites get hacked or start breaking unexpectedly.
 
-**Renewals.** Domain and hosting are annual costs that need renewing on schedule — miss one and your entire site can go offline without warning, which is a surprisingly common and entirely avoidable failure.
+**Renewals.** Domain and hosting are annual costs that need renewing on schedule — miss one and your entire site can go offline without warning, which is a surprisingly common and entirely avoidable failure. (We listed typical domain and hosting costs in [how much a website costs in India in 2026](/blog/website-cost-india-2026).)
 
 ## What maintenance typically does *not* cover
 
@@ -37,6 +37,6 @@ We hand over full ownership — the website itself, login credentials, and a wal
 
 ## The real question to ask before you launch anything
 
-Not "does this include maintenance," but specifically: *how long, what's covered, and what happens after.* If an agency can't answer that clearly, that's worth noting before you sign anything.
+Not "does this include maintenance," but specifically: *how long, what's covered, and what happens after.* If an agency can't answer that clearly, that's worth noting before you sign anything. It's one of several [questions to ask before you hire a web design agency](/blog/choosing-web-design-agency-questions).
 
 If you want to see exactly what's covered under our maintenance windows for your specific plan, [check our FAQs](/faq) or book a free consultation — we'll walk through it plainly.

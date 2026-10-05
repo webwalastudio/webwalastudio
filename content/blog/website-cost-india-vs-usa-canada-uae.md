@@ -19,7 +19,7 @@ At Webwala Studio, our pricing reflects this directly:
 - **Professional (up to 15 pages)** — $349
 - **Business Pro (unlimited pages + e-commerce)** — $699
 
-All delivered in 7 days, remotely, with the same build quality regardless of where the client is based.
+All delivered in 7 days, remotely, with the same build quality regardless of where the client is based. (For what each tier includes, see [how much a website costs in India in 2026](/blog/website-cost-india-2026).)
 
 ## What actually changes when you work with a remote agency
 
@@ -35,6 +35,8 @@ All delivered in 7 days, remotely, with the same build quality regardless of whe
 - **A defined process and timeline**, not just "we'll get started." A vague scope is where remote projects tend to drift.
 - **Responsiveness during the sales conversation.** How an agency communicates before you've paid them is a reasonable preview of how they'll communicate after.
 - **Clarity on what happens after launch** — maintenance windows, who owns the code, and what a change costs after the free period ends.
+
+For the full list, see our [questions to ask before you hire a web design agency](/blog/choosing-web-design-agency-questions).
 
 ## Our take, plainly
 

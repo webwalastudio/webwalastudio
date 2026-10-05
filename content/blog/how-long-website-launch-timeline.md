@@ -41,6 +41,8 @@ None of these are unusual or unreasonable — they're just worth planning around
 - What happens to the timeline if I'm a few days late providing something?
 - Is the quoted timeline for a finished, launched site, or just a first draft?
 
+Timeline is only one part of vetting an agency. Our list of [questions to ask before you hire a web design agency](/blog/choosing-web-design-agency-questions) covers ownership, pricing, and support too.
+
 ## If speed genuinely matters for your launch
 
-We built our entire process — from [pricing](/) to [maintenance after launch](/faq) — around actually hitting 7 days, not just advertising it. If you have a launch deadline in mind, [book a free consultation](/faq) and we'll tell you honestly whether it's realistic given your specific starting point.
+We built our entire process — from [pricing](/) to [maintenance after launch](/blog/website-maintenance-what-needs-updating) — around actually hitting 7 days, not just advertising it. If you have a launch deadline in mind, [book a free consultation](/faq) and we'll tell you honestly whether it's realistic given your specific starting point.

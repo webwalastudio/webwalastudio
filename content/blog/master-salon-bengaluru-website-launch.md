@@ -24,10 +24,12 @@ Master Salon runs a full menu — men's and women's hair care, colour transforma
 
 ## Why this matters for salons specifically
 
-The pattern we see with salon and spa clients is consistent: the booking channel that actually converts is WhatsApp, not a contact form, and the content that actually converts is the colour and styling *work* — not a paragraph about "passion for beauty." A site that makes the portfolio the hero and reduces every path to a single WhatsApp tap tends to outperform a generic template built around the wrong assumptions. We wrote more about the booking-channel piece specifically in [why salons need real online booking, not just a WhatsApp number](/blog/salon-spa-website-online-booking) — Master Salon's site takes the same principle and applies it end to end.
+The pattern we see with salon and spa clients is consistent: the content that actually converts is the colour and styling *work* — not a paragraph about "passion for beauty." A site that makes the portfolio the hero tends to outperform a generic template built around the wrong assumptions.
+
+On booking, we started where Master Salon's clients already are. Their regulars book over WhatsApp, so the first version of the site makes that one tap from every page instead of hiding it behind a contact form nobody fills out. It's the right starting point, but it isn't the end state: as volume grows, WhatsApp-only booking means someone has to manually check stylist availability and confirm every slot, which is where missed and double-booked appointments creep in. A proper booking system with live availability and automatic confirmations is the natural next step for the site, and we've written about why in [why salons need real online booking, not just a WhatsApp number](/blog/salon-spa-website-online-booking).
 
 ## See it live
 
-The full site is live at [master-salon.com](https://www.master-salon.com/), and you can see it alongside our other recent builds on [our portfolio](/portfolio).
+The full site is live at [master-salon.com](https://www.master-salon.com/), and you can see it alongside our other recent builds on [our portfolio](/#portfolio).
 
 If you run a [salon or spa](/services/salons-spas) and your current site (or lack of one) isn't pulling its weight, [a free 15-minute conversation](/faq) is enough to see what a Master Salon–style rebuild would look like for your business — live within 7 days.

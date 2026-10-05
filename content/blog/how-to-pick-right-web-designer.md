@@ -7,7 +7,7 @@ metaDescription: "How to pick the right web designer for your business: the crit
 tags: ["hiring", "guide"]
 ---
 
-Anyone can call themselves a "web designer" — the range runs from a student with a Canva template to a full studio with a proper process. Since the title tells you nothing on its own, here's what to actually check, and the specific questions that separate the two ends of that range.
+Anyone can call themselves a "web designer" — the range runs from a student with a Canva template to a full studio with a proper process. Since the title tells you nothing on its own, here's what to actually check, and the specific questions that separate the two ends of that range. (Still building a shortlist? Start with [where to hire a web designer](/blog/where-to-hire-web-designer).)
 
 ## The criteria that actually predict a good outcome
 
@@ -29,7 +29,7 @@ Anyone can call themselves a "web designer" — the range runs from a student wi
 - **Freelancers** can be excellent and affordable, but quality varies more, and there's no backup if they become unavailable mid-project.
 - **A small studio or agency** typically costs more than a freelancer but less than a large agency, and gives you a defined process and more reliability than a single individual working alone.
 
-None of these is universally "right" — the criteria above matter more than which category a designer falls into.
+None of these is universally "right" — the criteria above matter more than which category a designer falls into. Once you're down to two or three options, our [questions to ask before you hire a web design agency](/blog/choosing-web-design-agency-questions) will help you compare them directly.
 
 ## Frequently asked questions
 
