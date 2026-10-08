@@ -98,6 +98,7 @@ const PAGE_META: PageMeta[] = [
         { name: "Locations", path: "/locations" },
         { name: location.cityName, path: `/locations/${location.slug}` },
       ]),
+      buildFaqPageSchema(location.faqs),
     ],
     priority: "0.8",
     sources: ["src/pages/LocationPage.tsx", "src/data/locations.ts"],
