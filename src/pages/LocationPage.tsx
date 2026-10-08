@@ -1,11 +1,15 @@
 import { useParams, Link } from "react-router-dom";
 import { motion } from "motion/react";
-import { CalendarCheck, MapPin, ArrowRight } from "lucide-react";
+import { CalendarCheck, MapPin, ArrowRight, ExternalLink } from "lucide-react";
 import { getLocationBySlug, locations } from "../data/locations";
 import { services } from "../data/services";
+import { blogPosts } from "../data/blog-posts.generated";
 import { useSeoMeta, useJsonLd } from "../hooks/useSeoMeta";
-import { buildLocationSchema, buildBreadcrumbSchema } from "../lib/schema";
+import { buildLocationSchema, buildBreadcrumbSchema, buildFaqPageSchema } from "../lib/schema";
 import PageShell, { useContactModal } from "../components/PageShell";
+
+const H2_STYLE = { fontSize: "clamp(20px, 2.4vw, 28px)", letterSpacing: "-0.8px", color: "#1E1B4B" };
+const BODY_STYLE = { fontSize: 16, color: "#374151", lineHeight: 1.8 };
 
 function NotFoundContent() {
   return (
@@ -30,7 +34,11 @@ function LocationPageContent({ slug }: { slug: string }) {
   const { openContact } = useContactModal();
   const location = getLocationBySlug(slug)!;
   const related = locations.filter((l) => location.relatedSlugs.includes(l.slug));
-  const featuredServices = services.slice(0, 6);
+  const industries = location.industries.flatMap((industry) => {
+    const service = services.find((s) => s.slug === industry.serviceSlug);
+    return service ? [{ ...industry, title: service.title }] : [];
+  });
+  const relatedPosts = location.relatedPostSlugs.flatMap((postSlug) => blogPosts.filter((post) => post.slug === postSlug));
 
   useSeoMeta({ title: `${location.heroHeading} | Webwala Studio`, description: location.seoDescription, path: `/locations/${location.slug}` });
   useJsonLd([
@@ -40,6 +48,7 @@ function LocationPageContent({ slug }: { slug: string }) {
       { name: "Locations", path: "/locations" },
       { name: location.cityName, path: `/locations/${location.slug}` },
     ]),
+    buildFaqPageSchema(location.faqs),
   ]);
 
   return (
@@ -90,20 +99,97 @@ function LocationPageContent({ slug }: { slug: string }) {
             </p>
           ))}
 
-          <h2 className="font-display font-black mt-10 mb-6" style={{ fontSize: "clamp(20px, 2.4vw, 28px)", letterSpacing: "-0.8px", color: "#1E1B4B" }}>
-            Websites we build in {location.cityName}
+          <h2 className="font-display font-black mt-10 mb-4" style={H2_STYLE}>
+            Areas we serve in {location.cityName}
           </h2>
-          <div className="grid sm:grid-cols-2 gap-4">
-            {featuredServices.map((service) => (
+          <p className="font-sans mb-4" style={BODY_STYLE}>{location.areasIntro}</p>
+          <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-2 mb-2 font-sans" style={{ fontSize: 15, color: "#374151", lineHeight: 1.6 }}>
+            {location.areas.map((area) => (
+              <li key={area} className="flex items-start gap-2">
+                <MapPin style={{ width: 16, height: 16, color: "#7C3AED", flexShrink: 0, marginTop: 3 }} />
+                <span>{area}</span>
+              </li>
+            ))}
+          </ul>
+
+          <h2 className="font-display font-black mt-12 mb-6" style={H2_STYLE}>
+            Websites we build for {location.cityName} businesses
+          </h2>
+          <div className="flex flex-col gap-4">
+            {industries.map((industry) => (
               <Link
-                key={service.slug}
-                to={`/services/${service.slug}`}
-                className="liquid-glass flex items-center justify-between gap-3"
-                style={{ borderRadius: 14, padding: "16px 18px", textDecoration: "none" }}
+                key={industry.serviceSlug}
+                to={`/services/${industry.serviceSlug}`}
+                className="liquid-glass block"
+                style={{ borderRadius: 14, padding: "18px 20px", textDecoration: "none" }}
               >
-                <span className="font-sans font-semibold" style={{ fontSize: 14, color: "#1E1B4B" }}>{service.title}</span>
-                <ArrowRight style={{ width: 16, height: 16, color: "#7C3AED", flexShrink: 0 }} />
+                <span className="flex items-center justify-between gap-3 mb-1">
+                  <span className="font-sans font-bold" style={{ fontSize: 15, color: "#1E1B4B" }}>{industry.title}</span>
+                  <ArrowRight style={{ width: 16, height: 16, color: "#7C3AED", flexShrink: 0 }} />
+                </span>
+                <span className="font-sans block" style={{ fontSize: 14, color: "#4B5563", lineHeight: 1.65 }}>{industry.reason}</span>
               </Link>
+            ))}
+          </div>
+
+          {location.localWork && (
+            <>
+              <h2 className="font-display font-black mt-12 mb-4" style={H2_STYLE}>
+                Recent work in {location.cityName}
+              </h2>
+              <div className="liquid-glass" style={{ borderRadius: 14, padding: "20px 22px" }}>
+                <a
+                  href={location.localWork.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 font-sans font-bold mb-2"
+                  style={{ fontSize: 16, color: "#1E1B4B", textDecoration: "none" }}
+                >
+                  {location.localWork.name}
+                  <ExternalLink style={{ width: 15, height: 15, color: "#7C3AED" }} />
+                </a>
+                <p className="font-sans" style={{ fontSize: 15, color: "#4B5563", lineHeight: 1.7 }}>{location.localWork.description}</p>
+              </div>
+            </>
+          )}
+
+          <h2 className="font-display font-black mt-12 mb-4" style={H2_STYLE}>
+            How we work with {location.cityName} clients
+          </h2>
+          {location.howWeWork.map((paragraph, idx) => (
+            <p key={idx} className="font-sans mb-4" style={BODY_STYLE}>{paragraph}</p>
+          ))}
+
+          {relatedPosts.length > 0 && (
+            <>
+              <h2 className="font-display font-black mt-12 mb-6" style={H2_STYLE}>
+                Guides for {location.cityName} businesses
+              </h2>
+              <div className="grid sm:grid-cols-2 gap-4">
+                {relatedPosts.map((post) => (
+                  <Link
+                    key={post.slug}
+                    to={`/blog/${post.slug}`}
+                    className="liquid-glass flex items-center justify-between gap-3"
+                    style={{ borderRadius: 14, padding: "16px 18px", textDecoration: "none" }}
+                  >
+                    <span className="font-sans font-semibold" style={{ fontSize: 14, color: "#1E1B4B" }}>{post.title}</span>
+                    <ArrowRight style={{ width: 16, height: 16, color: "#7C3AED", flexShrink: 0 }} />
+                  </Link>
+                ))}
+              </div>
+            </>
+          )}
+
+          <h2 className="font-display font-black mt-12 mb-6" style={H2_STYLE}>
+            {location.cityName} website FAQs
+          </h2>
+          <div className="flex flex-col gap-4">
+            {location.faqs.map((faq) => (
+              <div key={faq.q} className="liquid-glass" style={{ borderRadius: 14, padding: "18px 20px" }}>
+                <h3 className="font-sans font-bold mb-2" style={{ fontSize: 15, color: "#1E1B4B" }}>{faq.q}</h3>
+                <p className="font-sans" style={{ fontSize: 14, color: "#4B5563", lineHeight: 1.7 }}>{faq.a}</p>
+              </div>
             ))}
           </div>
         </div>
