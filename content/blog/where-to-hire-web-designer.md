@@ -2,13 +2,13 @@
 title: "Where to Hire a Web Designer: Complete Guide for Small Business Owners"
 slug: "where-to-hire-web-designer"
 date: "2026-08-26"
-updated: "2026-10-05"
+updated: "2026-10-14"
 excerpt: "Freelance marketplaces, local studios, referrals, or review platforms — where each option actually works best, and where it tends to go wrong."
 metaDescription: "Where to hire a web designer for your small business: freelance marketplaces, local agencies, referrals, and review platforms compared, with an FAQ on which to trust."
 tags: ["hiring", "guide"]
 ---
 
-Once you've decided to hire rather than DIY, the next problem is just as common: there are too many places to look, and each one has a different failure mode. Here's how the main options actually compare. (For how to judge the candidates you find, see [how to pick the right web designer](/blog/how-to-pick-right-web-designer).)
+Once you've decided to hire rather than DIY, the next problem is just as common: there are too many places to look, and each one has a different failure mode. Here's how the main options actually compare. (For how to judge the candidates you find, see [how to choose a web design agency](/blog/choosing-web-design-agency-questions).)
 
 ## Freelance marketplaces (Upwork, Fiverr, Freelancer.com)
 
