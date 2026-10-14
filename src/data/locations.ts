@@ -192,7 +192,7 @@ export const locations: LocationPageData[] = [
       "Faridabad projects run online. If you're starting from scratch, that's normal — we'll tell you exactly what we need and help you pull your content together, so you don't need a finished brochure before we begin.",
       "Expect a video call to agree on scope, the build shared on WhatsApp as it progresses, and a full walkthrough when the site goes live.",
     ],
-    relatedPostSlugs: ["how-to-pick-right-web-designer", "gst-billing-small-business-websites", "signs-clinic-needs-new-website"],
+    relatedPostSlugs: ["choosing-web-design-agency-questions", "gst-billing-small-business-websites", "signs-clinic-needs-new-website"],
     faqs: [
       { q: "Do you meet clients in person in Faridabad?", a: "Faridabad projects run fully online — video calls and WhatsApp — which keeps the 7-day timeline realistic. If you'd prefer to meet face to face, we can meet in Gurugram." },
       { q: "We're a manufacturer with no website at all. Where do we start?", a: "Most manufacturers start with our Starter (₹12,000, up to 5 pages) or Professional (₹28,000, up to 15 pages) plan: an about page, a product catalogue, certifications, and an enquiry form. A visiting card and some product photos are enough for us to begin." },

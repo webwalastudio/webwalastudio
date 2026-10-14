@@ -1,4 +1,7 @@
 {
+  "redirects": [
+    { "source": "/blog/how-to-pick-right-web-designer", "destination": "/blog/choosing-web-design-agency-questions", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/faq", "destination": "/faq/index.html" },
     { "source": "/services", "destination": "/services/index.html" },
