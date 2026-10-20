@@ -77,10 +77,39 @@ Context: on 2026-10-05, 30 of 33 pages were stuck at **"Discovered – currently
 
 Every page in the sitemap has now been requested at least once (`/blog/gst-billing-small-business-websites` was already indexed). Only re-request a page from here on if its content changes substantially.
 
-## Check progress — around 2026-10-21
+## Check progress — 2026-10-21 ✅ (checked 2026-10-20)
 
-- [ ] Indexing → Pages: is the **Indexed** count rising from 11? Expect roughly 18–25.
+- [x] Indexing → Pages: is the **Indexed** count rising from 11? **Only to 12** — slower than hoped (see below).
+- [ ] Has the "Discovered – currently not indexed" validation moved from Started to **Passed**? **Still Started; 21 pages.**
+- [ ] Has `/blog/how-to-pick-right-web-designer` moved to **"Page with redirect"**? Not shown yet — check next time.
+- [x] Any new pages under "Crawled – currently not indexed"? **No — 0.** Both content fixes (PR #6, PR #8) worked.
+
+## Progress — 2026-10-20
+
+- **Indexed: 11 → 12.** Not indexed: 21, all "Discovered – currently not indexed" (validation Started). "Crawled – currently not indexed": **0**.
+- The remaining 21 are waiting in Google's crawl queue — not a content or technical problem. Re-requesting them won't help. The fix is links from other sites, which make Google crawl the site more often.
+- External links so far:
+  - [x] Vrise Global footer credit live — "Website by Webwala Studio" → https://www.webwalastudio.com/ (dofollow; rendered by JavaScript, so Google may take longer to see it)
+  - [x] ~~FeX Alloys, Master Salon footer credits~~ — clients declined. For future projects, put the credit line in the quote upfront.
+  - [x] Instagram bio links to webwalastudio.com (nofollow, but sends visitors)
+  - [x] Google Business Profile reviewed: verified, 5.0 from 3 reviews (one per client, all replied), areas served "Gurugram and nearby areas", phone matches the site
+- Business Profile to-dos:
+  - [ ] Edit services: add the 8 industries that have service pages
+  - [ ] Service area: list Gurugram, Delhi, Noida, Faridabad, Ghaziabad (the map currently highlights east Delhi/Ghaziabad)
+  - [ ] Add 3–5 photos of client sites
+  - [ ] Post weekly (project screenshot or blog link)
+  - [ ] Optional: website link with `?utm_source=google&utm_medium=organic&utm_campaign=gbp` to track profile visits in GA4
+  - [ ] Send the **Ask for review** link to each new client on launch day
+- Directory and profile links (one or two a week):
+  - [ ] Clutch
+  - [ ] GoodFirms
+  - [ ] Justdial
+  - [ ] Sulekha
+  - [ ] DesignRush or Behance (3 projects as case studies)
+
+## Check progress — around 2026-10-27
+
+- [ ] Indexing → Pages: is the **Indexed** count rising from 12?
 - [ ] Has the "Discovered – currently not indexed" validation moved from Started to **Passed**?
 - [ ] Has `/blog/how-to-pick-right-web-designer` moved to **"Page with redirect"**?
 - [ ] Any new pages under "Crawled – currently not indexed"? Click the row and check whether the page duplicates another one.
-- [ ] Indexing is no longer a technical problem — the next lever is external links: Google Business Profile, client footer credits (Vrise Global, Master Salon), Clutch and GoodFirms (see `docs/seo-phase-4-6-plan.md`).
