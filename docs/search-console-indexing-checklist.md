@@ -107,9 +107,22 @@ Every page in the sitemap has now been requested at least once (`/blog/gst-billi
   - [ ] Sulekha
   - [ ] DesignRush or Behance (3 projects as case studies)
 
-## Check progress — around 2026-10-27
+## Check progress — 2026-10-27 ✅ (checked 2026-10-26)
 
-- [ ] Indexing → Pages: is the **Indexed** count rising from 12?
+- [x] Indexing → Pages: is the **Indexed** count rising from 12? **Yes — 19 indexed, 14 not indexed.**
+- [ ] Has the "Discovered – currently not indexed" validation moved from Started to **Passed**? **Still Started; 21 → 14 pages.**
+- [ ] Has `/blog/how-to-pick-right-web-designer` moved to **"Page with redirect"**? **Not shown** — the report lists only 1 reason. Check the URL with URL Inspection next time.
+- [x] Any new pages under "Crawled – currently not indexed"? **No — 0.**
+
+## Progress — 2026-10-26
+
+- **Indexed: 12 → 19** (biggest jump so far — 7 pages in 6 days). Not indexed: 14, all "Discovered – currently not indexed" (validation Started). "Crawled – currently not indexed": **0**.
+- Total is still 33 pages (19 + 14), so nothing has dropped out of the report.
+- Nothing to re-request — keep working through the Business Profile and directory to-dos above; they're what speeds up the last 14.
+
+## Check progress — around 2026-11-02
+
+- [ ] Indexing → Pages: is the **Indexed** count rising from 19? At this pace, expect 25+.
 - [ ] Has the "Discovered – currently not indexed" validation moved from Started to **Passed**?
-- [ ] Has `/blog/how-to-pick-right-web-designer` moved to **"Page with redirect"**?
+- [ ] URL Inspection on `/blog/how-to-pick-right-web-designer`: does it show **"Page with redirect"** (or "URL is not on Google" with the redirect target indexed)? Either is fine.
 - [ ] Any new pages under "Crawled – currently not indexed"? Click the row and check whether the page duplicates another one.
