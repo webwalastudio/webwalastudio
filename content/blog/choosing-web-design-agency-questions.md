@@ -10,7 +10,7 @@ tags: ["hiring", "process", "guide"]
 
 Anyone can call themselves a "web designer" — the range runs from a student with a Canva template to a full studio with a proper process. Most bad web design experiences aren't bad luck: they come from not checking a few specific things upfront that would have surfaced the problem before any money changed hands. Here's what actually matters, and the questions to ask each candidate before you decide.
 
-This guide assumes you're already talking to a few designers or agencies. If you're still looking for candidates, start with [where to hire a web designer](/blog/where-to-hire-web-designer).
+This guide assumes you're already talking to a few designers or agencies. If you're still looking for candidates, start with [how to hire a web designer](/blog/where-to-hire-web-designer).
 
 ## Start with their live work, not their pitch
 
