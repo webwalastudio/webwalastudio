@@ -120,9 +120,30 @@ Every page in the sitemap has now been requested at least once (`/blog/gst-billi
 - Total is still 33 pages (19 + 14), so nothing has dropped out of the report.
 - Nothing to re-request — keep working through the Business Profile and directory to-dos above; they're what speeds up the last 14.
 
-## Check progress — around 2026-11-02
+## Check progress — around 2026-11-02 (checked 2026-11-18)
 
-- [ ] Indexing → Pages: is the **Indexed** count rising from 19? At this pace, expect 25+.
+- [ ] Indexing → Pages: is the **Indexed** count rising from 19? At this pace, expect 25+. **Only to 21 — 12 not indexed.**
+- [ ] Has the "Discovered – currently not indexed" validation moved from Started to **Passed**? **Still Started; 14 → 12 pages.**
+- [ ] URL Inspection on `/blog/how-to-pick-right-web-designer`: does it show **"Page with redirect"** (or "URL is not on Google" with the redirect target indexed)? Either is fine. **Not checked.**
+- [x] Any new pages under "Crawled – currently not indexed"? **No — 0.**
+
+## Progress — 2026-11-18
+
+- **Indexed: 19 → 21** in 23 days. Not indexed: 12, all "Discovered – currently not indexed" (validation Started). "Crawled – currently not indexed": **0**.
+- **Indexing has slowed right down.** Oct 20–26 added 7 pages in 6 days; since then it's added 2 in 23 days, and the chart has been flat since about Oct 28. "Discovered" means Google knows the URLs but hasn't spent crawl time on them — the site doesn't yet have enough outside links for Google to crawl it often. That's the same diagnosis as Oct 14, and none of the external-link to-dos above have been done since.
+- Still no content or technical problem: nothing has moved to "Crawled – currently not indexed", and nothing has dropped out.
+- Site changes today (not in this report yet): new post `/blog/ca-firm-website-icai-guidelines` (34 URLs once Google picks it up); interactive design refresh shipped (no change to URLs, headings or copy).
+- Next actions, in order — this is what moves the last 12:
+  - [x] URL Inspection → **Request indexing** for `/blog/ca-firm-website-icai-guidelines` *(done 2026-11-18)*
+  - [ ] Click the "Discovered – currently not indexed" row and note which 12 URLs are waiting (likely mostly blog posts, which are only linked from `/blog`)
+  - [ ] Business Profile: add the 8 industry services and the 5 NCR service areas (see Oct 14 to-dos)
+  - [ ] Business Profile: post this week with a link to the CA-firm post
+  - [ ] Directories: Clutch and GoodFirms this week, Justdial and Sulekha next week
+
+## Check progress — around 2026-11-25
+
+- [ ] Indexing → Pages: is the **Indexed** count rising from 21?
+- [ ] Is `/blog/ca-firm-website-icai-guidelines` indexed? (URL Inspection)
 - [ ] Has the "Discovered – currently not indexed" validation moved from Started to **Passed**?
-- [ ] URL Inspection on `/blog/how-to-pick-right-web-designer`: does it show **"Page with redirect"** (or "URL is not on Google" with the redirect target indexed)? Either is fine.
-- [ ] Any new pages under "Crawled – currently not indexed"? Click the row and check whether the page duplicates another one.
+- [ ] URL Inspection on `/blog/how-to-pick-right-web-designer`: "Page with redirect" or "URL is not on Google" with the target indexed?
+- [ ] Any new pages under "Crawled – currently not indexed"?
