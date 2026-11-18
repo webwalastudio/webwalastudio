@@ -138,10 +138,10 @@ export const services: ServicePageData[] = [
     seoDescription: "Website design for CA & accounting firms in Delhi NCR. Secure document upload, tax appointment booking — live in 7 days, from ₹12,000 / $149.",
     heroHeading: "Website Design for CA & Accounting Firms",
     intro: [
-      "Tax season traffic spikes fast, and a site that can't handle secure document sharing or appointment requests just pushes that load back onto phone calls and email threads. We build CA and accounting firm websites with a secure document upload portal, clear fee breakdowns by service, and direct appointment booking for filing season.",
+      "Tax season traffic spikes fast, and a site that can't handle secure document sharing or appointment requests just pushes that load back onto phone calls and email threads. We build CA and accounting firm websites with a secure document upload portal, a clear overview of your services and practice areas, and direct appointment booking for filing season — built within ICAI's website guidelines, with no fee tables, client logos or testimonials.",
       "A GST and compliance resource hub also gives existing clients a reason to keep coming back to the site between filing periods, rather than only during a scramble.",
     ],
-    features: ["Secure Document Upload Portal", "Tax Filing Appointment Booking", "Service Fee Breakdown", "GST / Compliance Resource Hub"],
+    features: ["Secure Document Upload Portal", "Tax Filing Appointment Booking", "Services & Practice Areas Overview", "GST / Compliance Resource Hub"],
     relatedSlugs: ["law-firms", "corporate-business"],
   },
   {
