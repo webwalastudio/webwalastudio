@@ -83,7 +83,7 @@ const services: ServiceItem[] = [
     title: "CA & Accounting Firms",
     description: "Service breakdowns, secure document uploads, and appointment booking for tax season traffic.",
     icon: Calculator,
-    features: ["Secure Document Upload Portal", "Tax Filing Appointment Booking", "Service Fee Breakdown", "GST / Compliance Resource Hub"],
+    features: ["Secure Document Upload Portal", "Tax Filing Appointment Booking", "Services & Practice Areas Overview", "GST / Compliance Resource Hub"],
     size: "sm",
   },
   {
