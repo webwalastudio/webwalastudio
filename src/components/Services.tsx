@@ -1,4 +1,5 @@
 import { motion } from "motion/react";
+import { RevealText, SpotlightCard, PointerGlow, staggerParent, staggerChild } from "./fx";
 import type { LucideIcon } from "lucide-react";
 import {
   School, HeartPulse, Briefcase, Scissors,
@@ -97,8 +98,10 @@ const services: ServiceItem[] = [
 
 export default function Services() {
   return (
-    <section id="services" className="py-24 bg-white scroll-mt-10" style={{ borderBottom: "1px solid var(--border)" }}>
-      <div className="max-w-[1200px] mx-auto px-[5%]">
+    <section id="services" className="relative overflow-hidden py-24 bg-white scroll-mt-10" style={{ borderBottom: "1px solid var(--border)" }}>
+      <div className="dot-grid-light absolute inset-0 pointer-events-none" style={{ maskImage: "radial-gradient(ellipse at top, #000 20%, transparent 70%)", WebkitMaskImage: "radial-gradient(ellipse at top, #000 20%, transparent 70%)" }} />
+      <PointerGlow color="rgba(124,58,237,0.08)" size={720} />
+      <div className="max-w-[1200px] mx-auto px-[5%] relative z-10">
         {/* Title */}
         <motion.div
           className="text-center mb-14 max-w-3xl mx-auto"
@@ -109,12 +112,12 @@ export default function Services() {
           style={{ transformPerspective: 800 }}
         >
           <span className="section-label">OUR SERVICES</span>
-          <h2
+          <RevealText
+            text="Tailored Solutions for"
+            accent="Every Industry"
             className="font-display font-black mb-4"
             style={{ fontSize: "clamp(26px, 3.2vw, 42px)", letterSpacing: "-0.6px", color: "var(--text-dark)" }}
-          >
-            Tailored Solutions for Every Industry
-          </h2>
+          />
           <p className="font-sans" style={{ fontSize: 16, color: "#4B5563", lineHeight: 1.7 }}>
             We understand that a clinic needs different features than a restaurant. Here's exactly
             what's built into your website, by industry.
@@ -128,14 +131,16 @@ export default function Services() {
             const isAnchor = service.size !== "sm";
 
             return (
-              <motion.div
+              <SpotlightCard
                 key={service.id}
-                className={`bento-${service.size} group`}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.5, delay: index * 0.06, ease: [0.21, 0.47, 0.32, 0.98] }}
-                whileHover={{ y: -4, boxShadow: "0 18px 48px rgba(99,102,241,0.13)" }}
+                className={`bento-${service.size} group transition-shadow duration-300 hover:shadow-[0_24px_60px_rgba(99,102,241,0.16)]`}
+                tilt={isAnchor ? 3 : 5}
+                motionProps={{
+                  initial: { opacity: 0, y: 28, scale: 0.97 },
+                  whileInView: { opacity: 1, y: 0, scale: 1 },
+                  viewport: { once: true, margin: "-40px" },
+                  transition: { duration: 0.6, delay: (index % 3) * 0.08, ease: [0.21, 0.47, 0.32, 0.98] },
+                }}
                 style={{
                   position: "relative",
                   overflow: "hidden",
@@ -160,7 +165,7 @@ export default function Services() {
                   {/* Icon + title */}
                   <div className="flex items-center gap-3">
                     <div
-                      className="bento-icon flex items-center justify-center shrink-0"
+                      className="bento-icon fx-icon flex items-center justify-center shrink-0"
                       style={{ width: isAnchor ? 52 : 44, height: isAnchor ? 52 : 44, borderRadius: 12, background: "var(--surface)", border: "1px solid var(--border)" }}
                     >
                       <Icon className={isAnchor ? "h-6 w-6" : "h-5 w-5"} style={{ color: "var(--violet-mid)" }} />
@@ -182,18 +187,25 @@ export default function Services() {
                 </div>
 
                 {/* Every spec is always visible on every card — no truncation. */}
-                <div className="bento-specs flex flex-wrap gap-2">
+                <motion.div
+                  className="bento-specs flex flex-wrap gap-2"
+                  variants={staggerParent}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{ once: true, margin: "-40px" }}
+                >
                   {service.features.map((feature) => (
-                    <span
+                    <motion.span
+                      variants={staggerChild}
                       key={feature}
-                      className="font-sans font-semibold"
+                      className="font-sans font-semibold transition-colors duration-200 hover:bg-white! hover:border-[rgba(124,58,237,0.35)]! hover:text-[#6D28D9]!"
                       style={{ fontSize: 12, color: "var(--text-dark)", background: "var(--surface)", border: "1px solid var(--border)", padding: "6px 12px", borderRadius: 50 }}
                     >
                       {feature}
-                    </span>
+                    </motion.span>
                   ))}
-                </div>
-              </motion.div>
+                </motion.div>
+              </SpotlightCard>
             );
           })}
         </div>

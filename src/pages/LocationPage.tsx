@@ -7,6 +7,7 @@ import { blogPosts } from "../data/blog-posts.generated";
 import { useSeoMeta, useJsonLd } from "../hooks/useSeoMeta";
 import { buildLocationSchema, buildBreadcrumbSchema, buildFaqPageSchema } from "../lib/schema";
 import PageShell, { useContactModal } from "../components/PageShell";
+import { RevealText, SpotlightCard, Magnetic, PointerGlow, staggerParent, staggerChild } from "../components/fx";
 
 const H2_STYLE = { fontSize: "clamp(20px, 2.4vw, 28px)", letterSpacing: "-0.8px", color: "#1E1B4B" };
 const BODY_STYLE = { fontSize: 16, color: "#374151", lineHeight: 1.8 };
@@ -60,25 +61,24 @@ function LocationPageContent({ slug }: { slug: string }) {
           background: "linear-gradient(160deg, #EFF6FF 0%, #F5F3FF 50%, #EDE9FE 100%)",
         }}
       >
-        <div className="dot-grid-light absolute inset-0 pointer-events-none" />
+        <div className="dot-grid-light absolute inset-0 pointer-events-none" style={{ maskImage: "radial-gradient(ellipse 80% 70% at 50% 40%, #000 30%, transparent 80%)", WebkitMaskImage: "radial-gradient(ellipse 80% 70% at 50% 40%, #000 30%, transparent 80%)" }} />
+        <div className="fx-grain absolute inset-0 pointer-events-none" />
+        <PointerGlow color="rgba(124,58,237,0.16)" size={720} />
         <div className="glass-sphere-blue orb-float absolute pointer-events-none" style={{ top: "-15%", right: "-5%", width: 400, height: 400 }} />
         <div className="glass-sphere orb-float-2 absolute pointer-events-none" style={{ bottom: "-15%", left: "-5%", width: 350, height: 350 }} />
 
         <div className="relative z-10 max-w-2xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
             <div
-              className="inline-flex items-center justify-center mb-5"
+              className="float-y relative inline-flex items-center justify-center mb-5"
               style={{ width: 56, height: 56, borderRadius: 16, background: "rgba(124,58,237,0.1)" }}
             >
+              <span aria-hidden className="ping-slow absolute inset-0" style={{ borderRadius: 16, border: "1.5px solid rgba(124,58,237,0.35)" }} />
               <MapPin style={{ width: 28, height: 28, color: "#7C3AED" }} />
             </div>
             <span className="section-label">{location.region.toUpperCase()}</span>
-            <h1
-              className="font-display font-black mb-5"
-              style={{ fontSize: "clamp(30px, 3.8vw, 48px)", letterSpacing: "-1.8px", color: "#1E1B4B" }}
-            >
-              {location.heroHeading}
-            </h1>
+            <RevealText as="h1" text={`${location.heroHeading}`} className="font-display font-black mb-5" style={{ fontSize: "clamp(30px, 3.8vw, 48px)", letterSpacing: "-1.8px", color: "#1E1B4B" }} />
+            <Magnetic strength={0.3}>
             <button
               onClick={() => openContact(`${location.cityName} Website Consult`)}
               className="btn-shine btn-gradient inline-flex items-center justify-center gap-2 font-sans font-bold"
@@ -87,6 +87,7 @@ function LocationPageContent({ slug }: { slug: string }) {
               <CalendarCheck className="h-5 w-5" />
               Book a Free Consultation
             </button>
+            </Magnetic>
           </motion.div>
         </div>
       </section>
@@ -99,45 +100,47 @@ function LocationPageContent({ slug }: { slug: string }) {
             </p>
           ))}
 
-          <h2 className="font-display font-black mt-10 mb-4" style={H2_STYLE}>
-            Areas we serve in {location.cityName}
-          </h2>
+          <RevealText text={`Areas we serve in ${location.cityName}`} className="font-display font-black mt-10 mb-4" style={H2_STYLE} />
           <p className="font-sans mb-4" style={BODY_STYLE}>{location.areasIntro}</p>
-          <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-2 mb-2 font-sans" style={{ fontSize: 15, color: "#374151", lineHeight: 1.6 }}>
+          <motion.ul
+            className="grid sm:grid-cols-2 gap-x-6 gap-y-2 mb-2 font-sans"
+            style={{ fontSize: 15, color: "#374151", lineHeight: 1.6 }}
+            variants={staggerParent}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-40px" }}
+          >
             {location.areas.map((area) => (
-              <li key={area} className="flex items-start gap-2">
+              <motion.li key={area} variants={staggerChild} className="flex items-start gap-2">
                 <MapPin style={{ width: 16, height: 16, color: "#7C3AED", flexShrink: 0, marginTop: 3 }} />
                 <span>{area}</span>
-              </li>
+              </motion.li>
             ))}
-          </ul>
+          </motion.ul>
 
-          <h2 className="font-display font-black mt-12 mb-6" style={H2_STYLE}>
-            Websites we build for {location.cityName} businesses
-          </h2>
+          <RevealText text={`Websites we build for ${location.cityName} businesses`} className="font-display font-black mt-12 mb-6" style={H2_STYLE} />
           <div className="flex flex-col gap-4">
             {industries.map((industry) => (
-              <Link
-                key={industry.serviceSlug}
-                to={`/services/${industry.serviceSlug}`}
-                className="liquid-glass block"
-                style={{ borderRadius: 14, padding: "18px 20px", textDecoration: "none" }}
-              >
-                <span className="flex items-center justify-between gap-3 mb-1">
-                  <span className="font-sans font-bold" style={{ fontSize: 15, color: "#1E1B4B" }}>{industry.title}</span>
-                  <ArrowRight style={{ width: 16, height: 16, color: "#7C3AED", flexShrink: 0 }} />
-                </span>
-                <span className="font-sans block" style={{ fontSize: 14, color: "#4B5563", lineHeight: 1.65 }}>{industry.reason}</span>
-              </Link>
+              <SpotlightCard key={industry.serviceSlug} tilt={4} lift={4} className="group" style={{ borderRadius: 16 }}>
+                <Link
+                                  to={`/services/${industry.serviceSlug}`}
+                  className="fx-card liquid-glass block"
+                  style={{ borderRadius: 14, padding: "18px 20px", textDecoration: "none" }}
+                >
+                  <span className="flex items-center justify-between gap-3 mb-1">
+                    <span className="font-sans font-bold" style={{ fontSize: 15, color: "#1E1B4B" }}>{industry.title}</span>
+                    <ArrowRight className="fx-arrow" style={{ width: 16, height: 16, color: "#7C3AED", flexShrink: 0 }} />
+                  </span>
+                  <span className="font-sans block" style={{ fontSize: 14, color: "#4B5563", lineHeight: 1.65 }}>{industry.reason}</span>
+                </Link>
+              </SpotlightCard>
             ))}
           </div>
 
           {location.localWork && (
             <>
-              <h2 className="font-display font-black mt-12 mb-4" style={H2_STYLE}>
-                Recent work in {location.cityName}
-              </h2>
-              <div className="liquid-glass" style={{ borderRadius: 14, padding: "20px 22px" }}>
+              <RevealText text={`Recent work in ${location.cityName}`} className="font-display font-black mt-12 mb-4" style={H2_STYLE} />
+              <SpotlightCard tilt={3} lift={4} className="liquid-glass group" style={{ borderRadius: 14, padding: "20px 22px" }}>
                 <a
                   href={location.localWork.url}
                   target="_blank"
@@ -146,50 +149,57 @@ function LocationPageContent({ slug }: { slug: string }) {
                   style={{ fontSize: 16, color: "#1E1B4B", textDecoration: "none" }}
                 >
                   {location.localWork.name}
-                  <ExternalLink style={{ width: 15, height: 15, color: "#7C3AED" }} />
+                  <ExternalLink className="fx-arrow" style={{ width: 15, height: 15, color: "#7C3AED" }} />
                 </a>
                 <p className="font-sans" style={{ fontSize: 15, color: "#4B5563", lineHeight: 1.7 }}>{location.localWork.description}</p>
-              </div>
+              </SpotlightCard>
             </>
           )}
 
-          <h2 className="font-display font-black mt-12 mb-4" style={H2_STYLE}>
-            How we work with {location.cityName} clients
-          </h2>
+          <RevealText text={`How we work with ${location.cityName} clients`} className="font-display font-black mt-12 mb-4" style={H2_STYLE} />
           {location.howWeWork.map((paragraph, idx) => (
             <p key={idx} className="font-sans mb-4" style={BODY_STYLE}>{paragraph}</p>
           ))}
 
           {relatedPosts.length > 0 && (
             <>
-              <h2 className="font-display font-black mt-12 mb-6" style={H2_STYLE}>
-                Guides for {location.cityName} businesses
-              </h2>
+              <RevealText text={`Guides for ${location.cityName} businesses`} className="font-display font-black mt-12 mb-6" style={H2_STYLE} />
               <div className="grid sm:grid-cols-2 gap-4">
                 {relatedPosts.map((post) => (
-                  <Link
-                    key={post.slug}
-                    to={`/blog/${post.slug}`}
-                    className="liquid-glass flex items-center justify-between gap-3"
-                    style={{ borderRadius: 14, padding: "16px 18px", textDecoration: "none" }}
-                  >
-                    <span className="font-sans font-semibold" style={{ fontSize: 14, color: "#1E1B4B" }}>{post.title}</span>
-                    <ArrowRight style={{ width: 16, height: 16, color: "#7C3AED", flexShrink: 0 }} />
-                  </Link>
+                  <SpotlightCard key={post.slug} tilt={4} lift={4} className="group" style={{ borderRadius: 16 }}>
+                    <Link
+                                          to={`/blog/${post.slug}`}
+                      className="fx-card liquid-glass flex items-center justify-between gap-3"
+                      style={{ borderRadius: 14, padding: "16px 18px", textDecoration: "none" }}
+                    >
+                      <span className="font-sans font-semibold" style={{ fontSize: 14, color: "#1E1B4B" }}>{post.title}</span>
+                      <ArrowRight className="fx-arrow" style={{ width: 16, height: 16, color: "#7C3AED", flexShrink: 0 }} />
+                    </Link>
+                  </SpotlightCard>
                 ))}
               </div>
             </>
           )}
 
-          <h2 className="font-display font-black mt-12 mb-6" style={H2_STYLE}>
-            {location.cityName} website FAQs
-          </h2>
+          <RevealText text={`${location.cityName} website FAQs`} className="font-display font-black mt-12 mb-6" style={H2_STYLE} />
           <div className="flex flex-col gap-4">
             {location.faqs.map((faq) => (
-              <div key={faq.q} className="liquid-glass" style={{ borderRadius: 14, padding: "18px 20px" }}>
+              <SpotlightCard
+                key={faq.q}
+                tilt={2}
+                lift={3}
+                className="liquid-glass"
+                style={{ borderRadius: 14, padding: "18px 20px" }}
+                motionProps={{
+                  initial: { opacity: 0, y: 20 },
+                  whileInView: { opacity: 1, y: 0 },
+                  viewport: { once: true, margin: "-30px" },
+                  transition: { duration: 0.5, ease: [0.21, 0.47, 0.32, 0.98] },
+                }}
+              >
                 <h3 className="font-sans font-bold mb-2" style={{ fontSize: 15, color: "#1E1B4B" }}>{faq.q}</h3>
                 <p className="font-sans" style={{ fontSize: 14, color: "#4B5563", lineHeight: 1.7 }}>{faq.a}</p>
-              </div>
+              </SpotlightCard>
             ))}
           </div>
         </div>
@@ -198,20 +208,19 @@ function LocationPageContent({ slug }: { slug: string }) {
       {related.length > 0 && (
         <section style={{ padding: "60px 5% 80px", background: "white" }}>
           <div className="max-w-[860px] mx-auto">
-            <h2 className="font-display font-black mb-6" style={{ fontSize: "clamp(20px, 2.4vw, 28px)", letterSpacing: "-0.8px", color: "#1E1B4B" }}>
-              Nearby locations
-            </h2>
+            <RevealText text="Nearby locations" className="font-display font-black mb-6" style={{ fontSize: "clamp(20px, 2.4vw, 28px)", letterSpacing: "-0.8px", color: "#1E1B4B" }} />
             <div className="grid sm:grid-cols-2 gap-4">
               {related.map((l) => (
-                <Link
-                  key={l.slug}
-                  to={`/locations/${l.slug}`}
-                  className="liquid-glass flex items-center justify-between gap-3"
-                  style={{ borderRadius: 14, padding: "18px 20px", textDecoration: "none" }}
-                >
-                  <span className="font-sans font-bold" style={{ fontSize: 14, color: "#1E1B4B" }}>{l.cityName}</span>
-                  <ArrowRight style={{ width: 16, height: 16, color: "#7C3AED", flexShrink: 0 }} />
-                </Link>
+                <SpotlightCard key={l.slug} tilt={4} lift={4} className="group" style={{ borderRadius: 16 }}>
+                  <Link
+                                      to={`/locations/${l.slug}`}
+                    className="fx-card liquid-glass flex items-center justify-between gap-3"
+                    style={{ borderRadius: 14, padding: "18px 20px", textDecoration: "none" }}
+                  >
+                    <span className="font-sans font-bold" style={{ fontSize: 14, color: "#1E1B4B" }}>{l.cityName}</span>
+                    <ArrowRight className="fx-arrow" style={{ width: 16, height: 16, color: "#7C3AED", flexShrink: 0 }} />
+                  </Link>
+                </SpotlightCard>
               ))}
             </div>
           </div>
@@ -226,7 +235,10 @@ function LocationPageContent({ slug }: { slug: string }) {
           borderTop: "1.5px solid #E0E7FF",
         }}
       >
+        <div className="fx-aurora" />
+        <div className="fx-grain absolute inset-0 pointer-events-none" />
         <div className="dot-grid-light absolute inset-0 pointer-events-none" />
+        <PointerGlow color="rgba(124,58,237,0.14)" size={680} />
         <div className="relative z-10 max-w-xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -235,12 +247,11 @@ function LocationPageContent({ slug }: { slug: string }) {
             transition={{ duration: 0.55 }}
           >
             <span className="section-label">READY TO START</span>
-            <h2 className="font-display font-black mb-4" style={{ fontSize: "clamp(24px, 3vw, 36px)", letterSpacing: "-1px", color: "#1E1B4B" }}>
-              Ready for your {location.cityName} website?
-            </h2>
+            <RevealText text={`Ready for your ${location.cityName} website?`} className="font-display font-black mb-4" style={{ fontSize: "clamp(24px, 3vw, 36px)", letterSpacing: "-1px", color: "#1E1B4B" }} />
             <p className="font-sans mb-8" style={{ fontSize: 16, color: "#4B5563", lineHeight: 1.7 }}>
               Book a free 15-minute call — we'll walk you through pricing, timeline, and what we'd need from you.
             </p>
+            <Magnetic strength={0.3}>
             <button
               onClick={() => openContact(`${location.cityName} Website Consult`)}
               className="btn-shine btn-gradient inline-flex items-center justify-center gap-2 font-sans font-bold"
@@ -249,6 +260,7 @@ function LocationPageContent({ slug }: { slug: string }) {
               <CalendarCheck className="h-5 w-5" />
               Book a Free Consultation
             </button>
+            </Magnetic>
           </motion.div>
         </div>
       </section>

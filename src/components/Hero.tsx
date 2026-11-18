@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "motion/react";
 import { CalendarCheck, Zap, Smartphone, ChevronDown, Monitor, Tablet } from "lucide-react";
 import { gsap, useGSAP } from "../lib/scroll";
+import { Magnetic, CountUp, PointerGlow } from "./fx";
 
 interface HeroProps {
   onOpenContact: () => void;
@@ -439,8 +440,10 @@ export default function Hero({ onOpenContact }: HeroProps) {
         flexDirection: "column",
       }}
     >
-      {/* Dot grid */}
-      <div className="dot-grid-light absolute inset-0 pointer-events-none" />
+      {/* Dot grid — fades out toward the edges so it frames the copy */}
+      <div className="dot-grid-light absolute inset-0 pointer-events-none" style={{ maskImage: "radial-gradient(ellipse 80% 70% at 50% 40%, #000 30%, transparent 80%)", WebkitMaskImage: "radial-gradient(ellipse 80% 70% at 50% 40%, #000 30%, transparent 80%)" }} />
+      <div className="fx-grain absolute inset-0 pointer-events-none" />
+      <PointerGlow color="rgba(124,58,237,0.16)" size={760} />
 
       {/* Morphing liquid glass blobs — parallax wrappers move, inner blobs morph */}
       <div data-hero-parallax="0.1" className="absolute pointer-events-none" style={{ top: "4%", right: "4%", width: 620, height: 620 }}>
@@ -459,14 +462,24 @@ export default function Hero({ onOpenContact }: HeroProps) {
           {/* ── Left copy ── */}
           <div className="hero-copy">
             {/* H1 */}
-            <motion.h1
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.08 }}
+            <h1
               className="font-display font-black leading-tight mb-6"
               style={{ fontSize: "clamp(36px, 4.6vw, 60px)", letterSpacing: "-1.2px", color: "#1E1B4B" }}
             >
-              Your Business Deserves a Website{" "}
+              {"Your Business Deserves a Website".split(" ").map((w, i) => (
+                <span key={i}>
+                  <span className="fx-word-mask">
+                    <motion.span
+                      className="fx-word"
+                      initial={{ y: "105%", rotate: 5 }}
+                      animate={{ y: "0%", rotate: 0 }}
+                      transition={{ duration: 0.8, delay: 0.05 + i * 0.07, ease: [0.21, 0.47, 0.32, 0.98] }}
+                    >
+                      {w}
+                    </motion.span>
+                  </span>{" "}
+                </span>
+              ))}
               <span style={{ display: "inline-block" }}>
                 <AnimatePresence mode="wait">
                   <motion.span
@@ -482,7 +495,7 @@ export default function Hero({ onOpenContact }: HeroProps) {
                   </motion.span>
                 </AnimatePresence>
               </span>
-            </motion.h1>
+            </h1>
 
             <motion.p
               initial={{ opacity: 0, y: 16 }}
@@ -505,14 +518,16 @@ export default function Hero({ onOpenContact }: HeroProps) {
                 { value: "7 Days", label: "Delivery" },
                 { value: "100%", label: "Mobile First" },
               ].map((stat, i) => (
-                <div
+                <motion.div
                   key={i}
                   className="liquid-glass"
                   style={{ padding: "8px 16px", borderRadius: 50 }}
+                  whileHover={{ y: -3, scale: 1.04 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 18 }}
                 >
-                  <div style={{ fontSize: 20, fontWeight: 900, color: "#1E1B4B", letterSpacing: "-0.8px", lineHeight: 1 }}>{stat.value}</div>
+                  <div style={{ fontSize: 20, fontWeight: 900, color: "#1E1B4B", letterSpacing: "-0.8px", lineHeight: 1 }}><CountUp value={stat.value} duration={1.6} /></div>
                   <div style={{ fontSize: 10, fontWeight: 700, color: "#6B7280", marginTop: 3, letterSpacing: "0.3px" }}>{stat.label}</div>
-                </div>
+                </motion.div>
               ))}
             </motion.div>
 
@@ -523,6 +538,7 @@ export default function Hero({ onOpenContact }: HeroProps) {
               transition={{ duration: 0.6, delay: 0.28 }}
               className="flex items-center flex-wrap gap-4"
             >
+              <Magnetic strength={0.3}>
               <motion.button
                 onClick={onOpenContact}
                 className="btn-shine inline-flex items-center gap-2"
@@ -544,7 +560,8 @@ export default function Hero({ onOpenContact }: HeroProps) {
                 <CalendarCheck className="h-4 w-4" />
                 Book Free Consultation
               </motion.button>
-              <Link to="/#portfolio" className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2 rounded" style={{ fontSize: 14, fontWeight: 700, color: "#7C3AED", textDecoration: "none" }}>
+              </Magnetic>
+              <Link to="/#portfolio" className="fx-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2 rounded" style={{ fontSize: 14, fontWeight: 700, color: "#7C3AED", textDecoration: "none" }}>
                 See our work →
               </Link>
             </motion.div>
@@ -660,15 +677,23 @@ export default function Hero({ onOpenContact }: HeroProps) {
           { title: "Secure & Reliable", description: "Your website and data are always protected." },
           { title: "Clear Communication & On-Time Delivery", description: "We keep you updated at every step." },
           { title: "Affordable Pricing for International Clients", description: "Great quality at fair and transparent rates." },
-        ].map((item) => (
-          <div key={item.title} className="text-center" style={{ padding: "12px 14px" }}>
-            <h3 className="font-display font-extrabold" style={{ fontSize: 13, color: "var(--text-dark)", lineHeight: 1.3, marginBottom: 4 }}>
+        ].map((item, idx) => (
+          <motion.div
+            key={item.title}
+            className="text-center group cursor-default"
+            style={{ padding: "12px 14px" }}
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.5 + idx * 0.07, ease: [0.21, 0.47, 0.32, 0.98] }}
+          >
+            <h3 className="font-display font-extrabold transition-colors duration-300 group-hover:text-[#6D28D9]" style={{ fontSize: 13, color: "var(--text-dark)", lineHeight: 1.3, marginBottom: 4 }}>
               {item.title}
             </h3>
             <p className="font-sans" style={{ fontSize: 12, color: "#6B7280", lineHeight: 1.5 }}>
               {item.description}
             </p>
-          </div>
+            <span aria-hidden className="block mx-auto mt-2 h-[2px] w-0 group-hover:w-8 transition-all duration-300 rounded-full" style={{ background: "linear-gradient(90deg, #0EA5E9, #7C3AED)" }} />
+          </motion.div>
         ))}
       </div>
 
