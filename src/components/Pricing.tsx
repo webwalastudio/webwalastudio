@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import { Check } from "lucide-react";
+import { RevealText, SpotlightCard, CountUp, PointerGlow } from "./fx";
 
 interface PricingProps {
   onOpenContact: (prefilledPlan?: string) => void;
@@ -67,8 +68,12 @@ export default function Pricing({ onOpenContact }: PricingProps) {
         background: "linear-gradient(170deg, #16133A 0%, #1E1B4B 45%, #241F5C 100%)",
       }}
     >
+      {/* Aurora + grain give the dark section depth instead of a flat slab */}
+      <div className="fx-aurora fx-aurora-dark" />
+      <div className="fx-grain absolute inset-0 pointer-events-none" />
       {/* Dot grid overlay */}
       <div className="dot-grid absolute inset-0 pointer-events-none" />
+      <PointerGlow color="rgba(56,189,248,0.12)" size={700} />
 
       {/* Glass sphere orbs */}
       <div className="glass-sphere orb-float absolute pointer-events-none" style={{ top: "-12%", left: "-6%", width: 460, height: 460 }} />
@@ -85,12 +90,13 @@ export default function Pricing({ onOpenContact }: PricingProps) {
           style={{ transformPerspective: 800 }}
         >
           <span className="section-label-dark">PRICING</span>
-          <h2
+          <RevealText
+            text="Transparent Pricing,"
+            accent="No Surprises"
+            accentClassName="grad-light"
             className="font-display font-black mb-4 text-white"
             style={{ fontSize: "clamp(26px, 3.2vw, 42px)", letterSpacing: "-0.6px" }}
-          >
-            Transparent Pricing, No Surprises
-          </h2>
+          />
           <p className="font-sans" style={{ fontSize: 16, color: "rgba(255,255,255,0.7)", lineHeight: 1.7 }}>
             One-time payment for the build. Affordable annual maintenance. Pick the plan that fits your current needs.
           </p>
@@ -101,16 +107,13 @@ export default function Pricing({ onOpenContact }: PricingProps) {
           {plans.map((plan, index) => (
             <motion.div
               key={plan.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 50, scale: 0.94 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.5, delay: index * 0.1, ease: [0.21, 0.47, 0.32, 0.98] }}
-              className={`relative flex flex-col ${plan.featured ? "md:scale-[1.04]" : ""}`}
-              whileHover={!plan.featured
-                ? { y: -5, boxShadow: "0 20px 56px rgba(0,0,0,0.28)" }
-                : { y: -4 }
-              }
+              transition={{ duration: 0.7, delay: index === 1 ? 0 : 0.15, ease: [0.21, 0.47, 0.32, 0.98] }}
+              className={`relative flex flex-col ${plan.featured ? "md:scale-[1.04] z-10" : ""}`}
             >
+              {plan.featured && <div className="fx-halo" aria-hidden />}
               {/* Most Popular badge — outside border wrapper so it doesn't get clipped */}
               {plan.featured && (
                 <div
@@ -136,6 +139,7 @@ export default function Pricing({ onOpenContact }: PricingProps) {
               {plan.featured ? (
                 /* On the dark section the featured plan inverts to a bright card —
                    it's the single lightest surface here, so the eye lands on it first. */
+                <SpotlightCard tilt={4} lift={6} glow="rgba(124,58,237,0.10)" className="flex flex-col flex-1" style={{ borderRadius: 26 }}>
                 <div className="animated-border-wrap">
                   <div
                     className="animated-border-inner"
@@ -148,9 +152,12 @@ export default function Pricing({ onOpenContact }: PricingProps) {
                     <CardContent plan={plan} onOpenContact={onOpenContact} />
                   </div>
                 </div>
+                </SpotlightCard>
               ) : (
-                <div
-                  className="flex flex-col flex-1"
+                <SpotlightCard
+                  tilt={5}
+                  glow="rgba(56,189,248,0.14)"
+                  className="fx-spotlight-dark flex flex-col flex-1"
                   style={{
                     background: "rgba(255,255,255,0.05)",
                     backdropFilter: "blur(20px) saturate(160%)",
@@ -159,11 +166,10 @@ export default function Pricing({ onOpenContact }: PricingProps) {
                     padding: 36,
                     border: "1px solid rgba(255,255,255,0.12)",
                     boxShadow: "inset 0 1px 0 rgba(255,255,255,0.1)",
-                    transition: "all 0.25s",
                   }}
                 >
                   <CardContent plan={plan} onOpenContact={onOpenContact} />
-                </div>
+                </SpotlightCard>
               )}
             </motion.div>
           ))}
@@ -245,7 +251,7 @@ function CardContent({
             className="font-display font-black"
             style={{ fontSize: 48, letterSpacing: "-1.2px", lineHeight: 1, color: c.price }}
           >
-            {plan.price}
+            <CountUp value={plan.price} />
           </span>
           <span
             className="font-sans font-semibold block mt-1"
@@ -258,7 +264,14 @@ function CardContent({
         {/* Features */}
         <ul className="space-y-4 mb-8">
           {plan.features.map((feature, fIdx) => (
-            <li key={fIdx} className="flex items-center gap-3">
+            <motion.li
+              key={fIdx}
+              className="flex items-center gap-3"
+              initial={{ opacity: 0, x: -12 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.3 + fIdx * 0.06 }}
+            >
               {feature.active ? (
                 <span
                   className="flex items-center justify-center shrink-0"
@@ -294,7 +307,7 @@ function CardContent({
               >
                 {feature.name}
               </span>
-            </li>
+            </motion.li>
           ))}
         </ul>
       </div>
@@ -302,7 +315,7 @@ function CardContent({
       {/* CTA button */}
       <button
         onClick={() => onOpenContact(`${plan.name} (${plan.price} / ${plan.priceUSD})`)}
-        className="btn-shine w-full font-sans font-bold cursor-pointer transition-all duration-[250ms]"
+        className={`btn-shine w-full font-sans font-bold cursor-pointer transition-all duration-[250ms] hover:-translate-y-0.5 active:scale-[0.98] ${onLight ? "hover:shadow-[0_12px_36px_rgba(124,58,237,0.5)]" : "hover:bg-white/20! hover:border-white/40!"}`}
         style={
           onLight
             ? {

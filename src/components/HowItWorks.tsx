@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Search, Compass, Rocket, ChevronDown } from "lucide-react";
+import { RevealText, SpotlightCard, PointerGlow } from "./fx";
 
 export default function HowItWorks() {
   const [activeTab, setActiveTab] = useState<number>(0);
@@ -53,8 +54,11 @@ export default function HowItWorks() {
         background: "linear-gradient(160deg, #1E1B4B 0%, #312E81 50%, #1E1B4B 100%)",
       }}
     >
+      <div className="fx-aurora fx-aurora-dark" style={{ animationDirection: "reverse" }} />
+      <div className="fx-grain absolute inset-0 pointer-events-none" />
       {/* Dot grid overlay */}
       <div className="dot-grid absolute inset-0 pointer-events-none" />
+      <PointerGlow color="rgba(56,189,248,0.13)" size={680} />
 
       {/* Glass sphere orbs */}
       <div className="glass-sphere-blue orb-float absolute pointer-events-none" style={{ top: "-10%", right: "-5%", width: 500, height: 500 }} />
@@ -71,12 +75,13 @@ export default function HowItWorks() {
           style={{ transformPerspective: 800 }}
         >
           <span className="section-label-dark">HOW IT WORKS</span>
-          <h2
+          <RevealText
+            text="Simple. Fast."
+            accent="Effective."
+            accentClassName="grad-light"
             className="font-display font-black mb-4"
             style={{ fontSize: "clamp(26px, 3.2vw, 42px)", letterSpacing: "-0.6px" }}
-          >
-            Simple. Fast. Effective.
-          </h2>
+          />
           <p className="font-sans" style={{ fontSize: 16, color: "rgba(255,255,255,0.7)", lineHeight: 1.7 }}>
             Our streamlined process ensures you get a professional website live in under 7 days without the typical agency headaches.
           </p>
@@ -244,8 +249,10 @@ export default function HowItWorks() {
                       style={{
                         fontSize: 96,
                         lineHeight: 1,
-                        color: "rgba(255,255,255,0.03)",
+                        color: isActive ? "rgba(56,189,248,0.10)" : "rgba(255,255,255,0.03)",
                         letterSpacing: "-4px",
+                        transform: isActive ? "translateY(-6px) scale(1.06)" : "none",
+                        transition: "color 0.5s, transform 0.6s cubic-bezier(0.34,1.56,0.64,1)",
                       }}
                     >
                       {item.step}
@@ -258,15 +265,24 @@ export default function HowItWorks() {
                       {item.step}
                     </div>
                     <div
-                      className="flex items-center justify-center mb-4"
+                      className="relative flex items-center justify-center mb-4"
                       style={{
                         width: 52, height: 52, borderRadius: 14,
                         background: isActive ? "rgba(56,189,248,0.2)" : "rgba(56,189,248,0.12)",
                         boxShadow: isActive ? "0 0 20px rgba(56,189,248,0.2)" : "none",
-                        transition: "all 0.25s",
+                        transition: "background 0.25s, box-shadow 0.25s",
                       }}
                     >
-                      <Icon className="h-6 w-6" style={{ color: "#38BDF8" }} />
+                      {isActive && (
+                        <span aria-hidden className="ping-slow absolute inset-0" style={{ borderRadius: 14, border: "1.5px solid rgba(56,189,248,0.55)" }} />
+                      )}
+                      <motion.span
+                        animate={isActive ? { rotate: [0, -12, 10, 0], scale: [1, 1.15, 1] } : { rotate: 0, scale: 1 }}
+                        transition={{ duration: 0.7, ease: "easeOut" }}
+                        style={{ display: "inline-flex" }}
+                      >
+                        <Icon className="h-6 w-6" style={{ color: "#38BDF8" }} />
+                      </motion.span>
                     </div>
                     <div
                       className="inline-block mb-3"
@@ -353,12 +369,17 @@ export default function HowItWorks() {
               </p>
               <div className="grid grid-cols-3 gap-4">
                 {steps[desktopTab].deliverables.map((del, dIdx) => (
-                  <motion.div
+                  <SpotlightCard
                     key={dIdx}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: dIdx * 0.07, duration: 0.25 }}
-                    className="flex flex-col gap-3 p-4"
+                    tilt={6}
+                    lift={4}
+                    glow="rgba(56,189,248,0.14)"
+                    motionProps={{
+                      initial: { opacity: 0, y: 16, scale: 0.96 },
+                      animate: { opacity: 1, y: 0, scale: 1 },
+                      transition: { delay: dIdx * 0.08, duration: 0.4, ease: [0.21, 0.47, 0.32, 0.98] },
+                    }}
+                    className="fx-spotlight-dark flex flex-col gap-3 p-4"
                     style={{
                       background: "rgba(255,255,255,0.04)",
                       border: "1px solid rgba(255,255,255,0.06)",
@@ -374,7 +395,7 @@ export default function HowItWorks() {
                     <p className="font-sans font-bold leading-relaxed" style={{ fontSize: 13, color: "rgba(255,255,255,0.9)" }}>
                       {del}
                     </p>
-                  </motion.div>
+                  </SpotlightCard>
                 ))}
               </div>
             </motion.div>

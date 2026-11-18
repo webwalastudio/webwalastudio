@@ -7,6 +7,7 @@ import { lazy, Suspense } from "react";
 import Hero from "./components/Hero";
 import { CalendarCheck } from "lucide-react";
 import PageShell, { useContactModal } from "./components/PageShell";
+import { RevealText, Magnetic, PointerGlow } from "./components/fx";
 
 const Services      = lazy(() => import("./components/Services"));
 const HowItWorks    = lazy(() => import("./components/HowItWorks"));
@@ -50,35 +51,39 @@ function HomeContent() {
             background: "linear-gradient(160deg, #EFF6FF 0%, #F5F3FF 50%, #EDE9FE 100%)",
           }}
         >
+          <div className="fx-aurora" />
+          <div className="fx-grain absolute inset-0 pointer-events-none" />
           {/* Dot grid */}
           <div className="dot-grid-light absolute inset-0 pointer-events-none" />
+          <PointerGlow color="rgba(124,58,237,0.14)" size={720} />
           {/* Glass sphere orbs */}
           <div className="glass-sphere-blue orb-float absolute pointer-events-none" style={{ top: "-20%", right: "-5%", width: 400, height: 400 }} />
           <div className="glass-sphere orb-float-2 absolute pointer-events-none" style={{ bottom: "-20%", left: "-5%", width: 360, height: 360 }} />
 
           <div className="max-w-[1200px] mx-auto relative z-10 flex flex-col items-center">
             <span className="section-label">READY TO LAUNCH</span>
-            <h2
+            <RevealText
+              text="Ready to Get Your Website Live"
+              accent="in 7 Days?"
               className="font-display font-black mb-6 max-w-2xl"
               style={{ fontSize: "clamp(26px, 3.2vw, 48px)", letterSpacing: "-0.9px", color: "#1E1B4B" }}
-            >
-              Ready to Get Your Website Live{" "}
-              <span className="grad">in 7 Days?</span>
-            </h2>
+            />
             <p
               className="font-sans mb-10 max-w-xl leading-relaxed font-semibold"
               style={{ fontSize: 16, color: "#4B5563" }}
             >
               Join businesses across India, the USA, Canada & UAE that upgraded their digital presence with Webwala Studio and started seeing real results fast.
             </p>
+            <Magnetic strength={0.35}>
             <button
               onClick={() => openContact("Final CTA - Ready to Go Live")}
-              className="btn-shine btn-gradient inline-flex items-center justify-center gap-2 font-sans font-bold"
+              className="btn-shine btn-gradient relative inline-flex items-center justify-center gap-2 font-sans font-bold"
               style={{ fontSize: 15, padding: "15px 36px", borderRadius: 50, boxShadow: "0 6px 30px rgba(124,58,237,0.32)" }}
             >
               <CalendarCheck className="h-5 w-5" />
               Book a Free Consultation
             </button>
+            </Magnetic>
           </div>
 
           {/* Wave divider → Footer */}

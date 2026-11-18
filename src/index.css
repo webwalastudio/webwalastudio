@@ -442,6 +442,164 @@ html { scroll-behavior: smooth; }
   animation: shimmer-slide 1.6s ease-in-out infinite;
 }
 
+/* ══════════════════════════════════════════════════════════════════════════
+   Interaction layer (see src/components/fx.tsx)
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* Spotlight card: a soft fill + a brighter rim, both centred on the pointer. */
+.fx-spotlight {
+  position: relative;
+  isolation: isolate;
+  --mx: 50%;
+  --my: 50%;
+  will-change: transform;
+}
+.fx-spotlight::before,
+.fx-spotlight::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  z-index: 3;
+}
+.fx-spotlight::before {
+  background: radial-gradient(420px circle at var(--mx) var(--my), var(--glow), transparent 55%);
+}
+.fx-spotlight::after {
+  padding: 1.5px;
+  background: radial-gradient(260px circle at var(--mx) var(--my), rgba(124,58,237,0.75), rgba(14,165,233,0.45) 40%, transparent 70%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+.fx-spotlight-dark::after {
+  background: radial-gradient(260px circle at var(--mx) var(--my), rgba(56,189,248,0.9), rgba(167,139,250,0.55) 40%, transparent 70%);
+}
+@media (hover: hover) and (pointer: fine) {
+  .fx-spotlight:hover::before,
+  .fx-spotlight:hover::after { opacity: 1; }
+}
+
+/* Word-mask headline reveal. Padding + matching negative margin keeps
+   descenders from being clipped without shifting the line box. */
+.fx-word-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+.fx-word {
+  display: inline-block;
+  transform-origin: 0% 100%;
+  will-change: transform;
+}
+
+/* Cursor aura */
+.fx-cursor {
+  position: fixed;
+  top: -18px;
+  left: -18px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(124,58,237,0.5);
+  pointer-events: none;
+  z-index: 9999;
+  backdrop-filter: saturate(140%);
+}
+
+/* Film grain — static SVG noise, so it costs one paint. */
+.fx-grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  z-index: 2;
+}
+
+/* Aurora — a slowly rotating, heavily blurred conic gradient. */
+.fx-aurora {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 140vmax;
+  height: 140vmax;
+  margin: -70vmax 0 0 -70vmax;
+  pointer-events: none;
+  background: conic-gradient(from 0deg,
+    rgba(56,189,248,0.0), rgba(56,189,248,0.22), rgba(167,139,250,0.28),
+    rgba(244,114,182,0.14), rgba(56,189,248,0.0), rgba(124,58,237,0.24), rgba(56,189,248,0.0));
+  filter: blur(80px);
+  animation: aurora-spin 28s linear infinite;
+  opacity: 0.9;
+}
+.fx-aurora-dark { opacity: 0.55; mix-blend-mode: screen; }
+@keyframes aurora-spin { to { transform: rotate(360deg); } }
+
+/* Animated gradient underline for links. */
+.fx-underline {
+  background-image: linear-gradient(90deg, #0EA5E9, #7C3AED);
+  background-size: 0% 2px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  transition: background-size 0.35s cubic-bezier(0.21, 0.47, 0.32, 0.98);
+  padding-bottom: 2px;
+}
+.fx-underline:hover, .fx-underline:focus-visible { background-size: 100% 2px; }
+
+/* Icon tile that spins up on card hover. */
+.fx-icon { transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s; }
+.group:hover .fx-icon {
+  transform: rotate(-8deg) scale(1.12);
+  box-shadow: 0 10px 24px rgba(124,58,237,0.22);
+}
+
+/* Section heading eyebrow chip — a moving sheen. */
+.section-label, .section-label-dark { position: relative; overflow: hidden; }
+.section-label::after, .section-label-dark::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  left: -60%;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.7), transparent);
+  transform: skewX(-20deg);
+  animation: label-sheen 4.5s ease-in-out infinite;
+}
+.section-label-dark::after { background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent); }
+@keyframes label-sheen {
+  0%, 60% { left: -60%; }
+  100%    { left: 130%; }
+}
+
+/* Breathing glow behind an active/featured element. */
+@keyframes halo {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50%      { opacity: 0.95; transform: scale(1.06); }
+}
+.fx-halo {
+  position: absolute;
+  inset: -18px;
+  border-radius: 36px;
+  background: radial-gradient(closest-side, rgba(124,58,237,0.55), rgba(14,165,233,0.25) 60%, transparent);
+  filter: blur(26px);
+  animation: halo 4s ease-in-out infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@media (max-width: 768px) {
+  .fx-aurora { animation-duration: 48s; filter: blur(60px); }
+}
+
 /* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
   .scroll-page,
@@ -459,6 +617,9 @@ html { scroll-behavior: smooth; }
   .scroll-bounce,
   .wa-ring, .wa-ring-2,
   .section-shimmer,
+  .fx-aurora,
+  .fx-halo,
+  .section-label::after, .section-label-dark::after,
   .fade-up, .fade-up-1, .fade-up-2, .fade-up-3, .fade-up-4 {
     animation: none !important;
     opacity: 1;
@@ -713,3 +874,27 @@ html { scroll-behavior: smooth; }
 .blog-prose a:hover {
   text-decoration-color: #7C3AED;
 }
+
+/* Gradient text for dark sections — light stops keep 7:1+ on navy. */
+.grad-light {
+  background: linear-gradient(135deg, #7DD3FC, #C4B5FD 60%, #F0ABFC);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Link cards on location/blog pages: arrow slides and title tints on hover. */
+.fx-arrow { transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.group:hover .fx-arrow, .fx-card:hover .fx-arrow, .fx-card:focus-visible .fx-arrow { transform: translateX(5px); }
+.fx-card { transition: background 0.3s, box-shadow 0.3s; }
+.fx-card:hover { background: rgba(255,255,255,0.82); box-shadow: inset 0 1.5px 0 rgba(255,255,255,0.95), 0 18px 44px rgba(99,102,241,0.16); }
+.fx-card .font-display, .fx-card .font-bold, .fx-card .font-semibold { transition: color 0.25s; }
+.fx-card:hover > span:first-child .font-bold,
+.fx-card:hover .font-display { color: #6D28D9 !important; }
+
+/* Blog prose: links get the gradient underline sweep, headings a gradient tick. */
+.blog-prose a { background-image: linear-gradient(90deg, #0EA5E9, #7C3AED); background-size: 0% 2px; background-repeat: no-repeat; background-position: 0 100%; transition: background-size 0.35s; }
+.blog-prose a:hover { background-size: 100% 2px; text-decoration-color: transparent; }
+.blog-prose h2 { position: relative; }
+.blog-prose h2::before { content: ""; position: absolute; left: -18px; top: 0.3em; bottom: 0.3em; width: 4px; border-radius: 4px; background: linear-gradient(180deg, #0EA5E9, #7C3AED); }
+@media (max-width: 900px) { .blog-prose h2::before { left: -12px; width: 3px; } }

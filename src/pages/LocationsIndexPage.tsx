@@ -5,6 +5,7 @@ import { locations, LOCATIONS_INDEX_TITLE, LOCATIONS_INDEX_DESCRIPTION } from ".
 import { useSeoMeta, useJsonLd } from "../hooks/useSeoMeta";
 import { buildBreadcrumbSchema } from "../lib/schema";
 import PageShell, { useContactModal } from "../components/PageShell";
+import { RevealText, SpotlightCard, Magnetic, PointerGlow } from "../components/fx";
 
 function LocationsIndexContent() {
   const { openContact } = useContactModal();
@@ -24,19 +25,16 @@ function LocationsIndexContent() {
           background: "linear-gradient(160deg, #EFF6FF 0%, #F5F3FF 50%, #EDE9FE 100%)",
         }}
       >
-        <div className="dot-grid-light absolute inset-0 pointer-events-none" />
+        <div className="dot-grid-light absolute inset-0 pointer-events-none" style={{ maskImage: "radial-gradient(ellipse 80% 70% at 50% 40%, #000 30%, transparent 80%)", WebkitMaskImage: "radial-gradient(ellipse 80% 70% at 50% 40%, #000 30%, transparent 80%)" }} />
+        <div className="fx-grain absolute inset-0 pointer-events-none" />
+        <PointerGlow color="rgba(124,58,237,0.16)" size={720} />
         <div className="glass-sphere-blue orb-float absolute pointer-events-none" style={{ top: "-15%", right: "-5%", width: 400, height: 400 }} />
         <div className="glass-sphere orb-float-2 absolute pointer-events-none" style={{ bottom: "-15%", left: "-5%", width: 350, height: 350 }} />
 
         <div className="relative z-10 max-w-2xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
             <span className="section-label">LOCATIONS</span>
-            <h1
-              className="font-display font-black mb-5"
-              style={{ fontSize: "clamp(32px, 4vw, 52px)", letterSpacing: "-1.8px", color: "#1E1B4B" }}
-            >
-              Website Design Across Delhi NCR
-            </h1>
+            <RevealText as="h1" text="Website Design Across Delhi NCR" className="font-display font-black mb-5" style={{ fontSize: "clamp(32px, 4vw, 52px)", letterSpacing: "-1.8px", color: "#1E1B4B" }} />
             <p className="font-sans mb-8" style={{ fontSize: 17, color: "#4B5563", lineHeight: 1.75 }}>
               Based in Gurugram, building for businesses across the region.
             </p>
@@ -47,16 +45,22 @@ function LocationsIndexContent() {
       <section style={{ padding: "60px 5% 100px", background: "#F8FAFF" }}>
         <div className="max-w-[860px] mx-auto grid sm:grid-cols-2 gap-5">
           {locations.map((location, idx) => (
-            <motion.div
+            <SpotlightCard
               key={location.slug}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.4, delay: idx * 0.05 }}
+              tilt={4}
+              lift={5}
+              className="group"
+              style={{ borderRadius: 16 }}
+              motionProps={{
+                initial: { opacity: 0, y: 28, scale: 0.97 },
+                whileInView: { opacity: 1, y: 0, scale: 1 },
+                viewport: { once: true, margin: "-40px" },
+                transition: { duration: 0.55, delay: idx * 0.05, ease: [0.21, 0.47, 0.32, 0.98] },
+              }}
             >
               <Link
                 to={`/locations/${location.slug}`}
-                className="liquid-glass flex items-center gap-4"
+                className="fx-card liquid-glass flex items-center gap-4"
                 style={{ borderRadius: 16, padding: "20px 22px", textDecoration: "none" }}
               >
                 <div
@@ -69,9 +73,9 @@ function LocationsIndexContent() {
                   <span className="font-display font-bold block" style={{ fontSize: 16, color: "#1E1B4B" }}>{location.cityName}</span>
                   <span className="font-sans" style={{ fontSize: 13, color: "#6B7280" }}>{location.region}</span>
                 </div>
-                <ArrowRight style={{ width: 16, height: 16, color: "#7C3AED", flexShrink: 0 }} />
+                <ArrowRight className="fx-arrow" style={{ width: 16, height: 16, color: "#7C3AED", flexShrink: 0 }} />
               </Link>
-            </motion.div>
+            </SpotlightCard>
           ))}
         </div>
       </section>
@@ -84,7 +88,10 @@ function LocationsIndexContent() {
           borderTop: "1.5px solid #E0E7FF",
         }}
       >
+        <div className="fx-aurora" />
+        <div className="fx-grain absolute inset-0 pointer-events-none" />
         <div className="dot-grid-light absolute inset-0 pointer-events-none" />
+        <PointerGlow color="rgba(124,58,237,0.14)" size={680} />
         <div className="relative z-10 max-w-xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -93,12 +100,11 @@ function LocationsIndexContent() {
             transition={{ duration: 0.55 }}
           >
             <span className="section-label">OUTSIDE NCR?</span>
-            <h2 className="font-display font-black mb-4" style={{ fontSize: "clamp(24px, 3vw, 36px)", letterSpacing: "-1px", color: "#1E1B4B" }}>
-              We also work internationally
-            </h2>
+            <RevealText text="We also work internationally" className="font-display font-black mb-4" style={{ fontSize: "clamp(24px, 3vw, 36px)", letterSpacing: "-1px", color: "#1E1B4B" }} />
             <p className="font-sans mb-8" style={{ fontSize: 16, color: "#4B5563", lineHeight: 1.7 }}>
               Alongside our NCR base, we regularly build for clients in the USA, Canada & UAE — fully remote, with pricing in USD.
             </p>
+            <Magnetic strength={0.3}>
             <button
               onClick={() => openContact()}
               className="btn-shine btn-gradient inline-flex items-center justify-center gap-2 font-sans font-bold"
@@ -107,6 +113,7 @@ function LocationsIndexContent() {
               <CalendarCheck className="h-5 w-5" />
               Book a Free Consultation
             </button>
+            </Magnetic>
           </motion.div>
         </div>
       </section>

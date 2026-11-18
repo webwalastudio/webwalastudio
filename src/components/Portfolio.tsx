@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import { ExternalLink } from "lucide-react";
+import { RevealText, SpotlightCard, Magnetic } from "./fx";
 
 const projects = [
   {
@@ -149,16 +150,16 @@ export default function Portfolio() {
           transition={{ duration: 0.55, ease: [0.21, 0.47, 0.32, 0.98] }}
         >
           <span className="section-label">OUR WORK</span>
-          <h2
+          <RevealText
+            text="Sites We've"
+            accent="Built"
             className="font-display font-black mb-4"
             style={{
               fontSize: "clamp(26px, 3.2vw, 42px)",
               letterSpacing: "-0.6px",
               color: "#1E1B4B",
             }}
-          >
-            Sites We've Built
-          </h2>
+          />
           <p className="font-sans" style={{ fontSize: 16, color: "#4B5563", lineHeight: 1.7 }}>
             Real businesses, live on the web. From VR edtech to global manufacturing — each site
             built and launched in under 7 days.
@@ -170,23 +171,33 @@ export default function Portfolio() {
           {projects.map((project, idx) => (
             <motion.div
               key={idx}
-              initial={{ opacity: 0, y: 36 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              className="group"
+              initial={{ opacity: 0, y: 60, rotateX: 12 }}
+              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
               viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.55, delay: idx * 0.14, ease: [0.21, 0.47, 0.32, 0.98] }}
+              transition={{ duration: 0.8, delay: idx * 0.14, ease: [0.21, 0.47, 0.32, 0.98] }}
+              style={{ transformPerspective: 1200 }}
             >
               {/* Browser frame */}
-              <motion.div
-                whileHover={{ y: -6, boxShadow: "0 40px 100px rgba(0,0,0,0.16)" }}
-                transition={{ duration: 0.25 }}
+              <SpotlightCard
+                tilt={8}
+                lift={10}
+                glow={`${project.accentFrom}26`}
+                style={{ borderRadius: 16 }}
               >
+                {/* Accent glow that blooms behind the frame on hover */}
+                <div
+                  aria-hidden
+                  className="absolute -inset-4 rounded-[28px] opacity-0 group-hover:opacity-45 transition-opacity duration-500 pointer-events-none"
+                  style={{ background: `linear-gradient(135deg, ${project.accentFrom}, ${project.accentTo})`, filter: "blur(36px)", zIndex: -1 }}
+                />
                 <BrowserFrame
                   screenshot={project.screenshot}
                   domain={project.domain}
                   accentFrom={project.accentFrom}
                   accentTo={project.accentTo}
                 />
-              </motion.div>
+              </SpotlightCard>
 
               {/* Project info */}
               <div className="mt-5 flex items-start justify-between gap-4">
@@ -210,7 +221,7 @@ export default function Portfolio() {
                     {project.tag}
                   </div>
                   <div
-                    className="font-display font-black"
+                    className="font-display font-black transition-colors duration-300"
                     style={{ fontSize: 18, color: "#1E1B4B", marginBottom: 4 }}
                   >
                     {project.name}
@@ -223,6 +234,7 @@ export default function Portfolio() {
                   </p>
                 </div>
 
+                <Magnetic strength={0.35} className="shrink-0">
                 <a
                   href={project.url}
                   target="_blank"
@@ -244,6 +256,7 @@ export default function Portfolio() {
                   <ExternalLink className="h-3.5 w-3.5" />
                   Visit Site
                 </a>
+                </Magnetic>
               </div>
             </motion.div>
           ))}

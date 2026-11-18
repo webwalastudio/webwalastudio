@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useCallback, lazy, Suspense, type ReactNode } from "react";
 import { MotionConfig } from "motion/react";
 import Navbar from "./Navbar";
+import { CursorAura } from "./fx";
 import ScrollProgress from "./ScrollProgress";
 import { trackEvent } from "../lib/analytics";
 
@@ -54,6 +55,7 @@ export default function PageShell({ children, whatsAppSource }: PageShellProps) 
       <ContactModalContext.Provider value={{ openContact }}>
         <div className="relative min-h-screen bg-bg-cream selection:bg-primary/20 selection:text-brand-navy flex flex-col justify-between">
           <ScrollProgress />
+          <CursorAura />
 
           <Navbar onOpenContact={() => openContact(null)} />
 
