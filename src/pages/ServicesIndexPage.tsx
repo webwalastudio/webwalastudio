@@ -24,16 +24,13 @@ function ServicesIndexContent() {
           background: "linear-gradient(160deg, #EFF6FF 0%, #F5F3FF 50%, #EDE9FE 100%)",
         }}
       >
-        <div className="dot-grid-light absolute inset-0 pointer-events-none" />
-        <div className="glass-sphere-blue orb-float absolute pointer-events-none" style={{ top: "-15%", right: "-5%", width: 400, height: 400 }} />
-        <div className="glass-sphere orb-float-2 absolute pointer-events-none" style={{ bottom: "-15%", left: "-5%", width: 350, height: 350 }} />
 
         <div className="relative z-10 max-w-2xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
             <span className="section-label">SERVICES</span>
             <h1
               className="font-display font-black mb-5"
-              style={{ fontSize: "clamp(32px, 4vw, 52px)", letterSpacing: "-1.8px", color: "#1E1B4B" }}
+              style={{ fontSize: "clamp(36px, 5.4vw, 64px)", lineHeight: 1.05, letterSpacing: "-0.03em", color: "#1E1B4B" }}
             >
               Website Design, Tailored to Your Industry
             </h1>
@@ -89,7 +86,6 @@ function ServicesIndexContent() {
           borderTop: "1.5px solid #E0E7FF",
         }}
       >
-        <div className="dot-grid-light absolute inset-0 pointer-events-none" />
         <div className="relative z-10 max-w-xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -98,7 +94,7 @@ function ServicesIndexContent() {
             transition={{ duration: 0.55 }}
           >
             <span className="section-label">DON'T SEE YOUR INDUSTRY?</span>
-            <h2 className="font-display font-black mb-4" style={{ fontSize: "clamp(24px, 3vw, 36px)", letterSpacing: "-1px", color: "#1E1B4B" }}>
+            <h2 className="font-display font-black mb-4" style={{ fontSize: "clamp(30px, 4.2vw, 48px)", lineHeight: 1.08, letterSpacing: "-0.03em", color: "#1E1B4B" }}>
               We build for any business
             </h2>
             <p className="font-sans mb-8" style={{ fontSize: 16, color: "#4B5563", lineHeight: 1.7 }}>

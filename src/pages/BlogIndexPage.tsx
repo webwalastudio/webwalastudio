@@ -6,7 +6,7 @@ import { BLOG_INDEX_TITLE, BLOG_INDEX_DESCRIPTION } from "../data/blogMeta";
 import { useSeoMeta, useJsonLd } from "../hooks/useSeoMeta";
 import { buildBreadcrumbSchema } from "../lib/schema";
 import PageShell, { useContactModal } from "../components/PageShell";
-import { RevealText, SpotlightCard, Magnetic, PointerGlow } from "../components/fx";
+import { RevealText, SpotlightCard } from "../components/fx";
 
 function formatDate(iso: string): string {
   return new Date(`${iso}T00:00:00`).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
@@ -30,16 +30,11 @@ function BlogIndexContent() {
           background: "linear-gradient(160deg, #EFF6FF 0%, #F5F3FF 50%, #EDE9FE 100%)",
         }}
       >
-        <div className="dot-grid-light absolute inset-0 pointer-events-none" style={{ maskImage: "radial-gradient(ellipse 80% 70% at 50% 40%, #000 30%, transparent 80%)", WebkitMaskImage: "radial-gradient(ellipse 80% 70% at 50% 40%, #000 30%, transparent 80%)" }} />
-        <div className="fx-grain absolute inset-0 pointer-events-none" />
-        <PointerGlow color="rgba(124,58,237,0.16)" size={720} />
-        <div className="glass-sphere-blue orb-float absolute pointer-events-none" style={{ top: "-15%", right: "-5%", width: 400, height: 400 }} />
-        <div className="glass-sphere orb-float-2 absolute pointer-events-none" style={{ bottom: "-15%", left: "-5%", width: 350, height: 350 }} />
 
         <div className="relative z-10 max-w-2xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
             <span className="section-label">BLOG</span>
-            <RevealText as="h1" text="Guides for Building a Better Business Website" className="font-display font-black mb-5" style={{ fontSize: "clamp(32px, 4vw, 52px)", letterSpacing: "-1.8px", color: "#1E1B4B" }} />
+            <RevealText as="h1" text="Guides for Building a Better Business Website" className="font-display font-black mb-5" style={{ fontSize: "clamp(36px, 5.4vw, 64px)", lineHeight: 1.05, letterSpacing: "-0.03em", color: "#1E1B4B" }} />
             <p className="font-sans mb-8" style={{ fontSize: 17, color: "#4B5563", lineHeight: 1.75 }}>
               Practical, no-fluff guides on pricing, timelines, and what to actually build.
             </p>
@@ -52,7 +47,6 @@ function BlogIndexContent() {
           {blogPosts.map((post, idx) => (
             <SpotlightCard
               key={post.slug}
-              tilt={4}
               lift={5}
               className="group"
               style={{ borderRadius: 16 }}
@@ -94,10 +88,6 @@ function BlogIndexContent() {
           borderTop: "1.5px solid #E0E7FF",
         }}
       >
-        <div className="fx-aurora" />
-        <div className="fx-grain absolute inset-0 pointer-events-none" />
-        <div className="dot-grid-light absolute inset-0 pointer-events-none" />
-        <PointerGlow color="rgba(124,58,237,0.14)" size={680} />
         <div className="relative z-10 max-w-xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -106,11 +96,10 @@ function BlogIndexContent() {
             transition={{ duration: 0.55 }}
           >
             <span className="section-label">READY TO START</span>
-            <RevealText text="Have a specific question?" className="font-display font-black mb-4" style={{ fontSize: "clamp(24px, 3vw, 36px)", letterSpacing: "-1px", color: "#1E1B4B" }} />
+            <RevealText text="Have a specific question?" className="font-display font-black mb-4" style={{ fontSize: "clamp(30px, 4.2vw, 48px)", lineHeight: 1.08, letterSpacing: "-0.03em", color: "#1E1B4B" }} />
             <p className="font-sans mb-8" style={{ fontSize: 16, color: "#4B5563", lineHeight: 1.7 }}>
               Book a free 15-minute call — we'll answer it directly, no pressure.
             </p>
-            <Magnetic strength={0.3}>
             <button
               onClick={() => openContact()}
               className="btn-shine btn-gradient inline-flex items-center justify-center gap-2 font-sans font-bold"
@@ -119,7 +108,6 @@ function BlogIndexContent() {
               <CalendarCheck className="h-5 w-5" />
               Book a Free Consultation
             </button>
-            </Magnetic>
           </motion.div>
         </div>
       </section>

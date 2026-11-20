@@ -3,7 +3,6 @@ import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "motion/react";
 import { CalendarCheck, Menu, X } from "lucide-react";
 import { routes, isActiveRoute } from "../routes";
-import { Magnetic } from "./fx";
 
 interface NavbarProps {
   onOpenContact: () => void;
@@ -166,7 +165,6 @@ export default function Navbar({ onOpenContact }: NavbarProps) {
 
           {/* CTA BUTTON */}
           <div className="hidden md:flex items-center">
-            <Magnetic strength={0.25}>
             <button
               onClick={onOpenContact}
               className="btn-shine btn-gradient inline-flex items-center justify-center gap-2"
@@ -175,7 +173,6 @@ export default function Navbar({ onOpenContact }: NavbarProps) {
               <CalendarCheck className="h-4 w-4" />
               Book a Consultation
             </button>
-            </Magnetic>
           </div>
 
           {/* MOBILE TRIGGER */}

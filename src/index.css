@@ -60,46 +60,30 @@ html { scroll-behavior: smooth; }
   background-clip: text;
 }
 
-/* Animated shimmer gradient text */
-.grad-shimmer {
-  background: linear-gradient(90deg, #6D28D9 0%, #0369A1 30%, #7C3AED 50%, #0369A1 70%, #6D28D9 100%);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: shimmer-move 4s linear infinite;
-}
-@keyframes shimmer-move {
-  0%   { background-position: 0% center; }
-  100% { background-position: 200% center; }
-}
-
-/* ── Section labels ── */
-.section-label {
-  display: inline-block;
-  background: var(--surface);
-  color: var(--violet-mid);
-  padding: 5px 14px;
-  border-radius: 50px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  margin-bottom: 16px;
-  border: 1px solid var(--border);
-}
+/* ── Section labels ──
+   A quiet eyebrow above section headings: small caps text with a short rule,
+   no pill or animation, so the heading itself carries the section. */
+.section-label,
 .section-label-dark {
-  display: inline-block;
-  background: rgba(56, 189, 248, 0.12);
-  color: #38BDF8;
-  padding: 5px 14px;
-  border-radius: 50px;
-  font-size: 11px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
   font-weight: 700;
-  letter-spacing: 1.5px;
+  letter-spacing: 1.6px;
   text-transform: uppercase;
-  margin-bottom: 16px;
-  border: 1px solid rgba(56, 189, 248, 0.2);
+  margin-bottom: 18px;
+  color: #6D28D9;
+}
+.section-label-dark { color: #7DD3FC; }
+.section-label::before,
+.section-label-dark::before {
+  content: "";
+  width: 24px;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  opacity: 0.6;
 }
 
 /* ── Services bento ──
@@ -222,75 +206,9 @@ html { scroll-behavior: smooth; }
   -webkit-backdrop-filter: blur(24px) saturate(180%);
 }
 
-/* ── Morphing glass blobs ── */
-@keyframes morph-blob-a {
-  0%, 100% { border-radius: 60% 40% 55% 45% / 48% 62% 38% 52%; }
-  25%       { border-radius: 40% 60% 45% 55% / 62% 38% 62% 38%; }
-  50%       { border-radius: 55% 45% 60% 40% / 38% 62% 48% 52%; }
-  75%       { border-radius: 45% 55% 38% 62% / 52% 48% 55% 45%; }
-}
-@keyframes morph-blob-b {
-  0%, 100% { border-radius: 45% 55% 38% 62% / 52% 48% 55% 45%; }
-  30%       { border-radius: 55% 45% 60% 40% / 38% 62% 48% 52%; }
-  60%       { border-radius: 40% 60% 45% 55% / 62% 38% 62% 38%; }
-}
-@keyframes morph-blob-c {
-  0%, 100% { border-radius: 50% 50% 70% 30% / 30% 70% 50% 50%; }
-  40%       { border-radius: 70% 30% 50% 50% / 50% 50% 30% 70%; }
-  70%       { border-radius: 30% 70% 30% 70% / 70% 30% 70% 30%; }
-}
-.morph-blob-a {
-  animation: orb-float 14s ease-in-out infinite, morph-blob-a 16s ease-in-out infinite;
-  will-change: transform;
-}
-.morph-blob-b {
-  animation: orb-float 18s ease-in-out infinite reverse, morph-blob-b 20s ease-in-out infinite;
-  will-change: transform;
-}
-.morph-blob-c {
-  animation: orb-float 22s ease-in-out infinite, morph-blob-c 24s ease-in-out infinite;
-  will-change: transform;
-  animation-delay: -5s, -7s;
-}
-
 /* ── Mobile: disable heavy animations that cause repaints ── */
 @media (max-width: 768px) {
-  .morph-blob-a { animation: orb-float 14s ease-in-out infinite; border-radius: 50%; }
-  .morph-blob-b { animation: orb-float 18s ease-in-out infinite reverse; border-radius: 50%; }
-  .morph-blob-c { animation: orb-float 22s ease-in-out infinite; border-radius: 50%; }
-  .scroll-portfolio { animation: none; transform: translateY(-20%); }
   .animated-border-wrap::before { animation: border-spin 10s linear infinite; }
-  .navbar-iridescent-edge { animation: none; opacity: 0.5; }
-}
-
-/* ── Glass sphere (simulated light refraction) ── */
-.glass-sphere {
-  border-radius: 50%;
-  background: radial-gradient(
-    circle at 32% 28%,
-    rgba(255,255,255,0.52) 0%,
-    rgba(167,139,250,0.26) 24%,
-    rgba(99,102,241,0.13) 55%,
-    rgba(56,189,248,0.06) 80%,
-    transparent 100%
-  );
-  box-shadow:
-    inset -10px -10px 24px rgba(124,58,237,0.1),
-    inset 5px 5px 14px rgba(255,255,255,0.25);
-}
-.glass-sphere-blue {
-  border-radius: 50%;
-  background: radial-gradient(
-    circle at 35% 28%,
-    rgba(255,255,255,0.58) 0%,
-    rgba(56,189,248,0.28) 22%,
-    rgba(14,165,233,0.13) 55%,
-    rgba(99,102,241,0.06) 80%,
-    transparent 100%
-  );
-  box-shadow:
-    inset -10px -10px 24px rgba(14,165,233,0.1),
-    inset 5px 5px 14px rgba(255,255,255,0.3);
 }
 
 /* ── Liquid glass surface utility ── */
@@ -306,10 +224,6 @@ html { scroll-behavior: smooth; }
 }
 
 /* ── Iridescent navbar bottom shimmer ── */
-@keyframes iridescent-slide {
-  0%   { background-position: 0% 50%; }
-  100% { background-position: 200% 50%; }
-}
 .navbar-iridescent-edge {
   position: absolute;
   bottom: 0; left: 0; right: 0;
@@ -324,29 +238,9 @@ html { scroll-behavior: smooth; }
     rgba(56,189,248,0.5) 88%,
     transparent 100%
   );
-  background-size: 200% 100%;
-  animation: iridescent-slide 4s linear infinite;
+  opacity: 0.45;
   pointer-events: none;
 }
-
-/* ── Orb float ── */
-@keyframes orb-float {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33%       { transform: translate(20px, -20px) scale(1.04); }
-  66%       { transform: translate(-14px, 14px) scale(0.97); }
-}
-.orb-float   { animation: orb-float 14s ease-in-out infinite; will-change: transform; }
-.orb-float-2 { animation: orb-float 18s ease-in-out infinite reverse; will-change: transform; }
-.orb-float-3 { animation: orb-float 22s ease-in-out infinite; will-change: transform; animation-delay: -5s; }
-
-/* ── Float Y (for floating badges) ── */
-@keyframes float-y {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-10px); }
-}
-.float-y   { animation: float-y 3.5s ease-in-out infinite; }
-.float-y-2 { animation: float-y 4.2s ease-in-out infinite; animation-delay: -1.5s; }
-.float-y-3 { animation: float-y 3.8s ease-in-out infinite; animation-delay: -0.8s; }
 
 /* ── Mobile drawer ── */
 @keyframes slideIn {
@@ -381,24 +275,6 @@ html { scroll-behavior: smooth; }
   75%, 100% { transform: scale(2); opacity: 0; }
 }
 .ping-slow { animation: ping-slow 1.8s cubic-bezier(0, 0, 0.2, 1) infinite; }
-
-/* ── Scroll indicator bounce ── */
-@keyframes scroll-bounce {
-  0%, 100% { transform: translateY(0) translateX(-50%); }
-  50%       { transform: translateY(8px) translateX(-50%); }
-}
-.scroll-bounce { animation: scroll-bounce 1.6s ease-in-out infinite; }
-
-/* ── Device mockup page scroll (alternate = auto-reverse back up) ── */
-@keyframes scroll-page {
-  0%   { transform: translateY(0); }
-  100% { transform: translateY(-52%); }
-}
-.scroll-page {
-  animation: scroll-page 6s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate;
-  animation-delay: 1s;
-  will-change: transform;
-}
 
 /* ── Portfolio screenshot auto-scroll ── */
 @keyframes scroll-portfolio {
@@ -454,8 +330,7 @@ html { scroll-behavior: smooth; }
   --my: 50%;
   will-change: transform;
 }
-.fx-spotlight::before,
-.fx-spotlight::after {
+.fx-spotlight::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -466,22 +341,10 @@ html { scroll-behavior: smooth; }
   z-index: 3;
 }
 .fx-spotlight::before {
-  background: radial-gradient(420px circle at var(--mx) var(--my), var(--glow), transparent 55%);
-}
-.fx-spotlight::after {
-  padding: 1.5px;
-  background: radial-gradient(260px circle at var(--mx) var(--my), rgba(124,58,237,0.75), rgba(14,165,233,0.45) 40%, transparent 70%);
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  mask-composite: exclude;
-}
-.fx-spotlight-dark::after {
-  background: radial-gradient(260px circle at var(--mx) var(--my), rgba(56,189,248,0.9), rgba(167,139,250,0.55) 40%, transparent 70%);
+  background: radial-gradient(360px circle at var(--mx) var(--my), var(--glow), transparent 60%);
 }
 @media (hover: hover) and (pointer: fine) {
-  .fx-spotlight:hover::before,
-  .fx-spotlight:hover::after { opacity: 1; }
+  .fx-spotlight:hover::before { opacity: 1; }
 }
 
 /* Word-mask headline reveal. Padding + matching negative margin keeps
@@ -499,51 +362,6 @@ html { scroll-behavior: smooth; }
   will-change: transform;
 }
 
-/* Cursor aura */
-.fx-cursor {
-  position: fixed;
-  top: -18px;
-  left: -18px;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  border: 1.5px solid rgba(124,58,237,0.5);
-  pointer-events: none;
-  z-index: 9999;
-  backdrop-filter: saturate(140%);
-}
-
-/* Film grain — static SVG noise, so it costs one paint. */
-.fx-grain::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.06;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  z-index: 2;
-}
-
-/* Aurora — a slowly rotating, heavily blurred conic gradient. */
-.fx-aurora {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 140vmax;
-  height: 140vmax;
-  margin: -70vmax 0 0 -70vmax;
-  pointer-events: none;
-  background: conic-gradient(from 0deg,
-    rgba(56,189,248,0.0), rgba(56,189,248,0.22), rgba(167,139,250,0.28),
-    rgba(244,114,182,0.14), rgba(56,189,248,0.0), rgba(124,58,237,0.24), rgba(56,189,248,0.0));
-  filter: blur(80px);
-  animation: aurora-spin 28s linear infinite;
-  opacity: 0.9;
-}
-.fx-aurora-dark { opacity: 0.55; mix-blend-mode: screen; }
-@keyframes aurora-spin { to { transform: rotate(360deg); } }
-
 /* Animated gradient underline for links. */
 .fx-underline {
   background-image: linear-gradient(90deg, #0EA5E9, #7C3AED);
@@ -555,71 +373,20 @@ html { scroll-behavior: smooth; }
 }
 .fx-underline:hover, .fx-underline:focus-visible { background-size: 100% 2px; }
 
-/* Icon tile that spins up on card hover. */
-.fx-icon { transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s; }
-.group:hover .fx-icon {
-  transform: rotate(-8deg) scale(1.12);
-  box-shadow: 0 10px 24px rgba(124,58,237,0.22);
-}
-
-/* Section heading eyebrow chip — a moving sheen. */
-.section-label, .section-label-dark { position: relative; overflow: hidden; }
-.section-label::after, .section-label-dark::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  left: -60%;
-  width: 40%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.7), transparent);
-  transform: skewX(-20deg);
-  animation: label-sheen 4.5s ease-in-out infinite;
-}
-.section-label-dark::after { background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent); }
-@keyframes label-sheen {
-  0%, 60% { left: -60%; }
-  100%    { left: 130%; }
-}
-
-/* Breathing glow behind an active/featured element. */
-@keyframes halo {
-  0%, 100% { opacity: 0.55; transform: scale(1); }
-  50%      { opacity: 0.95; transform: scale(1.06); }
-}
-.fx-halo {
-  position: absolute;
-  inset: -18px;
-  border-radius: 36px;
-  background: radial-gradient(closest-side, rgba(124,58,237,0.55), rgba(14,165,233,0.25) 60%, transparent);
-  filter: blur(26px);
-  animation: halo 4s ease-in-out infinite;
-  pointer-events: none;
-  z-index: -1;
-}
-
-@media (max-width: 768px) {
-  .fx-aurora { animation-duration: 48s; filter: blur(60px); }
-}
+/* Icon tile that lifts slightly on card hover. */
+.fx-icon { transition: transform 0.3s ease; }
+.group:hover .fx-icon { transform: translateY(-2px); }
 
 /* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
-  .scroll-page,
   .scroll-portfolio,
-  .orb-float, .orb-float-2, .orb-float-3,
-  .morph-blob-a, .morph-blob-b, .morph-blob-c,
-  .float-y, .float-y-2, .float-y-3,
   .marquee-track,
   .btn-shine::after,
   .glow-ring,
   .animated-border-wrap::before,
-  .navbar-iridescent-edge,
-  .grad-shimmer,
   .ping-slow,
-  .scroll-bounce,
   .wa-ring, .wa-ring-2,
   .section-shimmer,
-  .fx-aurora,
-  .fx-halo,
-  .section-label::after, .section-label-dark::after,
   .fade-up, .fade-up-1, .fade-up-2, .fade-up-3, .fade-up-4 {
     animation: none !important;
     opacity: 1;
@@ -898,3 +665,63 @@ html { scroll-behavior: smooth; }
 .blog-prose h2 { position: relative; }
 .blog-prose h2::before { content: ""; position: absolute; left: -18px; top: 0.3em; bottom: 0.3em; width: 4px; border-radius: 4px; background: linear-gradient(180deg, #0EA5E9, #7C3AED); }
 @media (max-width: 900px) { .blog-prose h2::before { left: -12px; width: 3px; } }
+
+/* ── Hero: three real client sites, stacked ──
+   All three cards share one grid cell; ShowcaseStack in Hero.tsx positions and
+   animates them. */
+.hero-stack {
+  display: grid;
+  padding: 34px 34px 0 0;
+}
+.hero-stack-card {
+  grid-area: 1 / 1;
+  transform-origin: top right;
+  will-change: transform, opacity;
+}
+@media (max-width: 640px) {
+  .hero-stack { padding: 20px 20px 0 0; }
+}
+.hero-stack-pick {
+  background: none;
+  border: 0;
+  padding: 2px 0;
+  font: inherit;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+.hero-stack-pick[aria-pressed="true"] { text-decoration: underline; text-decoration-color: #7C3AED; text-underline-offset: 4px; text-decoration-thickness: 2px; }
+.hero-stack-pick:hover { color: #1E1B4B !important; }
+
+/* ── Mobile action bar (WhatsApp + Call) ── */
+.mobile-action-bar {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 60;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+  background: rgba(255,255,255,0.94);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(30,27,75,0.08);
+  box-shadow: 0 -8px 24px rgba(30,27,75,0.06);
+}
+.mobile-action-bar a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+}
+@media (min-width: 768px) { .mobile-action-bar { display: none; } }
+@media (max-width: 767px) {
+  /* Phones show the top of each client site, still (declared after .scroll-portfolio so it wins). */
+  .scroll-portfolio { animation: none; transform: none; }
+  body { padding-bottom: calc(68px + env(safe-area-inset-bottom)); }
+  .wa-wrapper { display: none; }
+}

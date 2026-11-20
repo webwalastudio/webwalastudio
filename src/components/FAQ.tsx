@@ -46,9 +46,6 @@ export default function FAQ() {
       }}
     >
       {/* Glass sphere orbs */}
-      <div className="glass-sphere-blue orb-float absolute pointer-events-none" style={{ top: "-10%", right: "-6%", width: 480, height: 480 }} />
-      <div className="glass-sphere orb-float-2 absolute pointer-events-none" style={{ bottom: "-10%", left: "-6%", width: 400, height: 400 }} />
-      <div className="dot-grid-light absolute inset-0 pointer-events-none" />
 
       <div className="max-w-[860px] mx-auto px-[5%] relative z-10">
         {/* Heading */}
@@ -62,7 +59,7 @@ export default function FAQ() {
           <span className="section-label">FAQ</span>
           <h2
             className="font-display font-black mb-4"
-            style={{ fontSize: "clamp(26px, 3.2vw, 42px)", letterSpacing: "-0.6px", color: "#1E1B4B" }}
+            style={{ fontSize: "clamp(32px, 4.6vw, 56px)", lineHeight: 1.06, letterSpacing: "-0.03em", color: "#1E1B4B" }}
           >
             Got Questions?
           </h2>

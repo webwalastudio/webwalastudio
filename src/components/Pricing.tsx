@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import { Check } from "lucide-react";
-import { RevealText, SpotlightCard, CountUp, PointerGlow } from "./fx";
+import { RevealText, SpotlightCard } from "./fx";
 
 interface PricingProps {
   onOpenContact: (prefilledPlan?: string) => void;
@@ -69,15 +69,10 @@ export default function Pricing({ onOpenContact }: PricingProps) {
       }}
     >
       {/* Aurora + grain give the dark section depth instead of a flat slab */}
-      <div className="fx-aurora fx-aurora-dark" />
-      <div className="fx-grain absolute inset-0 pointer-events-none" />
       {/* Dot grid overlay */}
       <div className="dot-grid absolute inset-0 pointer-events-none" />
-      <PointerGlow color="rgba(56,189,248,0.12)" size={700} />
 
       {/* Glass sphere orbs */}
-      <div className="glass-sphere orb-float absolute pointer-events-none" style={{ top: "-12%", left: "-6%", width: 460, height: 460 }} />
-      <div className="glass-sphere-blue orb-float-2 absolute pointer-events-none" style={{ bottom: "-12%", right: "-6%", width: 400, height: 400 }} />
 
       <div className="max-w-[1200px] mx-auto px-[5%] relative z-10">
         {/* Title */}
@@ -95,7 +90,7 @@ export default function Pricing({ onOpenContact }: PricingProps) {
             accent="No Surprises"
             accentClassName="grad-light"
             className="font-display font-black mb-4 text-white"
-            style={{ fontSize: "clamp(26px, 3.2vw, 42px)", letterSpacing: "-0.6px" }}
+            style={{ fontSize: "clamp(32px, 4.6vw, 56px)", lineHeight: 1.06, letterSpacing: "-0.03em" }}
           />
           <p className="font-sans" style={{ fontSize: 16, color: "rgba(255,255,255,0.7)", lineHeight: 1.7 }}>
             One-time payment for the build. Affordable annual maintenance. Pick the plan that fits your current needs.
@@ -113,7 +108,6 @@ export default function Pricing({ onOpenContact }: PricingProps) {
               transition={{ duration: 0.7, delay: index === 1 ? 0 : 0.15, ease: [0.21, 0.47, 0.32, 0.98] }}
               className={`relative flex flex-col ${plan.featured ? "md:scale-[1.04] z-10" : ""}`}
             >
-              {plan.featured && <div className="fx-halo" aria-hidden />}
               {/* Most Popular badge — outside border wrapper so it doesn't get clipped */}
               {plan.featured && (
                 <div
@@ -139,7 +133,7 @@ export default function Pricing({ onOpenContact }: PricingProps) {
               {plan.featured ? (
                 /* On the dark section the featured plan inverts to a bright card —
                    it's the single lightest surface here, so the eye lands on it first. */
-                <SpotlightCard tilt={4} lift={6} glow="rgba(124,58,237,0.10)" className="flex flex-col flex-1" style={{ borderRadius: 26 }}>
+                <SpotlightCard lift={6} glow="rgba(124,58,237,0.10)" className="flex flex-col flex-1" style={{ borderRadius: 26 }}>
                 <div className="animated-border-wrap">
                   <div
                     className="animated-border-inner"
@@ -155,9 +149,8 @@ export default function Pricing({ onOpenContact }: PricingProps) {
                 </SpotlightCard>
               ) : (
                 <SpotlightCard
-                  tilt={5}
                   glow="rgba(56,189,248,0.14)"
-                  className="fx-spotlight-dark flex flex-col flex-1"
+                  className="flex flex-col flex-1"
                   style={{
                     background: "rgba(255,255,255,0.05)",
                     backdropFilter: "blur(20px) saturate(160%)",
@@ -251,7 +244,7 @@ function CardContent({
             className="font-display font-black"
             style={{ fontSize: 48, letterSpacing: "-1.2px", lineHeight: 1, color: c.price }}
           >
-            <CountUp value={plan.price} />
+            {plan.price}
           </span>
           <span
             className="font-sans font-semibold block mt-1"

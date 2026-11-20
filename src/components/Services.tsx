@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { RevealText, SpotlightCard, PointerGlow, staggerParent, staggerChild } from "./fx";
+import { RevealText, SpotlightCard, staggerParent, staggerChild } from "./fx";
 import type { LucideIcon } from "lucide-react";
 import {
   School, HeartPulse, Briefcase, Scissors,
@@ -99,8 +99,6 @@ const services: ServiceItem[] = [
 export default function Services() {
   return (
     <section id="services" className="relative overflow-hidden py-24 bg-white scroll-mt-10" style={{ borderBottom: "1px solid var(--border)" }}>
-      <div className="dot-grid-light absolute inset-0 pointer-events-none" style={{ maskImage: "radial-gradient(ellipse at top, #000 20%, transparent 70%)", WebkitMaskImage: "radial-gradient(ellipse at top, #000 20%, transparent 70%)" }} />
-      <PointerGlow color="rgba(124,58,237,0.08)" size={720} />
       <div className="max-w-[1200px] mx-auto px-[5%] relative z-10">
         {/* Title */}
         <motion.div
@@ -116,7 +114,7 @@ export default function Services() {
             text="Tailored Solutions for"
             accent="Every Industry"
             className="font-display font-black mb-4"
-            style={{ fontSize: "clamp(26px, 3.2vw, 42px)", letterSpacing: "-0.6px", color: "var(--text-dark)" }}
+            style={{ fontSize: "clamp(32px, 4.6vw, 56px)", lineHeight: 1.06, letterSpacing: "-0.03em", color: "var(--text-dark)" }}
           />
           <p className="font-sans" style={{ fontSize: 16, color: "#4B5563", lineHeight: 1.7 }}>
             We understand that a clinic needs different features than a restaurant. Here's exactly
@@ -134,7 +132,6 @@ export default function Services() {
               <SpotlightCard
                 key={service.id}
                 className={`bento-${service.size} group transition-shadow duration-300 hover:shadow-[0_24px_60px_rgba(99,102,241,0.16)]`}
-                tilt={isAnchor ? 3 : 5}
                 motionProps={{
                   initial: { opacity: 0, y: 28, scale: 0.97 },
                   whileInView: { opacity: 1, y: 0, scale: 1 },
