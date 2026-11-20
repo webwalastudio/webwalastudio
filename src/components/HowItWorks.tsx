@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Search, Compass, Rocket, ChevronDown } from "lucide-react";
-import { RevealText, SpotlightCard, PointerGlow } from "./fx";
+import { RevealText, SpotlightCard } from "./fx";
 
 export default function HowItWorks() {
   const [activeTab, setActiveTab] = useState<number>(0);
@@ -54,15 +54,10 @@ export default function HowItWorks() {
         background: "linear-gradient(160deg, #1E1B4B 0%, #312E81 50%, #1E1B4B 100%)",
       }}
     >
-      <div className="fx-aurora fx-aurora-dark" style={{ animationDirection: "reverse" }} />
-      <div className="fx-grain absolute inset-0 pointer-events-none" />
       {/* Dot grid overlay */}
       <div className="dot-grid absolute inset-0 pointer-events-none" />
-      <PointerGlow color="rgba(56,189,248,0.13)" size={680} />
 
       {/* Glass sphere orbs */}
-      <div className="glass-sphere-blue orb-float absolute pointer-events-none" style={{ top: "-10%", right: "-5%", width: 500, height: 500 }} />
-      <div className="glass-sphere orb-float-2 absolute pointer-events-none" style={{ bottom: "-10%", left: "-5%", width: 420, height: 420 }} />
 
       <div className="max-w-[1200px] mx-auto relative z-10">
         {/* Title */}
@@ -80,7 +75,7 @@ export default function HowItWorks() {
             accent="Effective."
             accentClassName="grad-light"
             className="font-display font-black mb-4"
-            style={{ fontSize: "clamp(26px, 3.2vw, 42px)", letterSpacing: "-0.6px" }}
+            style={{ fontSize: "clamp(32px, 4.6vw, 56px)", lineHeight: 1.06, letterSpacing: "-0.03em" }}
           />
           <p className="font-sans" style={{ fontSize: 16, color: "rgba(255,255,255,0.7)", lineHeight: 1.7 }}>
             Our streamlined process ensures you get a professional website live in under 7 days without the typical agency headaches.
@@ -371,7 +366,6 @@ export default function HowItWorks() {
                 {steps[desktopTab].deliverables.map((del, dIdx) => (
                   <SpotlightCard
                     key={dIdx}
-                    tilt={6}
                     lift={4}
                     glow="rgba(56,189,248,0.14)"
                     motionProps={{
@@ -379,7 +373,7 @@ export default function HowItWorks() {
                       animate: { opacity: 1, y: 0, scale: 1 },
                       transition: { delay: dIdx * 0.08, duration: 0.4, ease: [0.21, 0.47, 0.32, 0.98] },
                     }}
-                    className="fx-spotlight-dark flex flex-col gap-3 p-4"
+                    className="flex flex-col gap-3 p-4"
                     style={{
                       background: "rgba(255,255,255,0.04)",
                       border: "1px solid rgba(255,255,255,0.06)",

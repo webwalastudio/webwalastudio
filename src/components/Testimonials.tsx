@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import { ExternalLink } from "lucide-react";
-import { RevealText, SpotlightCard, PointerGlow } from "./fx";
+import { RevealText, SpotlightCard } from "./fx";
 
 const reviews = [
   {
@@ -73,7 +73,6 @@ export default function Testimonials() {
       className="relative overflow-hidden py-24 scroll-mt-10"
       style={{ background: "linear-gradient(160deg, #F0F4FF 0%, #F8FAFF 50%, #F5F3FF 100%)" }}
     >
-      <PointerGlow color="rgba(14,165,233,0.10)" size={680} />
       <div className="max-w-[1200px] mx-auto px-[5%] relative z-10">
         {/* Heading */}
         <motion.div
@@ -89,7 +88,7 @@ export default function Testimonials() {
             text="What Our Clients"
             accent="Say"
             className="font-display font-black mb-4"
-            style={{ fontSize: "clamp(26px, 3.2vw, 42px)", letterSpacing: "-0.6px", color: "#1E1B4B" }}
+            style={{ fontSize: "clamp(32px, 4.6vw, 56px)", lineHeight: 1.06, letterSpacing: "-0.03em", color: "#1E1B4B" }}
           />
           <p className="font-sans" style={{ fontSize: 16, color: "#4B5563", lineHeight: 1.7 }}>
             Real businesses. Real results. Here's what our clients have shared after working with us.
@@ -102,7 +101,6 @@ export default function Testimonials() {
             <SpotlightCard
               key={idx}
               className="group transition-shadow duration-300 hover:shadow-[0_24px_60px_rgba(99,102,241,0.16)]"
-              tilt={5}
               glow={`${r.accentFrom}1F`}
               motionProps={{
                 initial: { opacity: 0, y: 40, rotate: idx === 0 ? -2 : idx === 2 ? 2 : 0 },

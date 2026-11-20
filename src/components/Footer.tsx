@@ -47,8 +47,6 @@ export default function Footer() {
       <div className="dot-grid absolute inset-0 pointer-events-none" />
 
       {/* Ambient corner glows */}
-      <div className="glass-sphere orb-float absolute pointer-events-none" style={{ top: "-10%", right: "-5%", width: 320, height: 320 }} />
-      <div className="glass-sphere-blue orb-float-2 absolute pointer-events-none" style={{ bottom: "-10%", left: "-5%", width: 280, height: 280 }} />
 
       <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
         <div className="grid md:grid-cols-4 gap-12 mb-16">

@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
-import { ExternalLink } from "lucide-react";
-import { RevealText, SpotlightCard, Magnetic } from "./fx";
+import { ArrowUpRight } from "lucide-react";
+import { RevealText } from "./fx";
 
 const projects = [
   {
@@ -10,8 +10,7 @@ const projects = [
     url: "https://vriseglobal.co.in",
     domain: "vriseglobal.co.in",
     screenshot: "/screenshot-vrise.webp",
-    accentFrom: "#0EA5E9",
-    accentTo: "#7C3AED",
+    accent: "#0369A1",
     tag: "EdTech",
   },
   {
@@ -21,8 +20,7 @@ const projects = [
     url: "https://www.fexalloys.com",
     domain: "fexalloys.com",
     screenshot: "/screenshot-fex.webp",
-    accentFrom: "#F59E0B",
-    accentTo: "#EF4444",
+    accent: "#B45309",
     tag: "Manufacturing",
   },
   {
@@ -32,91 +30,31 @@ const projects = [
     url: "https://www.master-salon.com",
     domain: "master-salon.com",
     screenshot: "/screenshot-master-salon.webp",
-    accentFrom: "#B45309",
-    accentTo: "#DB2777",
+    accent: "#BE185D",
     tag: "Salon",
   },
 ];
 
-function BrowserFrame({ screenshot, domain, accentFrom, accentTo }: {
-  screenshot: string;
-  domain: string;
-  accentFrom: string;
-  accentTo: string;
-}) {
+function BrowserFrame({ screenshot, domain, name }: { screenshot: string; domain: string; name: string }) {
   return (
     <div
-      style={{
-        borderRadius: 16,
-        overflow: "hidden",
-        boxShadow: "0 32px 80px rgba(0,0,0,0.14), 0 0 0 1px rgba(224,231,255,0.8)",
-      }}
+      className="overflow-hidden bg-white transition-transform duration-500 group-hover:-translate-y-1.5"
+      style={{ borderRadius: 16, boxShadow: "0 40px 80px -30px rgba(30,27,75,0.35), 0 0 0 1px rgba(30,27,75,0.08)" }}
     >
-      {/* Browser chrome */}
-      <div
-        style={{
-          background: "rgba(255,255,255,0.92)",
-          backdropFilter: "blur(12px)",
-          borderBottom: "1px solid rgba(224,231,255,0.8)",
-          padding: "10px 14px",
-          display: "flex",
-          alignItems: "center",
-          gap: 8,
-        }}
-      >
-        <div style={{ display: "flex", gap: 5, flexShrink: 0 }}>
-          <div style={{ width: 9, height: 9, borderRadius: "50%", background: "#FF5F57" }} />
-          <div style={{ width: 9, height: 9, borderRadius: "50%", background: "#FFBD2E" }} />
-          <div style={{ width: 9, height: 9, borderRadius: "50%", background: "#28C840" }} />
-        </div>
-        {/* URL bar */}
-        <div
-          style={{
-            flex: 1,
-            height: 22,
-            borderRadius: 20,
-            background: "rgba(238,242,255,0.8)",
-            display: "flex",
-            alignItems: "center",
-            paddingLeft: 10,
-            gap: 6,
-          }}
-        >
-          <div
-            style={{
-              width: 6,
-              height: 6,
-              borderRadius: "50%",
-              background: `linear-gradient(135deg, ${accentFrom}, ${accentTo})`,
-              flexShrink: 0,
-            }}
-          />
-          <span
-            style={{
-              fontSize: 10,
-              fontWeight: 600,
-              color: "#4B5563",
-              fontFamily: "inherit",
-              letterSpacing: "0.1px",
-            }}
-          >
-            {domain}
-          </span>
-        </div>
+      <div className="flex items-center gap-2 px-4" style={{ height: 36, background: "#F4F5FA", borderBottom: "1px solid rgba(30,27,75,0.07)" }}>
+        <span style={{ width: 9, height: 9, borderRadius: "50%", background: "#D4D7E3" }} />
+        <span style={{ width: 9, height: 9, borderRadius: "50%", background: "#D4D7E3" }} />
+        <span style={{ width: 9, height: 9, borderRadius: "50%", background: "#D4D7E3" }} />
+        <span className="ml-2 truncate" style={{ fontSize: 12, fontWeight: 600, color: "#6B7280" }}>{domain}</span>
       </div>
-
-      {/* Scrolling screenshot */}
-      <div style={{ height: 340, overflow: "hidden", background: "#f8f8f8" }}>
+      {/* The full-page capture scrolls slowly so visitors see the whole site */}
+      <div style={{ aspectRatio: "16 / 10", overflow: "hidden", background: "#f4f4f6" }}>
         <img
           src={screenshot}
-          alt={`${domain} website screenshot`}
+          alt={`${name} website screenshot (${domain})`}
+          loading="lazy"
           decoding="async"
-          className="scroll-portfolio"
-          style={{
-            width: "100%",
-            display: "block",
-            transformOrigin: "top center",
-          }}
+          className="scroll-portfolio block w-full"
         />
       </div>
     </div>
@@ -125,26 +63,12 @@ function BrowserFrame({ screenshot, domain, accentFrom, accentTo }: {
 
 export default function Portfolio() {
   return (
-    <section
-      id="portfolio"
-      className="relative overflow-hidden py-24 scroll-mt-10"
-      style={{ background: "#F8FAFF" }}
-    >
-      {/* Glass sphere orbs */}
-      <div
-        className="glass-sphere-blue orb-float absolute pointer-events-none"
-        style={{ top: "-8%", right: "-4%", width: 440, height: 440 }}
-      />
-      <div
-        className="glass-sphere orb-float-2 absolute pointer-events-none"
-        style={{ bottom: "-8%", left: "-4%", width: 380, height: 380 }}
-      />
-
-      <div className="max-w-[1200px] mx-auto px-[5%] relative z-10">
+    <section id="portfolio" className="relative py-24 md:py-32 scroll-mt-10" style={{ background: "#F8FAFF" }}>
+      <div className="max-w-[1200px] mx-auto px-[5%]">
         {/* Heading */}
         <motion.div
-          className="text-center mb-16 max-w-2xl mx-auto"
-          initial={{ opacity: 0, y: 24 }}
+          className="mb-16 md:mb-24 max-w-2xl"
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.55, ease: [0.21, 0.47, 0.32, 0.98] }}
@@ -153,113 +77,75 @@ export default function Portfolio() {
           <RevealText
             text="Sites We've"
             accent="Built"
-            className="font-display font-black mb-4"
-            style={{
-              fontSize: "clamp(26px, 3.2vw, 42px)",
-              letterSpacing: "-0.6px",
-              color: "#1E1B4B",
-            }}
+            className="font-display font-black mb-5"
+            style={{ fontSize: "clamp(34px, 5vw, 60px)", lineHeight: 1.05, letterSpacing: "-0.03em", color: "#1E1B4B" }}
           />
-          <p className="font-sans" style={{ fontSize: 16, color: "#4B5563", lineHeight: 1.7 }}>
+          <p className="font-sans" style={{ fontSize: 18, color: "#4B5563", lineHeight: 1.7 }}>
             Real businesses, live on the web. From VR edtech to global manufacturing — each site
             built and launched in under 7 days.
           </p>
         </motion.div>
 
-        {/* Project cards */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto">
-          {projects.map((project, idx) => (
-            <motion.div
-              key={idx}
-              className="group"
-              initial={{ opacity: 0, y: 60, rotateX: 12 }}
-              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.8, delay: idx * 0.14, ease: [0.21, 0.47, 0.32, 0.98] }}
-              style={{ transformPerspective: 1200 }}
-            >
-              {/* Browser frame */}
-              <SpotlightCard
-                tilt={8}
-                lift={10}
-                glow={`${project.accentFrom}26`}
-                style={{ borderRadius: 16 }}
+        {/* Case studies — one large row each, alternating sides */}
+        <div className="flex flex-col gap-24 md:gap-32">
+          {projects.map((project, idx) => {
+            const flip = idx % 2 === 1;
+            return (
+              <motion.article
+                key={project.name}
+                className="group grid lg:grid-cols-12 gap-10 lg:gap-14 items-center"
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.8, ease: [0.21, 0.47, 0.32, 0.98] }}
               >
-                {/* Accent glow that blooms behind the frame on hover */}
-                <div
-                  aria-hidden
-                  className="absolute -inset-4 rounded-[28px] opacity-0 group-hover:opacity-45 transition-opacity duration-500 pointer-events-none"
-                  style={{ background: `linear-gradient(135deg, ${project.accentFrom}, ${project.accentTo})`, filter: "blur(36px)", zIndex: -1 }}
-                />
-                <BrowserFrame
-                  screenshot={project.screenshot}
-                  domain={project.domain}
-                  accentFrom={project.accentFrom}
-                  accentTo={project.accentTo}
-                />
-              </SpotlightCard>
-
-              {/* Project info */}
-              <div className="mt-5 flex items-start justify-between gap-4">
-                <div>
-                  {/* Category tag */}
-                  <div
-                    style={{
-                      display: "inline-block",
-                      background: `linear-gradient(135deg, ${project.accentFrom}18, ${project.accentTo}18)`,
-                      border: `1px solid ${project.accentFrom}33`,
-                      borderRadius: 30,
-                      padding: "3px 10px",
-                      fontSize: 10,
-                      fontWeight: 800,
-                      color: project.accentFrom,
-                      letterSpacing: "0.6px",
-                      textTransform: "uppercase",
-                      marginBottom: 8,
-                    }}
-                  >
-                    {project.tag}
-                  </div>
-                  <div
-                    className="font-display font-black transition-colors duration-300"
-                    style={{ fontSize: 18, color: "#1E1B4B", marginBottom: 4 }}
-                  >
-                    {project.name}
-                  </div>
-                  <p
-                    className="font-sans"
-                    style={{ fontSize: 13, color: "#6B7280", lineHeight: 1.6, maxWidth: 340 }}
-                  >
-                    {project.description}
-                  </p>
-                </div>
-
-                <Magnetic strength={0.35} className="shrink-0">
                 <a
                   href={project.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 font-sans font-bold shrink-0 transition-all"
-                  style={{
-                    fontSize: 13,
-                    color: "white",
-                    background: `linear-gradient(135deg, ${project.accentFrom}, ${project.accentTo})`,
-                    padding: "8px 14px",
-                    borderRadius: 50,
-                    textDecoration: "none",
-                    whiteSpace: "nowrap",
-                    boxShadow: `0 4px 16px ${project.accentFrom}40`,
-                  }}
-                  onMouseEnter={e => (e.currentTarget.style.transform = "translateY(-2px)")}
-                  onMouseLeave={e => (e.currentTarget.style.transform = "translateY(0)")}
+                  aria-label={`Visit ${project.name} (opens in a new tab)`}
+                  className={`block lg:col-span-7 ${flip ? "lg:order-2" : ""}`}
                 >
-                  <ExternalLink className="h-3.5 w-3.5" />
-                  Visit Site
+                  <BrowserFrame screenshot={project.screenshot} domain={project.domain} name={project.name} />
                 </a>
-                </Magnetic>
-              </div>
-            </motion.div>
-          ))}
+
+                <div className={`lg:col-span-5 ${flip ? "lg:order-1" : ""}`}>
+                  <div className="flex items-center gap-3 mb-5" style={{ fontSize: 13, fontWeight: 700 }}>
+                    <span style={{ color: project.accent, letterSpacing: "1.4px", textTransform: "uppercase", fontSize: 12 }}>{project.tag}</span>
+                    <span aria-hidden style={{ width: 4, height: 4, borderRadius: "50%", background: "#CBD0DE" }} />
+                    <span style={{ color: "#6B7280" }}>{String(idx + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}</span>
+                  </div>
+                  <h3 className="font-display font-black mb-4" style={{ fontSize: "clamp(28px, 3.4vw, 40px)", lineHeight: 1.1, letterSpacing: "-0.025em", color: "#1E1B4B" }}>
+                    {project.name}
+                  </h3>
+                  <p className="font-sans mb-8" style={{ fontSize: 17, color: "#4B5563", lineHeight: 1.7 }}>
+                    {project.description}
+                  </p>
+
+                  <dl className="grid grid-cols-2 gap-6 mb-9" style={{ borderTop: "1px solid rgba(30,27,75,0.08)", paddingTop: 22 }}>
+                    <div>
+                      <dt style={{ fontSize: 12, fontWeight: 700, color: "#6B7280", letterSpacing: "1px", textTransform: "uppercase", marginBottom: 6 }}>Industry</dt>
+                      <dd style={{ fontSize: 15, fontWeight: 600, color: "#1E1B4B" }}>{project.category}</dd>
+                    </div>
+                    <div>
+                      <dt style={{ fontSize: 12, fontWeight: 700, color: "#6B7280", letterSpacing: "1px", textTransform: "uppercase", marginBottom: 6 }}>Live at</dt>
+                      <dd style={{ fontSize: 15, fontWeight: 600, color: "#1E1B4B" }}>{project.domain}</dd>
+                    </div>
+                  </dl>
+
+                  <a
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="fx-underline inline-flex items-center gap-1.5 font-sans font-bold"
+                    style={{ fontSize: 15, color: "#1E1B4B", textDecoration: "none" }}
+                  >
+                    Visit Site <ArrowUpRight className="h-4 w-4" />
+                  </a>
+                </div>
+              </motion.article>
+            );
+          })}
         </div>
       </div>
     </section>

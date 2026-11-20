@@ -10,7 +10,7 @@ function NotFoundContent() {
   return (
     <section className="relative overflow-hidden text-center" style={{ padding: "160px 5% 120px" }}>
       <div className="relative z-10 max-w-xl mx-auto">
-        <h1 className="font-display font-black mb-5" style={{ fontSize: "clamp(28px, 3.6vw, 44px)", letterSpacing: "-0.9px", color: "#1E1B4B" }}>
+        <h1 className="font-display font-black mb-5" style={{ fontSize: "clamp(30px, 4.2vw, 48px)", lineHeight: 1.08, letterSpacing: "-0.03em", color: "#1E1B4B" }}>
           Service not found
         </h1>
         <p className="font-sans mb-8" style={{ fontSize: 16, color: "#4B5563", lineHeight: 1.75 }}>
@@ -54,9 +54,6 @@ function ServicePageContent({ slug }: { slug: string }) {
           background: "linear-gradient(160deg, #EFF6FF 0%, #F5F3FF 50%, #EDE9FE 100%)",
         }}
       >
-        <div className="dot-grid-light absolute inset-0 pointer-events-none" />
-        <div className="glass-sphere-blue orb-float absolute pointer-events-none" style={{ top: "-15%", right: "-5%", width: 400, height: 400 }} />
-        <div className="glass-sphere orb-float-2 absolute pointer-events-none" style={{ bottom: "-15%", left: "-5%", width: 350, height: 350 }} />
 
         <div className="relative z-10 max-w-2xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
@@ -69,7 +66,7 @@ function ServicePageContent({ slug }: { slug: string }) {
             <span className="section-label">SERVICES</span>
             <h1
               className="font-display font-black mb-5"
-              style={{ fontSize: "clamp(30px, 3.8vw, 48px)", letterSpacing: "-1.8px", color: "#1E1B4B" }}
+              style={{ fontSize: "clamp(36px, 5.2vw, 60px)", lineHeight: 1.05, letterSpacing: "-0.03em", color: "#1E1B4B" }}
             >
               {service.heroHeading}
             </h1>
@@ -148,7 +145,6 @@ function ServicePageContent({ slug }: { slug: string }) {
           borderTop: "1.5px solid #E0E7FF",
         }}
       >
-        <div className="dot-grid-light absolute inset-0 pointer-events-none" />
         <div className="relative z-10 max-w-xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -157,7 +153,7 @@ function ServicePageContent({ slug }: { slug: string }) {
             transition={{ duration: 0.55 }}
           >
             <span className="section-label">READY TO START</span>
-            <h2 className="font-display font-black mb-4" style={{ fontSize: "clamp(24px, 3vw, 36px)", letterSpacing: "-1px", color: "#1E1B4B" }}>
+            <h2 className="font-display font-black mb-4" style={{ fontSize: "clamp(30px, 4.2vw, 48px)", lineHeight: 1.08, letterSpacing: "-0.03em", color: "#1E1B4B" }}>
               Ready for your {service.title.toLowerCase()} website?
             </h2>
             <p className="font-sans mb-8" style={{ fontSize: 16, color: "#4B5563", lineHeight: 1.7 }}>
