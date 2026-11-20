@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence, useInView, useReducedMotion } from "motion/react";
-import { CalendarCheck, ArrowRight } from "lucide-react";
+import { CalendarCheck, ArrowRight, ArrowUpRight, Star } from "lucide-react";
+import { trackEvent } from "../lib/analytics";
 
 interface HeroProps {
   onOpenContact: () => void;
@@ -9,6 +10,11 @@ interface HeroProps {
 
 const words = ["that Works", "that Sells", "that Grows", "that Converts"];
 const EASE = [0.21, 0.47, 0.32, 0.98] as const;
+
+/* Google Business Profile — update GOOGLE_RATING / GOOGLE_REVIEWS when new reviews come in. */
+const GOOGLE_PROFILE_URL = "https://maps.app.goo.gl/yh6dVC9XGrWq6yzw6";
+const GOOGLE_RATING = "5.0";
+const GOOGLE_REVIEWS = 3;
 
 /* The hero leads with real client work: three live sites, stacked. */
 const showcase = [
@@ -284,6 +290,35 @@ export default function Hero({ onOpenContact }: HeroProps) {
                 </div>
               ))}
             </motion.div>
+
+            {/* Google rating — links to the Business Profile so visitors can check it */}
+            <motion.a
+              href={GOOGLE_PROFILE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackEvent("google_profile_click", { source: "hero" })}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="google-rating inline-flex items-center gap-2.5 sm:gap-3 mt-8"
+              aria-label={`Rated ${GOOGLE_RATING} out of 5 on Google from ${GOOGLE_REVIEWS} reviews — view our Google Business Profile (opens in a new tab)`}
+            >
+              <svg viewBox="0 0 48 48" className="h-5 w-5 shrink-0" aria-hidden="true">
+                <path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.4-.4-3.5z"/>
+                <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/>
+                <path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/>
+                <path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/>
+              </svg>
+              <span className="flex items-center gap-0.5" aria-hidden="true">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star key={i} className="h-3.5 w-3.5 sm:h-4 sm:w-4" style={{ color: "#F59E0B", fill: "#F59E0B" }} />
+                ))}
+              </span>
+              <span style={{ fontSize: 14, color: "#4B5563", fontWeight: 600, whiteSpace: "nowrap" }}>
+                <strong style={{ color: "#1E1B4B", fontWeight: 800 }}>{GOOGLE_RATING}</strong> on Google · {GOOGLE_REVIEWS} reviews
+              </span>
+              <ArrowUpRight className="google-rating-arrow hidden sm:block h-4 w-4" style={{ color: "#6B7280" }} aria-hidden="true" />
+            </motion.a>
           </div>
 
           {/* ── Real work, stacked ── */}
